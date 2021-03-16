@@ -1,0 +1,6 @@
+[submodule "DeadlineKiller/3100_frontend"]
+	path = DeadlineKiller/3100_frontend
+	url = https://github.com/jojoyui/3100_frontend.git
+[submodule "DeadlineKiller/CSCI3100_backend"]
+	path = DeadlineKiller/CSCI3100_backend
+	url = https://github.com/jojoyui/CSCI3100_backend.git
