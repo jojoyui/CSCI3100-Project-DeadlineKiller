@@ -15,7 +15,7 @@ module.exports = {
             );
         } catch(err){
             console.log(
-                "Error: registerController.showHelloWorldControl: " +
+                "Error: UsersController.register: " +
                   JSON.parse(err.message)["message"]
               );
               next(err);
@@ -34,6 +34,22 @@ module.exports = {
             res.status(500).send(err);
             //next(err);
         }
-
+    },
+    getUserId: async function(req,res,next){
+        try{
+            console.log("register controller");
+            const email = req.params.email;
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.getUserId(email)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.getUserId: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
     }
 }

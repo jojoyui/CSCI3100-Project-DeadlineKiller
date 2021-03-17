@@ -18,24 +18,28 @@ module.exports = {
     login: async function(logInUser){
         console.log("user login services");
         
-            await knex("user")
-                .where({email: logInUser.email})
-                .select('password')
-                .then(function(result){
-                    if(!result || !result[0]){// not found
-                        console.log('invalid email');
-                        return done(null, false, { message: "Invalid username" });
-                    } 
-                    if (logInUser.password == result[0].password){
-                        console.log("sucessful login");
-                        return;
-                    }else{
-                        console.log("invalid pw");
-                        throw Error("invalid pw");
-                    }
+        await knex("user")
+            .where({email: logInUser.email})
+            .select('password')
+            .then(function(result){
+                if(!result || !result[0]){// not found
+                    console.log('invalid email');
+                    return done(null, false, { message: "Invalid username" });
+                } 
+                if (logInUser.password == result[0].password){
+                    console.log("sucessful login");
+                    return;
+                }else{
+                    console.log("invalid pw");
+                    throw Error("invalid pw");
                 }
-            );
+            }
+        );
         
         
+    },
+    getUserId: async function(email){
+        console.log("usersService: getuserid");
+        return await knex("user").where({email: email}).select('user_id');
     }
 }

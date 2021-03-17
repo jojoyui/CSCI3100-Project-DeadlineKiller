@@ -69,6 +69,7 @@
 </template>
 <script>
 import { service } from "@/plugins/request_service.js";
+import store from "@/store";
 
 export default {
     data: () =>({
@@ -87,7 +88,18 @@ export default {
             }).then(res => {
                 console.log("Login Sucess!");
                 //this.finished = true;
+                // store.state.user = this.email;
+
+                // set state - email
+                store.commit("setUserEmail", this.email);
+                
+                // set state - user id
+                service.get(`/users/getUserId/${this.email}`).then(res=>{
+                    store.commit("setUserId", res.data.data[0].user_id);
+                })
+
                 this.$router.push("/schedule");
+                
                
             }).catch((err)=>{
                 console.log("err:", err);

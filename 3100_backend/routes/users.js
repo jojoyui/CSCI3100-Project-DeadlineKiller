@@ -13,5 +13,6 @@ router.get("/testing", testingControllers.testingControll);
 //
 router.post("/register", usersControllers.register);
 router.post("/login", usersControllers.login);
+router.get("/getUserId/:email", usersControllers.getUserId);
 
 module.exports = router;
