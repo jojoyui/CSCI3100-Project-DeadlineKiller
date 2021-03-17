@@ -17,7 +17,6 @@ exports.seed = function(knex) {
             name: 'CSCI Final year project',
             due_date: '2021-05-15 23:59:59',
             type: 'present',
-            completed_timestamp: '',
             description: 'This is the final year project of each computer science students. Students can work on any topic as they want.'}
         ]);
       });

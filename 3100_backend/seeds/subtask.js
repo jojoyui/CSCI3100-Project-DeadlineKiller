@@ -19,7 +19,6 @@ exports.seed = function(knex) {
             name: 'develop',
             start_date: '2021-03-16',
             end_date: '2021-03-20',
-            completed_timestamp: '',
             description: 'develop frontend and backend'},
             
         ]);
