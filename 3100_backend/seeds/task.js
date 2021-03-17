@@ -15,11 +15,10 @@ exports.seed = function(knex) {
           {
             task_id: '188a1257-ef20-4cbc-a1e7-949805fb7a6a', 
             name: 'CSCI Final year project',
-            due_date: '2021-03-15 23:59:59',
-            type: 'midterm',
-            completed_timestamp: '2021-03-11 13:23:59',
+            due_date: '2021-05-15 23:59:59',
+            type: 'project',
+            completed_timestamp: '',
             description: 'This is the final year project of each computer science students. Students can work on any topic as they want.'}
-        
         ]);
       });
   };
