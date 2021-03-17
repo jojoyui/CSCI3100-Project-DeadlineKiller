@@ -22,22 +22,26 @@
                             <div class="text-center text-muted mb-4">
                                 <small>Sign In</small>
                             </div>
+                            <div v-if="!validLogIn" class="invalid mb-4">Invalid email or password! Please try again.</div>
                             <form role="form">
-                                <base-input alternative
+                                <base-input 
+                                            v-model="email"
+                                            alternative
                                             class="mb-3"
                                             placeholder="Email"
                                             addon-left-icon="ni ni-email-83">
                                 </base-input>
-                                <base-input alternative
+                                <base-input v-model="password"
+                                            alternative
                                             type="password"
                                             placeholder="Password"
                                             addon-left-icon="ni ni-lock-circle-open">
                                 </base-input>
-                                <base-checkbox>
+                                <!-- <base-checkbox>
                                     Remember me
-                                </base-checkbox>
+                                </base-checkbox> -->
                                 <div class="text-center">
-                                    <base-button type="primary" class="my-4">Sign In</base-button>
+                                    <base-button type="primary" class="my-4" @click="login()">Sign In</base-button>
                                     <base-button type="info" class="my-4">
                                         <router-link to="/register" class="my-4">Register</router-link>
                                     </base-button>
@@ -64,7 +68,37 @@
     </section>
 </template>
 <script>
-export default {};
+import { service } from "@/plugins/request_service.js";
+
+export default {
+    data: () =>({
+        email:"",
+        password: "",  
+        validLogIn: true  
+    }),
+    methods: {
+        login(){
+            console.log("clicked");
+            
+            service.post("/users/login", {
+                email: this.email,
+                password: this.password
+               
+            }).then(res => {
+                console.log("Login Sucess!");
+                //this.finished = true;
+                this.$router.push("/schedule");
+               
+            }).catch((err)=>{
+                console.log("err:", err);
+                this.validLogIn = false;
+            });
+        }
+    }
+};
 </script>
 <style>
+.invalid{
+    color: red
+}
 </style>
