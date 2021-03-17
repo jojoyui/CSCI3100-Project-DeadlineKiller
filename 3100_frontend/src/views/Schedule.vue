@@ -23,10 +23,15 @@
 </template>
 <script>
 import { service } from "@/plugins/request_service.js";
+import store from "@/store";
+
 export default {
     data: () => ({
         temp: "original"
     }),
+    mounted (){
+        this.fetchTask();
+    },
     methods: {
         demo(){
             console.log("clicked")
@@ -35,6 +40,11 @@ export default {
                 this.temp = res.data.data[0].name;
             })
             
+        },
+        fetchTask(){
+            service.get(`/tasks/getTasks/${store.getters["getUserId"]}`).then(function(res){
+                console.log(res.data.data);
+            });
         }
     }
 

@@ -5,8 +5,8 @@ exports.up = function(knex) {
             table.uuid("task_id").primary();
             table.string("name").notNullable();
             table.timestamp("due_date").notNullable();
-            table.enum("type",['assignment','present','final','midterm']).notNullable();
-            table.integer("completed_timestamp").notNullable();
+            table.enum("type",['assignment','present','final','midterm', 'project']).notNullable();
+            table.timestamp("completed_timestamp");
             table.string("description");
         })
 };
