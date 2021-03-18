@@ -10,7 +10,7 @@ module.exports = {
       port:     3306,
       user:     'root',
       password: '08ce267f',
-      database: '3100_project'
+      database: '3100proj'
     }
 
   },
