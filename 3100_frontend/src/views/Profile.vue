@@ -70,6 +70,8 @@
 </template>
 <script>
 import { service } from "@/plugins/request_service.js";
+import store from "@/store";
+
 export default {
     data: () => ({
         temp: "original"
@@ -77,11 +79,15 @@ export default {
     methods: {
         demo(){
             console.log("clicked")
-            service.get("/users/testing").then(res => {
-                console.log(res.data.data[0].name);
-                this.temp = res.data.data[0].name;
+            // service.get("/users/testing").then(res => {
+            //     console.log(res.data.data[0].name);
+            //     this.temp = res.data.data[0].name;
+            // })
+            service.get("/users").then(res => {
+                console.log(res.data);
+                this.temp = res.data;
             })
-            
+            console.log(store.getters["getUserId"]);
         }
     }
 

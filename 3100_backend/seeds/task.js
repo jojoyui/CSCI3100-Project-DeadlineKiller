@@ -1,20 +1,24 @@
-const knex = require("knex")(require("../knexfile.js")["development"]);
-// var knexClien = require('../knexfile')
 
-exports.seed = function(data) {
-  // Deletes ALL existing entries
-  return knex('task').del()
-    .then(function (data) {
-      // Inserts seed entries
-      return knex('task').insert([
-        {
-          task_id: '6eede6ed-bc4b-414f-b4b9-55834eb303d3',
-          name: '3100_project',
-          due_date:'20210316',
-          type: '2',
-          description: 'kill me please!'
-        }
-        
-      ]);
-    });
-};
+exports.seed = function(knex) {
+    // Deletes ALL existing entries
+    return knex('task').del()
+      .then(function () {
+        // Inserts seed entries
+        return knex('task').insert([
+          {
+            task_id: 'f72fedc3-49fc-4032-a761-4531202488b6', 
+            name: 'CSCI3100 Project',
+            due_date: '2021-03-16 23:59:59',
+            type: 'assignment',
+            completed_timestamp: '2021-03-13 15:14:07',
+            description: 'The group project was the spotlight of the course. We grouped in a team of 4-5 people and worked on a web application of our own choice.'},
+          {
+            task_id: '188a1257-ef20-4cbc-a1e7-949805fb7a6a', 
+            name: 'CSCI Final year project',
+            due_date: '2021-05-15 23:59:59',
+            type: 'present',
+            description: 'This is the final year project of each computer science students. Students can work on any topic as they want.'}
+        ]);
+      });
+  };
+  

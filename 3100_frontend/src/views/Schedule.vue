@@ -15,6 +15,7 @@
             <div class="container">
                 <card shadow class="card-profile mt--300" no-body>
                     schedule page
+                    STevenTa
                 </card>
             </div>
         </section>
@@ -22,10 +23,15 @@
 </template>
 <script>
 import { service } from "@/plugins/request_service.js";
+import store from "@/store";
+
 export default {
     data: () => ({
         temp: "original"
     }),
+    mounted (){
+        this.fetchTask();
+    },
     methods: {
         demo(){
             console.log("clicked")
@@ -34,6 +40,11 @@ export default {
                 this.temp = res.data.data[0].name;
             })
             
+        },
+        fetchTask(){
+            service.get(`/tasks/getTasks/${store.getters["getUserId"]}`).then(function(res){
+                console.log(res.data.data);
+            });
         }
     }
 

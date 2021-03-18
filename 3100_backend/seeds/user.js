@@ -11,6 +11,12 @@ exports.seed = function(knex) {
           password: '123456',
           email: '115512345@link.cuhk.edu.hk',
           password_reminder: '123456'},
+        {
+          user_id: '61407438-bd60-4715-a4eb-de5bcdeb37f5', 
+          name: 'anson ngai',
+          password: 'anson',
+          email: '12345@link.cuhk.edu.hk',
+          password_reminder: 'name'},
         
       ]);
     });

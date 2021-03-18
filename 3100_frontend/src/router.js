@@ -14,8 +14,11 @@ import List from "./views/List.vue"
 import Report from "./views/Report.vue"
 import CreateTask from "./views/CreateTask.vue"
 Vue.use(Router);
+import store from "@/store";
+//import router from "../../3100_backend/routes/users";
 
-export default new Router({
+
+const router = new Router({
   linkExactActiveClass: "active",
   routes: [
     {
@@ -104,3 +107,31 @@ export default new Router({
     }
   }
 });
+
+router.beforeEach(async (to, from, next) => {
+  
+  if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/sign_up"){
+    next("/login");
+  }
+  else 
+    next();
+
+  // if (to.path === "/") next();
+  // else {
+  //   let stateLoggedIn = store.state.loggedIn;
+  //   const expiryTime = store.state.expiryTime;
+  //   if (stateLoggedIn && expiryTime > Math.floor(Date.now() / 1000)) {
+  //     if (to.path !== "/login" && to.path !== "/sign_up") next();
+  //     else next("/matching");
+  //   } else if (await loggedIn()) {
+  //     if (to.path !== "/login" && to.path !== "/sign_up") next();
+  //   } else {
+  //     if (to.path === "/login" || to.path === "/sign_up") next();
+  //     else if (expiryTime <= Math.floor(Date.now() / 1000)) {
+  //       alert("Session expired!");
+  //     }
+  //     store.commit("logout");
+  //   }
+  // }
+});
+export default router;

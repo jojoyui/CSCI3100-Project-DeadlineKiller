@@ -6,7 +6,7 @@ exports.up = function(knex) {
             table.string("name").notNullable();
             table.string("password").notNullable();
             table.string("email").notNullable();
-            table.integer("password_reminder").notNullable().defaultTo(0);
+            table.string("password_reminder").notNullable();
         })
 };
 
