@@ -30,4 +30,11 @@ module.exports = {
             status: "request",
         });
     },
+    countTask: async function(user){
+        return await knex('task')
+            .innerJoin('group','group.task_id','task.task_id')
+            .count('taskid')
+            .where ({user_id: user})
+            .whereNotNull('completed_timestamp');
+    }
 }

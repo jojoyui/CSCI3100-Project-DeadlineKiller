@@ -19,12 +19,17 @@
                         <h2 class="mb-5 text-center">
                             <span>Create Task</span>
                         </h2>
-                        <p class="btn btn-link text-default"> Task Name </p>
-                        <base-input alternative class="taskName col-" v-model="tname" placeholder="e.g 3100_project"></base-input>
+                        <p class="btn btn-link text-default"> Task Name </p >
+                        <base-input 
+                            alternative
+                            class="mb-3" 
+                            v-model="tname" 
+                            placeholder="e.g 3100_project">
+                        </base-input>
                         <div>
                             <!-- Radio buttons -->
                             <div class="mb-3">
-                                <p class="btn btn-link text-default">Type</p>
+                                <p class="btn btn-link text-default">Type</p >
                             </div>                        
                             <base-radio name="radio0" class="mb-3" v-model="radio.radio1">
                                 Assignment
@@ -39,12 +44,12 @@
                                Final-Exam
                             </base-radio>
                         </div>
-                        <p class="btn btn-link text-default"> Due Date </p>
+                        <p class="btn btn-link text-default"> Due Date </p >
                         <base-input alternative class="DueDate col-" v-model="DueDate" placeholder="e.g 20210319"></base-input>
                         <!-- <date-pickers></date-pickers> -->
-                        <p class="btn btn-link text-default"> Partner</p>
+                        <p class="btn btn-link text-default"> Partner</p >
                         <base-input alternative class="Partner col-" v-model="partnerEmail" placeholder="e.g yourfriend@mail.com"></base-input>
-                        <p class="btn btn-link text-default"> Description </p>
+                        <p class="btn btn-link text-default"> Description </p >
                         <textarea class=" Description form-control form-control-alternative" placeholder="e.g Kill me Please!"></textarea>
                     </div>
                     <div class= "col-lg-12 pt-lg text-center">
