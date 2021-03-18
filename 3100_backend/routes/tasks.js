@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/getTasks/:user", tasksControllers.getTasks);
+router.get("/report/:user", tasksControllers.Report);
 
 
 

@@ -22,5 +22,19 @@ module.exports = {
               next(err);
         }
     },
+
+    Report : async function (req,res,next){
+        try{
+            const finishedTask = req.body;
+            await tasksServices.Report(finishedTask);
+            res.sendStatus(200);
+        } catch(err){
+            console.log(
+                "report", err
+            );
+            res.status(500).send(err);
+        }
+    }
+
    
 }
