@@ -1,13 +1,13 @@
 module.exports = {
     development: {
       client: "mysql",
-      version: "8.0.12",
+      version: "8.0.22",
       connection: {
         host: "127.0.0.1",
         port: 3306,
-        user: "jojo",
-        password: 'jojoaigniter',
-        database: "3100proj",
+        user: "root",
+        password: '08ce267f',
+        database: "3100_project"
       },
       debug: true,
       migrations: {
