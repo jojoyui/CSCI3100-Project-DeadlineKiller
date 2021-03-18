@@ -22,5 +22,21 @@ module.exports = {
               next(err);
         }
     },
-   
+    createTask : async function (req, res, next){
+        try{
+            console.log("task controller");
+            const task = req.body;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.createTask(task)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.getTask: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
 }

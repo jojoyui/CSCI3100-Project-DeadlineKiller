@@ -37,7 +37,8 @@ export default {
     Icons,
     Examples,
     DownloadSection
-  }
+  },
+  
 };
 </script>
 <style scoped>
