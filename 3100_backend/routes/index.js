@@ -8,9 +8,4 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/index/save', function(req, res, next) {
-  // seed()
-  console.log('zhixing----');
-})
-
 module.exports = router;
