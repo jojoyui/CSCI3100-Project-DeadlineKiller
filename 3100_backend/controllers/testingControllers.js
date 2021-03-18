@@ -2,9 +2,10 @@ const { standardServiceResponse } = require("../utils/ResponseHandler");
 const testingServices = require("../services/testingServices.js");
 
 module.exports = {
-    testingControll : function (req, res, next){
+    createTask : async function (req, res, next){
         try{
-            console.log("testing controller");
+            console.log("createTask testing controller");
+            const newTask = req.body;
             return standardServiceResponse(
                 res,
                 next,

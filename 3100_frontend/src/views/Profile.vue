@@ -74,7 +74,7 @@ import store from "@/store";
 
 export default {
     data: () => ({
-        temp: "original"
+        temp: temp
     }),
     methods: {
         demo(){

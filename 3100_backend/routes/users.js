@@ -8,17 +8,15 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/getUserInfo',function(req,res,next){
+// router.get('/getUserInfo',function(req,res,next){
   
-  var response = {status:1, data:user}
-  res.send(JSON.stringify(response))
-})
+//   var response = {status:1, data:user}
+//   res.send(JSON.stringify(response))
+// })
 
-router.get("/testing", testingControllers.testingControll);
-
-//
+//router.get("/testing", testingControllers.testingControll);
 router.post("/register", usersControllers.register);
 router.post("/login", usersControllers.login);
-router.get("/getUserId/:email", usersControllers.getUserId);
+//router.get("/getUserId/:email", usersControllers.getUserId);
 
 module.exports = router;

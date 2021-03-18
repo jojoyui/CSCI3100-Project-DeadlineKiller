@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 router.get("/getTasks/:user", tasksControllers.getTasks);
 
 router.post("/createTask", tasksControllers.createTask);
-router.post("/createGroup", tasksControllers.createGroup);
+//router.post("/createGroup", tasksControllers.createGroup);
 
 
 module.exports = router;
