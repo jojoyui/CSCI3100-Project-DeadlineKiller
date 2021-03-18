@@ -6,7 +6,7 @@ exports.up = function(knex) {
             table.string("name").notNullable();
             table.string("due_date").notNullable();
             table.enum("type",['assignment','present','final','midterm']).notNullable();
-            table.integer("completed_timestamp").notNullable();
+            table.integer("completed_timestamp").notNullable().defaultTo(0);
             table.string("description");
         })
 };

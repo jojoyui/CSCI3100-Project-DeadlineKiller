@@ -16,6 +16,7 @@
                 <card shadow class="card-profile mt--300" no-body>
                     List page
                 </card>
+                <li class="item" @click="handleDelete">{{content}}</li>
             </div>
         </section>
     </div>
@@ -23,6 +24,7 @@
 <script>
 import { service } from "@/plugins/request_service.js";
 export default {
+    props: ['content','index'],
     data: () => ({
         temp: "original"
     }),
