@@ -8,18 +8,18 @@ module.exports = {
     },
     createTask: async function(task){
         console.log("create task services");
-        await knex("task").insert({
+        return await knex("task").insert({
             task_id: task.task_id,
             name: task.name,
             due_date: task.due_date,
             type: task.type,
             description: task.description,
         });
-        return await knex("group").insert({
-            task_id: task.task_id,
-            user_id: task.user_id,
-            status: "accept",
-        });
+        // return await knex("group").insert({
+        //     task_id: task.task_id,
+        //     user_id: task.user_id,
+        //     status: "accept",
+        // });
     },
 
     createGroup: async function(group){
