@@ -1,17 +1,27 @@
+// Update with your config settings.
+
 module.exports = {
-    development: {
-      client: "mysql",
-      version: "8.0.12",
-      connection: {
-        host: "127.0.0.1",
-        port: 3306,
-        user: "jojo",
-        password: 'jojoaigniter',
-        database: "3100proj",
-      },
-      debug: true,
-      migrations: {
-        tableName: "knex_migrations",
-      },
+
+  development: {
+    client: 'mysql',
+    version: "8.0.22",
+    connection: {
+      host:     'localhost',
+      port:     3306,
+      user:     'root',
+      password: '08ce267f',
+      database: '3100_project'
+    }
+
+  },
+
+  staging: {
+    client: 'mysql',
+    connection: {
+      host:     'localhost',
+      user:     'root',
+      password: '08ce267f',
+      database: '3100_project'
     },
-  };
+  }
+}
