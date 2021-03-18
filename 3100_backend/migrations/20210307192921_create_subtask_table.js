@@ -8,8 +8,10 @@ exports.up = function(knex) {
             table.string("name").notNullable();
             table.date("start_date").notNullable();
             table.date("end_date").notNullable();
-            table.timestamps("completed_timestamp");
+            table.dateTime("completed_timestamp");
             table.string("description");
+            table.timestamps();
+
         })
 };
 

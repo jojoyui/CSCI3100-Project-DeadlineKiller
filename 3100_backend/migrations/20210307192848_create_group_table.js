@@ -9,6 +9,7 @@ exports.up = function(knex) {
         //table.foreign("task_id").references(task_id).inTable('task');
         //table.foreign("subtask_id").references(subtask_id).inTable('subtask');
         table.enum("request",['request','accept','decline']).notNullable();
+        table.timestamps();
     });
 };
 

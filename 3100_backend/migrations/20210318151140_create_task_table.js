@@ -4,10 +4,11 @@ exports.up = function(knex) {
         .createTable("task", table => {
             table.uuid("task_id").primary();
             table.string("name").notNullable();
-            table.timestamp("due_date").notNullable();
+            table.dateTime("due_date").notNullable();
             table.enum("type",['assignment','present','final','midterm', 'project']).notNullable();
-            table.timestamps("completed_timestamp");
+            table.dateTime("completed_timestamp");
             table.string("description");
+            table.timestamps();
         })
 };
 
