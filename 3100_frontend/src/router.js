@@ -45,7 +45,6 @@ const router = new Router({
       components: {
         header: AppHeader,
         default: Login,
-        footer: AppFooter
       }
     },
     {
@@ -53,8 +52,7 @@ const router = new Router({
       name: "register",
       components: {
         header: AppHeader,
-        default: Register,
-        footer: AppFooter
+        default: Register
       }
     },
     {
@@ -110,7 +108,8 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   
-  if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/sign_up"){
+  if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/register"){
+    console.log("not yet log in");
     next("/login");
   }
   else 
