@@ -17,17 +17,36 @@
                     schedule page
                     STevenTa
                 </card>
+                
             </div>
         </section>
+        <!-- <Fullcalendar :plugins="calendarPlugin" /> -->
     </div>
 </template>
 <script>
+//  require('@fullcalendar/core/main.min.css')
+//  require('@fullcalendar/daygrid/main.min.css')
+//  require('@fullcalendar/timegrid/main.min.css')
+
 import { service } from "@/plugins/request_service.js";
 import store from "@/store";
 
+// import Fullcalendar from '@fullcalendar/vue'
+// import DayGridPlugin from '@fullcalendar/vue'
+// import TimeGridPlugin from '@fullcalendar/vue'
+// import InteractionPlugin from '@fullcalendar/vue'
+// import ListPlugin from '@fullcalendar/vue'
+
 export default {
     data: () => ({
-        temp: "original"
+        temp: "original",
+        task: "A",
+        // calendarPlugins: [
+        //     DayGridPlugin,
+        //     TimeGridPlugin,
+        //     InteractionPlugin,
+        //    ListPlugin
+        // ] 
     }),
     mounted (){
         this.fetchTask();
