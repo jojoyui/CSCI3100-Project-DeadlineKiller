@@ -24,32 +24,18 @@
                                     alternative class="taskName col-"  
                                     placeholder="e.g 3100_project">
                         </base-input>
-                        <div>
-                            <!-- Radio buttons -->
-                            <div class="mb-3">
-                                <p class="btn btn-link text-default">Type</p>
-                            </div>                        
-                            <base-radio v-model="radio.radio1"
-                                        name="radio0" 
-                                        class="mb-3" >
-                                Assignment
-                            </base-radio>
-                            <base-radio v-model="radio.radio1" 
-                                        name="radio1" 
-                                        class="mb-3" >
-                               Project
-                            </base-radio>
-                            <base-radio v-model="radio.radio1" 
-                                        name="radio2" 
-                                        class="mb-3">
-                                Midterm-Exam
-                            </base-radio>
-                            <base-radio v-model="radio.radio1"
-                                        name="radio3" 
-                                        class="mb-3" >
-                               Final-Exam
-                            </base-radio>
-                        </div>
+                        <p class="btn btn-link text-default">Type</p>
+                        <ul class="list-unstyled">
+                            <li v-for= "(item, index) in radioData" :key="index">
+                                <input
+                                    type = "radio"
+                                    v-model = "radioVal"
+                                    :value = "item.value"
+                                    @change = "getRadioVal"
+                                />
+                            {{ item.value }}
+                            </li>
+                        </ul>
                         <p class="btn btn-link text-default"> Due Date </p>
                         <base-input v-model="DueDate"
                                     alternative class="DueDate col-"  
@@ -67,21 +53,17 @@
                                   placeholder="e.g Kill me Please!">
                         </textarea>
                     </div>
+                    <div v-if="!validsubmit" class="col-lg-12 pt-lg">
+                        <base-alert type="warning" icon="ni ni-bell-55" dismissible>
+                            <span slot="text"><strong>Warning!</strong> This is a warning alert—check it out!</span>
+                        </base-alert>
+                    </div>
                     <div class= "col-lg-12 pt-lg text-center">
                         <base-button class="btn-1" outline type="primary" @click="handleSubmit()">Submit</base-button>
                     </div>
                 </card>
             </div>
         </section>
-        <!-- <ul>
-            <todo-item 
-            v-for="(item, index) of list"
-            v-bind:content="item"
-            :key="index"
-            :index="index"
-            @delete="handleDelete"
-            ></todo-item>
-        </ul> -->
     </div>
 </template>
 
@@ -98,23 +80,24 @@ export default {
     },
     data: () =>({
         tname:"",
-        radio: {
-            radio1: ""
-        },
+        radioData: [
+            { value: 'Assignment' },
+            { value: 'Present' },
+            { value: 'Midterm' },
+            { value: 'Final' },
+            { value: 'Project' },
+        ],
+        radioVal: 'Assignment',
         DueDate: "",
         partnerEmail: "",
         description: "",
-        switches: {
-            off: false,
-            on: true
-        }
+        validsubmit: true
     }),
     methods:{
         handleSubmit(){
             console.log("clicked");
-            console.log(this.name);
-
-            service.post("/task/createTask", {
+            console.log(this.tname);
+            service.post("/tasks/createTask", {
                 task_id: uuid.v1(),
                 name: this.tname,
                 type: this.radio1,
@@ -125,11 +108,14 @@ export default {
             }).then(res => {
                 if (res.data.success) {
                     console.log("Update to database success!");
-                    this.$router.push("/showTask");
+                    this.$router.push("/List");
                 } else {
                     console.log("Update to database failed!");
                 }
-            })
+            }).catch((err)=>{
+                console.log("err:", err);
+                this.validsubmit = false;
+            });
         }
     }
 };

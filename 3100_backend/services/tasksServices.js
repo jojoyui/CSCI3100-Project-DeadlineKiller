@@ -12,7 +12,7 @@ module.exports = {
         return await knex("task").insert({
             task_id: newTask.task_id,
             name: newTask.name,
-            due_date: newTask.due_date,
+            due_date: newTask.DueDate,
             type: newTask.type,
             description: newTask.description
         });
