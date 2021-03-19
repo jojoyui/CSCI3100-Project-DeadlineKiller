@@ -34,6 +34,41 @@ module.exports = {
         } catch(err){
             console.log(
                 "Error: tasksController.getTask: " +
+                    JSON.parse(err.message)["message"]
+                );
+                next(err);
+          }
+      },
+
+    countTask : async function (req, res, next){
+        try{
+            console.log("task controller");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.countTask(user)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.Report: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+    countTask2 : async function (req, res, next){
+        try{
+            console.log("task controller");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.countTask2(user)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.Report: " +
                   JSON.parse(err.message)["message"]
               );
               next(err);

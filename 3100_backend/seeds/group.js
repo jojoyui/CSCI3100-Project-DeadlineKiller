@@ -20,7 +20,12 @@ exports.seed = function(knex) {
             user_id: '61407438-bd60-4715-a4eb-de5bcdeb37f5', 
             task_id: '188a1257-ef20-4cbc-a1e7-949805fb7a6a',
             subtask_id: '',
-            request: 'accept'},         
+            request: 'accept'}, 
+          {
+            user_id: '61407438-bd60-4715-a4eb-de5bcdeb37f5', 
+            task_id: 'abv72fedc3-49fc-4032-a761-453',
+            subtask_id: '',
+            request: 'accept'},           
           {
             user_id: '61407438-bd60-4715-a4eb-de5bcdeb37f5', 
             task_id: '',

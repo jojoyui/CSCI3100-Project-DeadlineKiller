@@ -18,8 +18,8 @@ module.exports = {
     },
     countTask: async function(user){
         return await knex('task')
+            .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
-            .count('taskid')
             .where ({user_id: user})
             .whereNotNull('completed_timestamp');
     },
@@ -34,4 +34,12 @@ module.exports = {
             description: newTask.description
         });
     },
+    countTask2: async function(user){
+        return await knex('task')
+            .count('*', {as: 'number'})
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({user_id: user})
+            .whereNull('completed_timestamp');
+    }
+    
 }
