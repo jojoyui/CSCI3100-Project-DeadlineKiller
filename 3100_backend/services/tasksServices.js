@@ -6,21 +6,7 @@ module.exports = {
             .innerJoin('group','group.task_id','task.task_id')
             .where({user_id: user});           
     },
-    createTask: async function(task){
-        console.log("create task services");
-        return await knex("task").insert({
-            task_id: task.task_id,
-            name: task.name,
-            due_date: task.due_date,
-            type: task.type,
-            description: task.description,
-        });
-        // return await knex("group").insert({
-        //     task_id: task.task_id,
-        //     user_id: task.user_id,
-        //     status: "accept",
-        // });
-    },
+ 
 
     createGroup: async function(group){
         console.log("create group services");
@@ -36,5 +22,16 @@ module.exports = {
             .count('taskid')
             .where ({user_id: user})
             .whereNotNull('completed_timestamp');
-    }
+    },
+
+    createTask: async function(newTask){
+        console.log("create task service");
+        return await knex("task").insert({
+            task_id: newTask.task_id,
+            name: newTask.name,
+            due_date: newTask.DueDate,
+            type: newTask.type,
+            description: newTask.description
+        });
+    },
 }

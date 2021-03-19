@@ -8723,7 +8723,7 @@
     "@types/uuid" "^8.0.0"
     "uuid" "^8.1.0"
 
-"vue@^2.6.6":
+"vue@^2.0.0", "vue@^2.6.6":
   "integrity" "sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.12.tgz"
   "version" "2.6.12"
@@ -8732,6 +8732,11 @@
   "integrity" "sha512-Ou5x74AOQbM8JjZV8pIssFFqavvj53QzrEEUr5QnElUYb1ZizPwaUJo0ZqmLPqjwPae7ON4SG8U2cSTI4tHKLg=="
   "resolved" "https://registry.npmjs.org/vue2-transitions/-/vue2-transitions-0.2.3.tgz"
   "version" "0.2.3"
+
+"vuex@^3.6.2":
+  "integrity" "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw=="
+  "resolved" "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz"
+  "version" "3.6.2"
 
 "watchpack-chokidar2@^2.0.1":
   "integrity" "sha512-nCFfBIPKr5Sh61s4LPpy1Wtfi0HE8isJ3d2Yb5/Ppw2P2B/3eVSEBjKfN0fmHJSK14+31KwMKmcrzs2GM4P0Ww=="

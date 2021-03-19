@@ -19,38 +19,44 @@
                         <h2 class="mb-5 text-center">
                             <span>Create Task</span>
                         </h2>
-                        <p class="btn btn-link text-default"> Task Name </p >
-                        <base-input 
-                            alternative
-                            class="mb-3" 
-                            v-model="tname" 
-                            placeholder="e.g 3100_project">
+                        <p class="btn btn-link text-default"> Task Name </p>
+                        <base-input v-model="tname" 
+                                    alternative class="taskName col-"  
+                                    placeholder="e.g 3100_project">
                         </base-input>
-                        <div>
-                            <!-- Radio buttons -->
-                            <div class="mb-3">
-                                <p class="btn btn-link text-default">Type</p >
-                            </div>                        
-                            <base-radio name="radio0" class="mb-3" v-model="radio.radio1">
-                                Assignment
-                            </base-radio>
-                            <base-radio name="radio1" class="mb-3" v-model="radio.radio1">
-                               Project
-                            </base-radio>
-                            <base-radio name="radio2" class="mb-3" v-model="radio.radio1">
-                                Midterm-Exam
-                            </base-radio>
-                            <base-radio name="radio3" class="mb-3" v-model="radio.radio1">
-                               Final-Exam
-                            </base-radio>
-                        </div>
-                        <p class="btn btn-link text-default"> Due Date </p >
-                        <base-input alternative class="DueDate col-" v-model="DueDate" placeholder="e.g 20210319"></base-input>
+                        <p class="btn btn-link text-default">Type</p>
+                        <ul class="list-unstyled">
+                            <li v-for= "(item, index) in radioData" :key="index">
+                                <input
+                                    type = "radio"
+                                    v-model = "radioVal"
+                                    :value = "item.value"
+                                    @change = "getRadioVal"
+                                />
+                            {{ item.value }}
+                            </li>
+                        </ul>
+                        <p class="btn btn-link text-default"> Due Date </p>
+                        <base-input v-model="DueDate"
+                                    alternative class="DueDate col-"  
+                                    placeholder="e.g 20210319">
+                        </base-input>
                         <!-- <date-pickers></date-pickers> -->
-                        <p class="btn btn-link text-default"> Partner</p >
-                        <base-input alternative class="Partner col-" v-model="partnerEmail" placeholder="e.g yourfriend@mail.com"></base-input>
-                        <p class="btn btn-link text-default"> Description </p >
-                        <textarea class=" Description form-control form-control-alternative" placeholder="e.g Kill me Please!"></textarea>
+                        <p class="btn btn-link text-default"> Partner</p>
+                        <base-input v-model="partnerEmail" 
+                                    alternative class="Partner col-" 
+                                    placeholder="e.g yourfriend@mail.com">
+                        </base-input>
+                        <p class="btn btn-link text-default"> Description </p>
+                        <textarea v-model="description"
+                                  class=" Description form-control form-control-alternative" 
+                                  placeholder="e.g Kill me Please!">
+                        </textarea>
+                    </div>
+                    <div v-if="!validsubmit" class="col-lg-12 pt-lg">
+                        <base-alert type="warning" icon="ni ni-bell-55" dismissible>
+                            <span slot="text"><strong>Warning!</strong> This is a warning alert—check it out!</span>
+                        </base-alert>
                     </div>
                     <div class= "col-lg-12 pt-lg text-center">
                         <base-button class="btn-1" outline type="primary" @click="handleSubmit()">Submit</base-button>
@@ -58,62 +64,60 @@
                 </card>
             </div>
         </section>
-        
-        
-        <ul>
-            <todo-item 
-            v-for="(item, index) of list"
-            v-bind:content="item"
-            :key="index"
-            :index="index"
-            @delete="handleDelete"
-            ></todo-item>
-        </ul>
     </div>
 </template>
 
 
 <script>
 /* eslint-disable */
-import TodoItem from './List';
-//import { saveIndex } from '@/api/index';
+import { uuid } from 'vue-uuid'; 
+import { service } from "@/plugins/request_service.js";
 const DatePickers = () => import("./components/JavascriptComponents/DatePickers");
 
 export default {
-  components:{
-    'todo-item':TodoItem,
-    DatePickers,
-  },
-  data() {
-    return {
-      checkboxes: {
-        unchecked: false,
-        checked: true
-      },
-      radio: {
-        radio1: "radio1"
-      },
-      switches: {
-        off: false,
-        on: true
-      },
-      sliders: {
-        slider1: 0,
-        slider2: [150, 400]
-      }
-    };
-  },
-  methods:{
-    handleSubmit(){
-    //   this.list.push(this.inputValue)
-    //   this.inputValue=''
-      //saveIndex()
+    components:{
+        DatePickers
     },
-    handleDelete:function(index){
-      this.list.splice(index,1)
+    data: () =>({
+        tname:"",
+        radioData: [
+            { value: 'Assignment' },
+            { value: 'Present' },
+            { value: 'Midterm' },
+            { value: 'Final' },
+            { value: 'Project' }
+        ],
+        radioVal: 'Assignment',
+        DueDate: "",
+        partnerEmail: "",
+        description: "",
+        validsubmit: true
+    }),
+    methods:{
+        handleSubmit(){
+            console.log("clicked");
+            console.log(this.radioVal);
+            service.post("/tasks/createTask", {
+                task_id: uuid.v1(),
+                name: this.tname,
+                type: this.radioVal,
+                DueDate: this.DueDate,
+                partnerEmail: this.partnerEmail,
+                description: this.description
+
+            }).then(res => {
+                if (res.data.success) {
+                    console.log("Update to database success!");
+                    this.$router.push("/List");
+                } else {
+                    console.log("Update to database failed!");
+                }
+            }).catch((err)=>{
+                console.log("err:", err);
+                this.validsubmit = false;
+            });
+        }
     }
-  },
-  
 };
 </script>
 <style scoped>
