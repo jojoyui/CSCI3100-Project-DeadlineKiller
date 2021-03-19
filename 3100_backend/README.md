@@ -12,6 +12,6 @@ Build Set Up
 >
 3. To build up the same testing enviroment, first download the nodemon and knex, then enter knex migrate:latest to sync up the tables in the database. And then run knex seed:run to run the seeds.
 >
-4. To start the back end, please enter nodemon to start it. It will using the port 3000 as default.
+4. To start the back end, please enter nodemon to start it. It will using the port 9090 as default.
 >
 5. Log-in with username: 115512345@link.cuhk.edu.hk with password: anson
