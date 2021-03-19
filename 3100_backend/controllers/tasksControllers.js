@@ -39,6 +39,23 @@ module.exports = {
                 next(err);
           }
       },
+    createGroup: async function (req, res, next){
+        try{
+            console.log("task controller");
+            const group = req.body;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.createGroup(group)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.create group: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
 
     countTask : async function (req, res, next){
         try{
@@ -74,5 +91,6 @@ module.exports = {
               next(err);
         }
     },
+    
    
 }

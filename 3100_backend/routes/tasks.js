@@ -11,7 +11,7 @@ router.get("/getTasks/:user", tasksControllers.getTasks);
 //router.get("/report/:user", tasksControllers.Report);
 
 router.post("/createTask", tasksControllers.createTask);
-//router.post("/createGroup", tasksControllers.createGroup);
+router.post("/createGroup", tasksControllers.createGroup);
 router.get("/countTask/:user", tasksControllers.countTask);
 router.get("/countTask2/:user", tasksControllers.countTask2);
 

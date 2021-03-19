@@ -13,9 +13,10 @@ module.exports = {
         return await knex("group").insert({
             task_id: group.task_id,
             user_id: group.user_id,
-            status: "request",
+            request: "accept",
         });
     },
+
     countTask: async function(user){
         return await knex('task')
             .count('*', {as: 'number'})

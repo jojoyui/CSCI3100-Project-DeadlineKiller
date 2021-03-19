@@ -72,6 +72,8 @@
 /* eslint-disable */
 import { uuid } from 'vue-uuid'; 
 import { service } from "@/plugins/request_service.js";
+import store from "@/store";
+
 const DatePickers = () => import("./components/JavascriptComponents/DatePickers");
 
 export default {
@@ -79,6 +81,7 @@ export default {
         DatePickers
     },
     data: () =>({
+        task_id:'',
         tname:"",
         radioData: [
             { value: 'Assignment' },
@@ -97,8 +100,9 @@ export default {
         handleSubmit(){
             console.log("clicked");
             console.log(this.radioVal);
+            this.task_id = uuid.v1();
             service.post("/tasks/createTask", {
-                task_id: uuid.v1(),
+                task_id: this.task_id,
                 name: this.tname,
                 type: this.radioVal,
                 DueDate: this.DueDate,
@@ -107,15 +111,33 @@ export default {
 
             }).then(res => {
                 if (res.data.success) {
-                    console.log("Update to database success!");
+                    console.log("Update to task database success!");
                     this.$router.push("/List");
                 } else {
-                    console.log("Update to database failed!");
+                    console.log("Update to task database failed!");
+                }
+            }).catch((err)=>{rs
+                console.log("err:", err);
+                this.validsubmit = false;
+            });
+
+
+            service.post("/tasks/createGroup", {
+                task_id: this.task_id,
+                user_id: store.getters["getUserId"]
+
+            }).then(res => {
+                if (res.data.success) {
+                    console.log("Update to group database success!");
+                    this.$router.push("/List");
+                } else {
+                    console.log("Update to group database failed!");
                 }
             }).catch((err)=>{
                 console.log("err:", err);
                 this.validsubmit = false;
             });
+
         }
     }
 };

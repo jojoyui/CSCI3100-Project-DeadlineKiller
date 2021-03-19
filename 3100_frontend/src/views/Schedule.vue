@@ -14,8 +14,7 @@
         <section class="section section-skew">
             <div class="container">
                 <card shadow class="card-profile mt--300" no-body>
-                    schedule page
-                    STevenTa
+                    schedule
                 </card>
                 
             </div>

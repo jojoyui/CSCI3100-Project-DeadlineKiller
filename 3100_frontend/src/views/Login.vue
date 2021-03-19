@@ -98,7 +98,7 @@ export default {
                     store.commit("setUserId", res.data.data[0].user_id);
                 })
 
-                this.$router.push("/schedule");
+                this.$router.push("/list");
                 
                
             }).catch((err)=>{
