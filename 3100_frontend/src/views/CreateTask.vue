@@ -85,7 +85,7 @@ export default {
             { value: 'Present' },
             { value: 'Midterm' },
             { value: 'Final' },
-            { value: 'Project' },
+            { value: 'Project' }
         ],
         radioVal: 'Assignment',
         DueDate: "",
@@ -96,11 +96,11 @@ export default {
     methods:{
         handleSubmit(){
             console.log("clicked");
-            console.log(this.tname);
+            console.log(this.radioVal);
             service.post("/tasks/createTask", {
                 task_id: uuid.v1(),
                 name: this.tname,
-                type: this.radio1,
+                type: this.radioVal,
                 DueDate: this.DueDate,
                 partnerEmail: this.partnerEmail,
                 description: this.description
