@@ -22,17 +22,38 @@ module.exports = {
               next(err);
         }
     },
-
-    Report : async function (req,res,next){
+    countTask : async function (req, res, next){
         try{
-            const finishedTask = req.body;
-            await tasksServices.Report(finishedTask);
-            res.sendStatus(200);
+            console.log("task controller");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.countTask(user)
+            );
         } catch(err){
             console.log(
-                "report", err
+                "Error: tasksController.Report: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+    countTask2 : async function (req, res, next){
+        try{
+            console.log("task controller");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.countTask2(user)
             );
-            res.status(500).send(err);
+        } catch(err){
+            console.log(
+                "Error: tasksController.Report: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
         }
     }
 

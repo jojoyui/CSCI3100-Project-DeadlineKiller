@@ -8,8 +8,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/getTasks/:user", tasksControllers.getTasks);
-router.get("/report/:user", tasksControllers.Report);
-
+router.get("/countTask/:user", tasksControllers.countTask);
+router.get("/countTask2/:user", tasksControllers.countTask2);
 
 
 module.exports = router;
