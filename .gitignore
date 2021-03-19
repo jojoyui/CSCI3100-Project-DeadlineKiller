@@ -1,2 +1,2 @@
-nodemodules
-/3100_backend/knexfile.js
+node_modules
+3100_backend/knexfile.js
