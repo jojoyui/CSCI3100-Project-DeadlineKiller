@@ -16,42 +16,64 @@
             <div class="container">
                 <card shadow class="card-createTask mt--300" no-body>
                     <div class="col-lg-12 pt-lg">
-                        <h2 class="mb-5 text-center">
+                        <h1 class="mb-5 text-center">
                             <span>Create Task</span>
-                        </h2>
+                        </h1>
                         <p class="btn btn-link text-default"> Task Name </p>
-                        <base-input v-model="tname" 
-                                    alternative class="taskName col-"  
-                                    placeholder="e.g 3100_project">
-                        </base-input>
+                        <div class="col">
+                            <base-input v-model="tname" 
+                                        alternative class="taskName col-"  
+                                        placeholder="e.g 3100_project">
+                            </base-input>
+                        </div>
                         <p class="btn btn-link text-default">Type</p>
-                        <ul class="list-unstyled">
-                            <li v-for= "(item, index) in radioData" :key="index">
-                                <input
-                                    type = "radio"
-                                    v-model = "radioVal"
-                                    :value = "item.value"
-                                    @change = "getRadioVal"
-                                />
-                            {{ item.value }}
-                            </li>
-                        </ul>
+                        <div class="col">
+                            <ul class="list-unstyled">
+                                <li v-for= "(item, index) in radioData" :key="index">
+                                    <input
+                                        type = "radio"
+                                        v-model = "radioVal"
+                                        :value = "item.value"
+                                        @change = "getRadioVal(item.value)"
+                                    />
+                                {{ item.value }}
+                                </li>
+                            </ul>
+                        </div>
                         <p class="btn btn-link text-default"> Due Date </p>
-                        <base-input v-model="DueDate"
-                                    alternative class="DueDate col-"  
-                                    placeholder="e.g 20210319">
-                        </base-input>
+                        <div class="col">
+                            <base-input v-model="DueDate"
+                                        alternative class="DueDate col-"  
+                                        placeholder="e.g 20210319">
+                            </base-input>
+                        </div>
                         <!-- <date-pickers></date-pickers> -->
                         <p class="btn btn-link text-default"> Partner</p>
-                        <base-input v-model="partnerEmail" 
-                                    alternative class="Partner col-" 
-                                    placeholder="e.g yourfriend@mail.com">
-                        </base-input>
+                        <div class="container ct-example-row">
+                            <div class="row">
+                                <div class="col">
+                                    <base-input v-model="groupmates" 
+                                                alternative class="Partner col-" 
+                                                placeholder="e.g yourfriend@mail.com">
+                                    </base-input>
+                                </div>
+                                <div class="col">
+                                    <base-button class="btn-1" outline type="primary" @click="handleAdd()"> Add </base-button>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li v-for = "(mates, num) in partnerEmail" :key="num">
+                                {{ mates }}
+                            </li>
+                        </ul>
                         <p class="btn btn-link text-default"> Description </p>
-                        <textarea v-model="description"
-                                  class=" Description form-control form-control-alternative" 
-                                  placeholder="e.g Kill me Please!">
-                        </textarea>
+                        <div class="col">
+                            <textarea v-model="description"
+                                    class=" Description form-control form-control-alternative" 
+                                    placeholder="e.g Kill me Please!">
+                            </textarea>
+                        </div>
                     </div>
                     <div v-if="!validsubmit" class="col-lg-12 pt-lg">
                         <base-alert type="warning" icon="ni ni-bell-55" dismissible>
@@ -92,11 +114,23 @@ export default {
         ],
         radioVal: 'Assignment',
         DueDate: "",
-        partnerEmail: "",
+        partnerEmail: [],
+        groupmates: "xxx@link.cuhk.edu.hk",
         description: "",
-        validsubmit: true
+        validsubmit: true,
     }),
     methods:{
+        getRadioVal(val){
+            this.radioVal =  val;
+        },
+                                    
+        
+        handleAdd(){
+            console.log(this.groupmates);
+            this.partnerEmail.push(this.groupmates);
+            console.log(this.partnerEmail);
+        },
+
         handleSubmit(){
             console.log("clicked");
             console.log(this.radioVal);
@@ -106,38 +140,56 @@ export default {
                 name: this.tname,
                 type: this.radioVal,
                 DueDate: this.DueDate,
-                partnerEmail: this.partnerEmail,
                 description: this.description
 
             }).then(res => {
                 if (res.data.success) {
                     console.log("Update to task database success!");
+                    if(this.partnerEmail.size != 0){
+                        console.log(this.partnerEmail);
+                        for(let i of this.partnerEmail){
+                            service.get(`/users/getUserId/${i}`).then(res=>{
+                                service.post("/tasks/createGroup", {
+                                task_id: this.task_id,
+                                user_id: res.data.data[0].user_id,
+                                request: 'request'
+                                }).then(res => {
+                                    if (res.data.success) {
+                                        console.log("Update to group database success!");
+                                        
+                                    } else {
+                                        console.log("Update to group database failed!");
+                                    }
+                                }).catch((err)=>{
+                                    console.log("err:", err);
+                                    this.validsubmit = false;
+                                });
+                            });
+                        }    
+                    } else {
+                        service.post("/tasks/createGroup", {
+                        task_id: this.task_id,
+                        user_id: store.getters["getUserId"],
+                        request: 'accept'
+                        }).then(res => {
+                            if (res.data.success) {
+                                console.log("Update to group database success!");
+                            } else {
+                                console.log("Update to group database failed!");
+                            }
+                        }).catch((err)=>{
+                            console.log("err:", err);
+                            this.validsubmit = false;
+                        });
+                    }
                     this.$router.push("/List");
                 } else {
                     console.log("Update to task database failed!");
-                }
-            }).catch((err)=>{rs
-                console.log("err:", err);
-                this.validsubmit = false;
-            });
-
-
-            service.post("/tasks/createGroup", {
-                task_id: this.task_id,
-                user_id: store.getters["getUserId"]
-
-            }).then(res => {
-                if (res.data.success) {
-                    console.log("Update to group database success!");
-                    this.$router.push("/List");
-                } else {
-                    console.log("Update to group database failed!");
                 }
             }).catch((err)=>{
                 console.log("err:", err);
                 this.validsubmit = false;
             });
-
         }
     }
 };
