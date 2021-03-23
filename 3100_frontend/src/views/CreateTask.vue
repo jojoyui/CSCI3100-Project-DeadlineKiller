@@ -19,7 +19,7 @@
                         <h1 class="mb-5 text-center">
                             <span>Create Task</span>
                         </h1>
-                        <p class="btn btn-link text-default"> Task Name </p>
+                        <span class="btn btn-link text-default"> Task Name </span>
                         <div class="col">
                             <base-input v-model="tname" 
                                         alternative class="taskName col-"  
@@ -41,12 +41,31 @@
                             </ul>
                         </div>
                         <p class="btn btn-link text-default"> Due Date </p>
-                        <div class="col">
-                            <base-input v-model="DueDate"
-                                        alternative class="DueDate col-"  
-                                        placeholder="e.g 20210319">
-                            </base-input>
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="col">
+                                    <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                        <flat-picker slot-scope="{focus, blur}"
+                                                    @on-open="focus"
+                                                    @on-close="blur"
+                                                    :config="{allowInput: true}"
+                                                    class="form-control datepicker"
+                                                    v-model="DueDate.simple">
+                                        </flat-picker>
+                                    </base-input>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <span></span>
+                            </div>
+                            <div class="col-sm">
+                                <span></span>
+                            </div>
                         </div>
+
+
+
+
                         <!-- <date-pickers></date-pickers> -->
                         <p class="btn btn-link text-default"> Partner</p>
                         <div class="container ct-example-row">
@@ -95,12 +114,12 @@
 import { uuid } from 'vue-uuid'; 
 import { service } from "@/plugins/request_service.js";
 import store from "@/store";
-
-const DatePickers = () => import("./components/JavascriptComponents/DatePickers");
+import flatPicker from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
 
 export default {
     components:{
-        DatePickers
+        flatPicker
     },
     data: () =>({
         task_id:'',
@@ -113,7 +132,9 @@ export default {
             { value: 'Project' }
         ],
         radioVal: 'Assignment',
-        DueDate: "",
+        DueDate: {
+            simple: "2018-07-17"
+        },
         partnerEmail: [],
         groupmates: "xxx@link.cuhk.edu.hk",
         description: "",
@@ -129,6 +150,7 @@ export default {
             console.log(this.groupmates);
             this.partnerEmail.push(this.groupmates);
             console.log(this.partnerEmail);
+            
         },
 
         handleSubmit(){
@@ -139,7 +161,7 @@ export default {
                 task_id: this.task_id,
                 name: this.tname,
                 type: this.radioVal,
-                DueDate: this.DueDate,
+                DueDate: this.DueDate.simple,
                 description: this.description
 
             }).then(res => {
