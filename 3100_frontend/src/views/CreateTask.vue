@@ -81,11 +81,17 @@
                                 </div>
                             </div>
                         </div>
-                        <ul class="list-unstyled">
-                            <li v-for = "(mates, num) in partnerEmail" :key="num">
-                                {{ mates }}
-                            </li>
-                        </ul>
+                        <div class="col">
+                            <ul class="list-unstyled">
+                                <li v-for = "(mates, num) in partnerEmail" :key="num">
+                                    <small type = "primary" class="text-muted">{{ mates }}</small>
+                                    <i class="ni ni-fat-remove"
+                                        size="sm"
+                                        @click="handleDelete(num)">
+                                    </i>
+                                </li>
+                            </ul>
+                        </div>
                         <p class="btn btn-link text-default"> Description </p>
                         <div class="col">
                             <textarea v-model="description"
@@ -96,7 +102,7 @@
                     </div>
                     <div v-if="!validsubmit" class="col-lg-12 pt-lg">
                         <base-alert type="warning" icon="ni ni-bell-55" dismissible>
-                            <span slot="text"><strong>Warning!</strong> This is a warning alert—check it out!</span>
+                            <span slot="text"><strong>Warning!</strong> Please check whether your task name and date are input or not!</span>
                         </base-alert>
                     </div>
                     <div class= "col-lg-12 pt-lg text-center">
@@ -133,7 +139,7 @@ export default {
         ],
         radioVal: 'Assignment',
         DueDate: {
-            simple: "2018-07-17"
+            simple: "2021-04-01"
         },
         partnerEmail: [],
         groupmates: "xxx@link.cuhk.edu.hk",
@@ -145,7 +151,9 @@ export default {
             this.radioVal =  val;
         },
                                     
-        
+        handleDelete(i){
+            this.partnerEmail.splice(i,1);
+        },
         handleAdd(){
             console.log(this.groupmates);
             this.partnerEmail.push(this.groupmates);
@@ -155,7 +163,7 @@ export default {
 
         handleSubmit(){
             console.log("clicked");
-            console.log(this.radioVal);
+            console.log(this.partnerEmail.length);
             this.task_id = uuid.v1();
             service.post("/tasks/createTask", {
                 task_id: this.task_id,
@@ -167,7 +175,7 @@ export default {
             }).then(res => {
                 if (res.data.success) {
                     console.log("Update to task database success!");
-                    if(this.partnerEmail.size != 0){
+                    if(this.partnerEmail.length != 0){
                         console.log(this.partnerEmail);
                         for(let i of this.partnerEmail){
                             service.get(`/users/getUserId/${i}`).then(res=>{
