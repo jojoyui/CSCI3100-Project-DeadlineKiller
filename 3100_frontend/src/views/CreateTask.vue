@@ -62,11 +62,6 @@
                                 <span></span>
                             </div>
                         </div>
-
-
-
-
-                        <!-- <date-pickers></date-pickers> -->
                         <p class="btn btn-link text-default"> Partner</p>
                         <div class="container ct-example-row">
                             <div class="row">
@@ -149,8 +144,7 @@ export default {
     methods:{
         getRadioVal(val){
             this.radioVal =  val;
-        },
-                                    
+        },                     
         handleDelete(i){
             this.partnerEmail.splice(i,1);
         },
@@ -158,9 +152,7 @@ export default {
             console.log(this.groupmates);
             this.partnerEmail.push(this.groupmates);
             console.log(this.partnerEmail);
-            
         },
-
         handleSubmit(){
             console.log("clicked");
             console.log(this.partnerEmail.length);
@@ -212,7 +204,7 @@ export default {
                             this.validsubmit = false;
                         });
                     }
-                    this.$router.push("/List");
+                    this.$router.push("/list");
                 } else {
                     console.log("Update to task database failed!");
                 }
