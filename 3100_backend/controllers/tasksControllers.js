@@ -61,10 +61,12 @@ module.exports = {
         try{
             console.log("task controller");
             const user = req.params.user;
+            const start = req.params.start;
+            const end = req.params.end;
             return standardServiceResponse(
                 res,
                 next,
-                tasksServices.countTask(user)
+                tasksServices.countTask(user, start, end)
             );
         } catch(err){
             console.log(
@@ -78,10 +80,12 @@ module.exports = {
         try{
             console.log("task controller");
             const user = req.params.user;
+            const start = req.params.start;
+            const end = req.params.end;
             return standardServiceResponse(
                 res,
                 next,
-                tasksServices.countTask2(user)
+                tasksServices.countTask2(user, start, end)
             );
         } catch(err){
             console.log(
@@ -90,7 +94,5 @@ module.exports = {
               );
               next(err);
         }
-    },
-    
-   
+    } 
 }
