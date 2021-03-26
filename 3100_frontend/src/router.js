@@ -8,11 +8,14 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 
+
 //new
 import Schedule from "./views/Schedule.vue"
 import List from "./views/List.vue"
 import Report from "./views/Report.vue"
 import CreateTask from "./views/CreateTask.vue"
+import Notification from "./views/Notifications.vue"
+
 Vue.use(Router);
 import store from "@/store";
 //import router from "../../3100_backend/routes/users";
@@ -95,7 +98,15 @@ const router = new Router({
         header: AppHeader,
         default: CreateTask,
       }
-    }
+    },
+    {
+      path: "/notification",
+      name: "notification",
+      components: {
+        header: AppHeader,
+        default: Notification
+      }
+    },
   ],
   scrollBehavior: to => {
     if (to.hash) {

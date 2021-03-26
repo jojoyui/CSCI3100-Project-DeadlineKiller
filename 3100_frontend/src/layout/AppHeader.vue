@@ -71,6 +71,13 @@
 
                 <router-link to="/create_task"  class="nav-link">Create Task</router-link>
 
+                <router-link to="/notification"  class="nav-link">
+                    <div>
+                        Notification
+                        <badge type="white">{{num}}</badge>
+                    </div>
+                </router-link>
+
             </ul>
             
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
@@ -120,13 +127,29 @@
 import BaseNav from "@/components/BaseNav";
 import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
+import store from "@/store";
 
 export default {
-  components: {
-    BaseNav,
-    CloseButton,
-    BaseDropdown
-  }
+    components: {
+        BaseNav,
+        CloseButton,
+        BaseDropdown
+    },
+    data: () =>({
+        num: "0"
+    }),
+    mounted (){
+        this.notifis();
+    },
+    methods: {
+        notifis(){
+            console.log("request")
+            service.get(`/users/countrequest/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data.data[0].number);
+                this.num = res.data.data[0].number;
+            });
+        }
+    }
 };
 </script>
 <style>

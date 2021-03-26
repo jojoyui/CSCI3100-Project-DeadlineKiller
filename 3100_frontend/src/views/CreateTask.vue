@@ -190,19 +190,19 @@ export default {
                         }    
                     }
                     service.post("/tasks/createGroup", {
-                    task_id: this.task_id,
-                    user_id: store.getters["getUserId"],
-                    request: 'accept'
-                    }).then(res => {
-                        if (res.data.success) {
-                            console.log("Update to group database success!");
-                        } else {
-                            console.log("Update to group database failed!");
-                        }
-                    }).catch((err)=>{
-                        console.log("err:", err);
-                        this.validsubmit = false;
-                    });
+                        task_id: this.task_id,
+                        user_id: store.getters["getUserId"],
+                        request: 'accept'
+                        }).then(res => {
+                            if (res.data.success) {
+                                console.log("Update to group database success!");
+                            } else {
+                                console.log("Update to group database failed!");
+                            }
+                        }).catch((err)=>{
+                            console.log("err:", err);
+                            this.validsubmit = false;
+                        });
                     this.$router.push("/list");
                 } else {
                     console.log("Update to task database failed!");

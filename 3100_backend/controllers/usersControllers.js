@@ -51,5 +51,96 @@ module.exports = {
               );
               next(err);
         }
+    },
+
+    getUserName: async function(req,res,next){
+        try{
+            console.log("getUserName controller");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.getUserName(user)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.getUserName: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+
+
+    notification: async function(req,res,next){
+        try{
+            console.log("notification controller");
+            const user = req.params.user
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.notification(user)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.notification: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+
+    countrequest: async function(req,res,next){
+        try{
+            console.log("countrequest controller");
+            const user = req.params.user
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.countrequest(user)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.countrequest: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+
+    Updateaccept: async function(req,res,next){
+        try{
+            console.log("countaccept controller");
+            const task = req.params.task
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.Updateaccept(task)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.countaccept: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+
+    Updatedecline: async function(req,res,next){
+        try{
+            console.log("countdecline controller");
+            const task = req.params.task
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.Updatedecline(task)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.countdecline: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
     }
 }
