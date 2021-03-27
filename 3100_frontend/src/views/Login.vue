@@ -1,4 +1,5 @@
 <template>
+
     <section class="section section-shaped section-lg my-0">
         <div class="shape shape-style-1 bg-gradient-default">
             <span></span>
@@ -9,6 +10,11 @@
             <span></span>
             <span></span>
             <span></span>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-7 text-center pt-lg">
+                <img src="img/brand/test.png" style="width: 300px;" class="img-fluid">
+            </div>
         </div>
         <div class="container pt-lg-md">
             <div class="row justify-content-center">

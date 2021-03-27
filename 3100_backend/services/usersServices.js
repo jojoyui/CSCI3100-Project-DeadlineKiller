@@ -38,7 +38,6 @@ module.exports = {
             }
         );
         
-        
     },
 
     getUserId: async function(email){

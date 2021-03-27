@@ -60,21 +60,27 @@
 
                 <base-dropdown tag="li" class="nav-item">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">Deadline Killer</span>
+                        <!-- <i class="ni ni-collection d-lg-none"></i> -->
+                        <img src="img/brand/test.png" style="width: 100px;" class="img-fluid">
+                        <!-- <span class="nav-link-inner--text">Deadline Killer</span> -->
                     </a>
                     <router-link to="/schedule" class="dropdown-item">Schedule</router-link>
                     <router-link to="/list" class="dropdown-item">List</router-link> 
                 </base-dropdown>
 
+                <!-- <router-link to="/list" class="nav-link">List</router-link> -->
+
+                <!-- <router-link to="/schedule" class="nav-link">Schedule</router-link> -->
+
                 <router-link to="/report"  class="nav-link">Report</router-link>
 
-                <router-link to="/create_task"  class="nav-link">Create Task</router-link>
+                <!-- <router-link to="/create_task"  class="nav-link">Create Task</router-link> -->
 
                 <router-link to="/notification"  class="nav-link">
                     <div>
-                        Notification
-                        <badge type="white">{{num}}</badge>
+                        <span>Notification
+                            <badge type="white">{{tasks_name.length}}</badge>
+                        </span>
                     </div>
                 </router-link>
 
@@ -128,6 +134,7 @@ import BaseNav from "@/components/BaseNav";
 import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
 import store from "@/store";
+import { service } from "@/plugins/request_service.js";
 
 export default {
     components: {
@@ -136,19 +143,19 @@ export default {
         BaseDropdown
     },
     data: () =>({
-        num: "0"
+        tasks_name: []
     }),
     mounted (){
-        this.notifis();
+        this.noti();
     },
     methods: {
-        notifis(){
-            console.log("request")
-            service.get(`/users/countrequest/${store.getters["getUserId"]}`).then(res=>{
-                console.log(res.data.data[0].number);
-                this.num = res.data.data[0].number;
+        noti(){
+            console.log("requests");
+            service.get(`/users/notification/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data);
+                this.tasks_name = res.data.data;
             });
-        }
+        },
     }
 };
 </script>

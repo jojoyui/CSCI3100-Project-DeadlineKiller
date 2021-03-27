@@ -46,7 +46,7 @@ const router = new Router({
       path: "/login",
       name: "login",
       components: {
-        header: AppHeader,
+        //header: AppHeader,
         default: Login,
       }
     },
@@ -54,7 +54,7 @@ const router = new Router({
       path: "/register",
       name: "register",
       components: {
-        header: AppHeader,
+        //header: AppHeader,
         default: Register
       }
     },
