@@ -79,7 +79,7 @@
                 <router-link to="/notification"  class="nav-link">
                     <div>
                         <span>Notification
-                            <badge type="white">{{tasks_name.length}}</badge>
+                            <badge type="white">{{tasks}}</badge>
                         </span>
                     </div>
                 </router-link>
@@ -118,12 +118,12 @@
                 <!-- <li class="nav-item d-none d-lg-block ml-lg-4"> -->
                     <!-- <router-link to="/register" class="dropdown-item">Register</router-link> -->
 
-                    <!-- <router-link  to="/create_task" rel="noopener" class="btn btn-neutral btn-icon">
+                    <router-link  to="/create_task" rel="noopener" class="btn btn-neutral btn-icon">
                         <span class="btn-inner--icon">
                             <i class="fa fa-pencil fa-fw mr-2"></i>
                         </span>
                         <span class="nav-link-inner--text">Create Task</span>
-                    </router-link> -->
+                    </router-link>
                 <!-- </li> -->
             </ul>
         </base-nav>
@@ -143,17 +143,17 @@ export default {
         BaseDropdown
     },
     data: () =>({
-        tasks_name: []
+        tasks: "0"
     }),
     mounted (){
-        this.noti();
+        this.notifis()
     },
     methods: {
-        noti(){
-            console.log("requests");
-            service.get(`/users/notification/${store.getters["getUserId"]}`).then(res=>{
-                console.log(res.data);
-                this.tasks_name = res.data.data;
+        notifis(){
+            console.log("Headerrequest");
+            service.get(`/users/countrequest/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data.data[0].number);
+                this.tasks = res.data.data[0].number;
             });
         },
     }

@@ -125,8 +125,7 @@ export default {
     },
     
     data: () =>({
-        tasks_name: [],
-        requests: "0"
+        tasks_name: []
     }),
     mounted (){
         this.noti();
@@ -138,6 +137,7 @@ export default {
                 console.log(res.data);
                 this.tasks_name = res.data.data;
             });
+            
         },
         handleAccept(i){
             console.log("handleAccept");

@@ -13,7 +13,7 @@
             <div class="container shape-container d-flex align-items-center">
                 <div class="col px-0">
                     <div class="row justify-content-center align-items-center">
-                        <div class="col-lg-7 text-center pt-lg">
+                        <div class="text-center">
                             <img src="img/brand/test.png" style="width: 300px;" class="img-fluid">
                             <p class="lead text-white mt-4 mb-5"></p>
                             <div class="btn-wrapper">
@@ -31,6 +31,7 @@
                                             icon="ni ni-calendar-grid-58">
                                     Schedule
                                 </base-button>
+                                <p class="lead text-white mt-4 mb-5"></p>
                             </div>
                         </div>
                     </div>
@@ -67,22 +68,32 @@
                 </div>
             </div>
         </section>
-        
         <section class="section section-skew">
             <div class="container">
                 <card shadow class="card-createTask mt--300" no-body>
                     <div class="col-lg-12 pt-lg">
-                        <h1 class="mb-5 text-center">
-                            <span>Create Task</span>
-                        </h1>
-                        <span class="btn btn-link text-default"> Task Name </span>
-                        <div class="col">
-                            <base-input v-model="tname" 
-                                        alternative class="taskName col-"  
-                                        placeholder="e.g 3100_project">
-                            </base-input>
+                        <h2 class="text-center">
+                            <strong>
+                                <i class="ni ni-air-baloon"></i>
+                                TASK
+                            </strong>
+                        </h2>
+                        <p class="lead text-white mt-4 mb-5"></p>
+                        <h4><span class="btn btn-link text-primary"> Task Name </span></h4>
+                        <div class="container ct-example-row">
+                            <div class="row">
+                                <div class="col">
+                                    <base-input v-model="tname" 
+                                                alternative class="taskName col-"  
+                                                placeholder="e.g 3100_project">
+                                    </base-input>
+                                </div>
+                                <div class="col">
+                                    <span></span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="btn btn-link text-default">Type</p>
+                        <p class="btn btn-link text-primary">Type</p>
                         <div class="col">
                             <ul class="list-unstyled">
                                 <li v-for= "(item, index) in radioData" :key="index">
@@ -92,11 +103,11 @@
                                         :value = "item.value"
                                         @change = "getRadioVal(item.value)"
                                     />
-                                {{ item.value }}
+                                <span class="btn btn-link text-default">{{ item.value }}</span>
                                 </li>
                             </ul>
                         </div>
-                        <p class="btn btn-link text-default"> Due Date </p>
+                        <p class="btn btn-link text-primary"> Due Date </p>
                         <div class="row">
                             <div class="col-sm">
                                 <div class="col">
@@ -118,7 +129,7 @@
                                 <span></span>
                             </div>
                         </div>
-                        <p class="btn btn-link text-default"> Partner</p>
+                        <p class="btn btn-link text-primary"> Partner</p>
                         <div class="container ct-example-row">
                             <div class="row">
                                 <div class="col">
@@ -128,7 +139,7 @@
                                     </base-input>
                                 </div>
                                 <div class="col">
-                                    <base-button class="btn-1" outline type="primary" @click="handleAdd()"> Add </base-button>
+                                    <base-button class="btn-1" outline type="info" @click="handleAdd()"> Add </base-button>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +154,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <p class="btn btn-link text-default"> Description </p>
+                        <p class="btn btn-link text-primary"> Description </p>
                         <div class="col">
                             <textarea v-model="description"
                                     class=" Description form-control form-control-alternative" 
@@ -157,7 +168,7 @@
                         </base-alert>
                     </div>
                     <div class= "col-lg-12 pt-lg text-center">
-                        <base-button class="btn-1" outline type="primary" @click="handleSubmit()">Submit</base-button>
+                        <base-button class="btn-1" outline type="success" @click="handleSubmit()">Submit</base-button>
                     </div>
                 </card>
             </div>
@@ -173,10 +184,18 @@ import { service } from "@/plugins/request_service.js";
 import store from "@/store";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import Tabs from "@/components/Tabs/Tabs.vue";
+import TabPane from "@/components/Tabs/TabPane.vue";
+import TabsSection from "./components/JavascriptComponents/TabsSection";
+import Badge from '../components/Badge.vue';
 
 export default {
     components:{
-        flatPicker
+        flatPicker,
+        TabPane,
+        Tabs,
+        TabsSection,
+        Badge,
     },
     data: () =>({
         task_id:'',
