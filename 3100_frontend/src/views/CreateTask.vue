@@ -139,7 +139,7 @@
                                     </base-input>
                                 </div>
                                 <div class="col">
-                                    <base-button class="btn-1" outline type="info" @click="handleAdd()"> Add </base-button>
+                                    <base-button class="btn-1" type="info" @click="handleAdd()"> Add </base-button>
                                 </div>
                             </div>
                         </div>
