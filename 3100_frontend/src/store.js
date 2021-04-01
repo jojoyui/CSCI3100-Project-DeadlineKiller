@@ -7,13 +7,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user_id: undefined, 
-    user_email: undefined
+    user_email: undefined,
+    task_id: undefined
   },
   mutations: {
   
     setUserId(state, id){
         console.log("setuserid", id);
         state.user_id = id;
+    },
+    setTaskId(state, id){
+      console.log("settaskid", id);
+      state.task_id = id;
     },
     setUserEmail(state, email){
         console.log("setemail", email);
@@ -27,6 +32,9 @@ export default new Vuex.Store({
   getters:{
       getUserId(state){
           return state.user_id;
+      },
+      getTaskId(state){
+        return state.task_id;
       },
       checkLogged(state){
           if(state.user_email || state.user_id) return true;

@@ -6,8 +6,14 @@ module.exports = {
             .innerJoin('group','group.task_id','task.task_id')
             .where({user_id: user});           
     },
- 
 
+    getTasksId: async function(user){
+        return await knex('task')
+            .innerJoin('group','group.task_id','task.task_id')
+            .where({user_id: user})
+            .select('user_id');           
+    },
+ 
     createGroup: async function(group){
         console.log("create group services");
         return await knex("group").insert({
@@ -41,7 +47,24 @@ module.exports = {
             .innerJoin('group','group.task_id','task.task_id')
             .where ({user_id: user})
             .whereNull('completed_timestamp');
+    },
+    createSubTask: async function(newSubTask){
+        console.log("create subtask service");
+        return await knex("subtask").insert({
+            subtask_id: newSubTask.subtask_id, 
+            task_id: newSubTask.task_id,
+            name: newSubTask.name,
+            start_date: newSubTask.start_date,
+            end_date: newSubTask.end_date,
+            description: newTask.description
+        });
+    },
+    Updategroup: async function(task,user,subid){
+        console.log("update subtask in group");
+        return await knex("group")
+            .where({task_id: task})
+            .where({user_id: user})
+            .update({subtask_id: subid});
     }
-    
     
 }

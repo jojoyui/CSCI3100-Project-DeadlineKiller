@@ -18,6 +18,7 @@
                             <p class="lead text-white mt-4 mb-5"></p>
                             <div class="btn-wrapper">
                                 <base-button tag="a"
+                                            
                                             href="http://localhost:8080/#/list"
                                             class="mb-3 mb-sm-0"
                                             type="white"
@@ -74,12 +75,12 @@
                     <div class="col-lg-12 pt-lg">
                         <h2 class="text-center">
                             <strong>
-                                <i class="ni ni-air-baloon"></i>
-                                TASK
+                                <i class="ni ni-map-big"></i>
+                                SUBTASK
                             </strong>
                         </h2>
                         <p class="lead text-white mt-4 mb-5"></p>
-                        <h4><span class="btn btn-link text-primary"> Task Name </span></h4>
+                        <h4><span class="btn btn-link text-primary"> Subtask Name </span></h4>
                         <div class="container ct-example-row">
                             <div class="row">
                                 <div class="col">
@@ -93,31 +94,33 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="btn btn-link text-primary">Type</p>
-                        <div class="col">
-                            <ul class="list-unstyled">
-                                <li v-for= "(item, index) in radioData" :key="index">
-                                    <input
-                                        type = "radio"
-                                        v-model = "radioVal"
-                                        :value = "item.value"
-                                        @change = "getRadioVal(item.value)"
-                                    />
-                                <span class="btn btn-link text-default">{{ item.value }}</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <p class="btn btn-link text-primary"> Due Date </p>
+                        
+                        <p class="btn btn-link text-primary"> Start Date </p>
                         <div class="row">
                             <div class="col-sm">
                                 <div class="col">
+                                    <badge type="primary">start date</badge>
                                     <base-input addon-left-icon="ni ni-calendar-grid-58">
                                         <flat-picker slot-scope="{focus, blur}"
                                                     @on-open="focus"
                                                     @on-close="blur"
                                                     :config="{allowInput: true}"
                                                     class="form-control datepicker"
-                                                    v-model="DueDate.simple">
+                                                    v-model="dates.start">
+                                        </flat-picker>
+                                    </base-input>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="col">
+                                    <badge type="primary">end date</badge>
+                                    <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                        <flat-picker slot-scope="{focus, blur}"
+                                                    @on-open="focus"
+                                                    @on-close="blur"
+                                                    :config="{allowInput: true}"
+                                                    class="form-control datepicker"
+                                                    v-model="dates.end">
                                         </flat-picker>
                                     </base-input>
                                 </div>
@@ -125,34 +128,6 @@
                             <div class="col-sm">
                                 <span></span>
                             </div>
-                            <div class="col-sm">
-                                <span></span>
-                            </div>
-                        </div>
-                        <p class="btn btn-link text-primary"> Partner</p>
-                        <div class="container ct-example-row">
-                            <div class="row">
-                                <div class="col">
-                                    <base-input v-model="groupmates" 
-                                                alternative class="Partner col-" 
-                                                placeholder="e.g yourfriend@mail.com">
-                                    </base-input>
-                                </div>
-                                <div class="col">
-                                    <base-button class="btn-1" type="info" @click="handleAdd()"> Add </base-button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <ul class="list-unstyled">
-                                <li v-for = "(mates, num) in partnerEmail" :key="num">
-                                    <small type = "primary" class="text-muted">{{ mates }}</small>
-                                    <i class="ni ni-fat-remove"
-                                        size="sm"
-                                        @click="handleDelete(num)">
-                                    </i>
-                                </li>
-                            </ul>
                         </div>
                         <p class="btn btn-link text-primary"> Description </p>
                         <div class="col">
@@ -198,89 +173,44 @@ export default {
         Badge,
     },
     data: () =>({
-        task_id:'',
+        user_id: store.getters["getUserId"],
+        task_id: store.getters["getTaskId"],
+        subtask_id:'',
         tname:"",
-        radioData: [
-            { value: 'Assignment' },
-            { value: 'Present' },
-            { value: 'Midterm' },
-            { value: 'Final' },
-            { value: 'Project' }
-        ],
-        radioVal: 'Assignment',
-        DueDate: {
-            simple: "2021-04-01"
+        dates: {
+            start: "2021-04-01",
+            end: '2021-04-30'
         },
-        partnerEmail: [],
-        groupmates: "xxx@link.cuhk.edu.hk",
         description: "",
         validsubmit: true,
     }),
     methods:{
-        getRadioVal(val){
-            this.radioVal =  val;
-        },                     
-        handleDelete(i){
-            this.partnerEmail.splice(i,1);
-        },
-        handleAdd(){
-            console.log(this.groupmates);
-            this.partnerEmail.push(this.groupmates);
-            console.log(this.partnerEmail);
-        },
+                
         handleSubmit(){
             console.log("clicked");
-            console.log(this.partnerEmail.length);
-            this.task_id = uuid.v1();
-            service.post("/tasks/createTask", {
+            
+            this.subtask_id = uuid.v1();
+            service.post("/tasks/createSubtask", {
+                subtask_id: this.subtask_id,
                 task_id: this.task_id,
                 name: this.tname,
-                type: this.radioVal,
-                DueDate: this.DueDate.simple,
+                start_date: this.dates.start,
+                end_date: this.dates.end,
                 description: this.description
 
             }).then(res => {
                 if (res.data.success) {
                     console.log("Update to task database success!");
-                    if(this.partnerEmail.length != 0){
-                        console.log(this.partnerEmail);
-                        for(let i of this.partnerEmail){
-                            service.get(`/users/getUserId/${i}`).then(res=>{
-                                service.post("/tasks/createGroup", {
-                                task_id: this.task_id,
-                                user_id: res.data.data[0].user_id,
-                                request: 'request'
-                                }).then(res => {
-                                    if (res.data.success) {
-                                        console.log("Update to group database success!");
-                                        
-                                    } else {
-                                        console.log("Update to group database failed!");
-                                    }
-                                }).catch((err)=>{
-                                    console.log("err:", err);
-                                    this.validsubmit = false;
-                                });
-                            });
-                        }    
-                    }
-                    service.post("/tasks/createGroup", {
-                        task_id: this.task_id,
-                        user_id: store.getters["getUserId"],
-                        request: 'accept'
-                        }).then(res => {
-                            if (res.data.success) {
-                                console.log("Update to group database success!");
-                            } else {
-                                console.log("Update to group database failed!");
-                            }
+                    service.get(`/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`)
+                        .then(res => {
+                            console.log(res.data);
                         }).catch((err)=>{
                             console.log("err:", err);
                             this.validsubmit = false;
                         });
                     this.$router.push("/list");
                 } else {
-                    console.log("Update to task database failed!");
+                    console.log("Update to subtask database failed!");
                 }
             }).catch((err)=>{
                 console.log("err:", err);

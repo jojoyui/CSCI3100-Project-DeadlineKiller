@@ -14,6 +14,7 @@ import Schedule from "./views/Schedule.vue"
 import List from "./views/List.vue"
 import Report from "./views/Report.vue"
 import CreateTask from "./views/CreateTask.vue"
+import Subtask from "./views/Subtask.vue"
 import Notification from "./views/Notifications.vue"
 
 Vue.use(Router);
@@ -97,6 +98,14 @@ const router = new Router({
       components: {
         header: AppHeader,
         default: CreateTask,
+      }
+    },
+    {
+      path: "/create_subtask",
+      name: "create_subtask",
+      components: {
+        header: AppHeader,
+        default: Subtask,
       }
     },
     {

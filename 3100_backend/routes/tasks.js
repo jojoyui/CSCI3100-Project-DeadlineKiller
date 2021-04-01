@@ -8,12 +8,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/getTasks/:user", tasksControllers.getTasks);
+router.get("/getTasksId/:user", tasksControllers.getTasksId);
 //router.get("/report/:user", tasksControllers.Report);
 
 router.post("/createTask", tasksControllers.createTask);
 router.post("/createGroup", tasksControllers.createGroup);
 router.get("/countTask/:user", tasksControllers.countTask);
 router.get("/countTask2/:user", tasksControllers.countTask2);
+router.post("/createSubtask", tasksControllers.createSubtask);
+router.get("/updategroup/:task:user:subid", tasksControllers.Updategroup);
 
 
 module.exports = router;

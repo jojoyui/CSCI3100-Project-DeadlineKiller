@@ -18,7 +18,7 @@
                             <p class="lead text-white mt-4 mb-5"></p>
                             <div class="btn-wrapper">
                                 <base-button tag="a"
-                                            href="http://localhost:8081/#/list"
+                                            href="http://localhost:8080/#/list"
                                             class="mb-3 mb-sm-0"
                                             type="white"
                                             icon="ni ni-bullet-list-67">
@@ -26,7 +26,7 @@
                                 </base-button>
                                 
                                 <base-button tag="a"
-                                            href="http://localhost:8081/#/schedule"
+                                            href="http://localhost:8080/#/schedule"
                                             class="mb-3 mb-sm-0"
                                             type="primary"
                                             icon="ni ni-calendar-grid-58">
