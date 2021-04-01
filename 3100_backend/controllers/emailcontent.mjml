@@ -45,7 +45,7 @@
  <br></br>
  </mj-text>
  <mj-button background-color="#F45E43" href="http://localhost:8081/#/list">Show more</mj-button>
- <mj-text color="#fff" font-size="15px" align="center">
+ <mj-text color="#878787" font-size="15px" align="center">
   <br></br>
  If you have already finished the tasks, please update on our website!
 </mj-text>
@@ -63,7 +63,7 @@
 <!-- Copyright -->
 <mj-section>
 <mj-column>
-<mj-text color="#fff" font-size="16px" align="center">Copyright © 2021. DeadlineKiller All rights reserved.</mj-text>
+<mj-text color="#2d5ff5" font-size="16px" align="center">Copyright © 2021. DeadlineKiller All rights reserved.</mj-text>
 </mj-column>
 </mj-section>
 </mj-body>
