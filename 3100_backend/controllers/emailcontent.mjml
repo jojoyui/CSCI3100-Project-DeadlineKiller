@@ -1,0 +1,70 @@
+<mjml>
+ <mj-body>
+ <!-- Company Header -->
+ <mj-section background-color="#f0f0f0">
+ <mj-column>
+ <mj-image width="500px" src="https://www.simpletense.com/blog/wp-content/uploads/2019/07/%E8%AE%BA%E6%96%87deadline.gif"></mj-image>
+ <mj-text font-style="bold"
+ font-size="50px"
+ align="center"
+ color="#626262">
+ DeadlineKiller
+ </mj-text>
+ </mj-column>
+</mj-section>
+ <!-- Image Header -->
+ <mj-section background-repeat="no-repeat">
+ <mj-column width="500px">
+ <mj-text color="#525252" font-size="20px" padding-left="10px" padding-right="10px">
+ Hi {{name}},
+ <br></br>
+ The following {{task_no}} tasks will due soon:
+ </mj-text>
+ </mj-column>
+ </mj-section>
+  <!-- orange border -->
+<mj-section>
+<mj-column>
+<mj-divider border-color="orange"></mj-divider>
+</mj-column>
+</mj-section>
+ <!-- Email Introduction -->
+
+ <mj-section background-color="#fafafa">
+ <mj-column width="500px">
+ <mj-text color="#525252" font-size="20px" padding-left="10px" padding-right="10px">
+ {{task.Taskname1}}
+ <br></br>
+ {{task.Taskname2}}
+  <br></br>
+ {{task.Taskname3}}
+ <br></br>
+ {{task.Taskname4}}
+ <br></br>
+  {{task.Taskname5}}
+ <br></br>
+ </mj-text>
+ <mj-button background-color="#F45E43" href="http://localhost:8081/#/list">Show more</mj-button>
+ <mj-text color="#fff" font-size="15px" align="center">
+  <br></br>
+ If you have already finished the tasks, please update on our website!
+</mj-text>
+ </mj-column>
+ </mj-section>
+ <!-- Columns section -->
+ <mj-section background-color="white">
+ <!-- Left image -->
+ <mj-column>
+ <mj-image width="350px" align="center"
+ src="https://i.ibb.co/R2kkCw2/738b4710b912c8fc647adfd1fa039245d6882124.png"/>
+ </mj-column>
+ <!-- right paragraph -->
+</mj-section>
+<!-- Copyright -->
+<mj-section>
+<mj-column>
+<mj-text color="#fff" font-size="16px" align="center">Copyright © 2021. DeadlineKiller All rights reserved.</mj-text>
+</mj-column>
+</mj-section>
+</mj-body>
+</mjml>
