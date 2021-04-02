@@ -99,17 +99,17 @@
                             </template>
                             <div class="todo-item" :class="{left: isShowLeft, top: isShowTop}" v-if="index == isItem.index && isIndex == isItem._index" :style="posTop">
                                 <h2 class="title">{{isItem.desc.caption}}</h2>
-                                <div class="time">{{'时间：' + isItem.desc.time}}</div>
+                                <div class="time">{{'Due_date：' + isItem.desc.time}}</div>
                                 <div class="author-box">
-                                <span class="author">{{'作者：' + isItem.desc.author}}</span>
+                                <span class="author">{{'subtask：' + isItem.desc.author}}</span>
                                 </div>
                                 <div class="link-box">
-                                <a class="link" :href="isItem.desc.link">查看GitHub</a>
-                                <span class="view">
+                                <a class="link" :href="isItem.desc.link">Details</a>
+                                <!-- <span class="view">
                                     已查看
                                     <span class="strong">{{isItem.desc.num}}</span>
                                     次
-                                </span>
+                                </span> -->
                                 </div>
                             </div>
                             </li>
@@ -147,9 +147,9 @@ import calendar from '@/components/todo/js/calendar';
 // import ListPlugin from '@fullcalendar/vue'
 
 const todoObj = {
-  title: '备忘录',
+  title: 'DEAD',
   desc: {
-    caption: '我的github项目',
+    caption: 'Task name',
     time: '2018.02.27',
     author: 'shaw',
     num: 369,
@@ -174,7 +174,7 @@ export default {
     isLunar: {
       // 是否开启农历
       type: Boolean,
-      default: true
+      default: false
     }
     },
     data: () => ({
@@ -207,7 +207,7 @@ export default {
     }),
     computed: {
         _week() {
-        let arr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+        let arr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Staruday', 'Sunday'];
         if (this.isWest) {
             arr.unshift(arr.pop());
         }
@@ -286,17 +286,18 @@ export default {
             this.nextMonth = nextDate.getMonth() + 1;
 
             // 输出年月
-            this.curYearMonth = `${year}年${String(month).padStart(2, '0')}月`;
+            this.curYearMonth = `${String(month).padStart(2, '0')}/${year}`;
             // 获取当前月总天数
             let allDays = this.handleMonthDays(year, month);
             this.curMonthDays = [];
             for (let i = 0; i < allDays; i++) {
                 let item = { date: i + 1 };
+                //show the tasks
                 if (Math.random() > 0.5) {
-                item.todo = [todoObj];
-                if (Math.random() > 0.5) {
-                    item.todo.push(todoObj);
-                }
+                    item.todo = [todoObj];
+                    // if (Math.random() > 0.5) {
+                    //     item.todo.push(todoObj);
+                    // }
                 }
                 this.curMonthDays.push(item);
             }
@@ -334,7 +335,7 @@ export default {
         },
         handleToggleMonth(str = 'next') {
             this.isIndex = -1;
-            let [year, month] = this.curYearMonth.match(/\d+/g);
+            let [month, year] = this.curYearMonth.match(/\d+/g);
             str === 'next' ? ++month : --month;
             this.handleFormatDate(year, month);
         },
