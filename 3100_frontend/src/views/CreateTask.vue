@@ -74,8 +74,8 @@
                     <div class="col-lg-12 pt-lg">
                         <h2 class="text-center">
                             <strong>
-                                <i class="ni ni-air-baloon"></i>
-                                TASK
+                                <i class="ni ni-archive-2"></i>
+                                NEW TASK
                             </strong>
                         </h2>
                         <p class="lead text-white mt-4 mb-5"></p>

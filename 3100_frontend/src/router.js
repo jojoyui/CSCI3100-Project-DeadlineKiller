@@ -16,6 +16,8 @@ import Report from "./views/Report.vue"
 import CreateTask from "./views/CreateTask.vue"
 import Subtask from "./views/Subtask.vue"
 import Notification from "./views/Notifications.vue"
+import Calendar from '@/components/calendar/index.vue'
+import todo from '@/components/todo/index.vue'
 
 Vue.use(Router);
 import store from "@/store";
@@ -34,6 +36,16 @@ const router = new Router({
         footer: AppFooter
       }
     },
+    // {
+    //   path: '/calendar',
+    //   name: 'calendar',
+    //   component: Calendar
+    // },
+    // {
+    //   path: '/todo',
+    //   name: 'todo',
+    //   component: todo
+    // },
     {
       path: "/landing",
       name: "landing",

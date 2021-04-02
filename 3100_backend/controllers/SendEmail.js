@@ -56,7 +56,7 @@ async function main(){
         for(var x=0;x<json.length;x++){
             if(user.name == json[x].uname){
                 taskname = t + count;
-                task[taskname] = json[x].tname + " --------> " + "  Due_date: " + moment(json[x].due_date).format("YYYY-MM-DD");
+                task[taskname] = json[x].tname + " ---------- " + "  Due_date: " + moment(json[x].due_date).format("YYYY-MM-DD");
                 count++;
                 if(x == json.length-1){
                     console.log(task);
@@ -128,7 +128,7 @@ setInterval(function(){
     var refreshHours = new Date().getHours();
     var refreshMin = new Date().getMinutes();
     var refreshSec = new Date().getSeconds();
-    if(refreshHours=='11' && refreshMin=='05' && refreshSec=='0'){
+    if(refreshHours=='12' && refreshMin=='11' && refreshSec=='0'){
         // 指定每天凌晨做的事情
         main().catch(console.error);
     }
