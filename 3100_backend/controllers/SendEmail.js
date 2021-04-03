@@ -2,9 +2,10 @@ const handlebars = require("handlebars");
 const nodemailer = require("nodemailer");
 const mjml2html = require("mjml");
 const fs =require("fs");
+const path = require("path");
 const knex = require("knex")(require("../knexfile.js")["development"]);
 const moment = require("moment");
-const template = handlebars.compile(fs.readFileSync("/Users/hoikimak/CSCI3100-Project-DeadlineKiller/3100_backend/controllers/emailcontent.mjml","utf8"))
+const template = handlebars.compile(fs.readFileSync(path.join(__dirname,'/emailcontent.mjml'),"utf8"));
 
 async function main(){
     transporter = nodemailer.createTransport({
@@ -56,7 +57,7 @@ async function main(){
         for(var x=0;x<json.length;x++){
             if(user.name == json[x].uname){
                 taskname = t + count;
-                task[taskname] = json[x].tname + " ---------- " + "  Due_date: " + moment(json[x].due_date).format("YYYY-MM-DD");
+                task[taskname] = json[x].tname + " .................... " + "  Due_date: " + moment(json[x].due_date).format("YYYY-MM-DD");
                 count++;
                 if(x == json.length-1){
                     console.log(task);
@@ -67,7 +68,7 @@ async function main(){
                     }
                     const html = mjml2html(template(vars)).html;
                     let info = transporter.sendMail({
-                                    from: '"Deadlinekiller" <deadlinekiller@163.com>',
+                                    from: '"DeadlineKiller" <deadlinekiller@163.com>',
                                     to: user.email ,
                                     subject: "Your tasks will due soon!" ,
                                     html: html
@@ -84,7 +85,7 @@ async function main(){
                 }
                 const html = mjml2html(template(vars)).html;
                 let info = transporter.sendMail({
-                                from: '"Deadlinekiller" <deadlinekiller@163.com>',
+                                from: '"DeadlineKiller" <deadlinekiller@163.com>',
                                 to: user.email ,
                                 subject: "Your tasks will due soon!" ,
                                 html: html
@@ -128,7 +129,7 @@ setInterval(function(){
     var refreshHours = new Date().getHours();
     var refreshMin = new Date().getMinutes();
     var refreshSec = new Date().getSeconds();
-    if(refreshHours=='12' && refreshMin=='11' && refreshSec=='0'){
+    if(refreshHours=='02' && refreshMin=='21' && refreshSec=='0'){
         // 指定每天凌晨做的事情
         main().catch(console.error);
     }

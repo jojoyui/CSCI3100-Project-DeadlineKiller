@@ -72,29 +72,56 @@
             <div class="container">
                 <card shadow class="card-createTask mt--300" no-body>
                     <div class="col-lg-12 pt-lg">
-                        <h2 class="text-center">
+                        <h3 class="text-center text-default">
                             <strong>
-                                <i class="ni ni-archive-2"></i>
+                                <!-- <i class="ni ni-archive-2"></i> -->
                                 NEW TASK
                             </strong>
-                        </h2>
-                        <p class="lead text-white mt-4 mb-5"></p>
-                        <h4><span class="btn btn-link text-primary"> Task Name </span></h4>
-                        <div class="container ct-example-row">
-                            <div class="row">
-                                <div class="col">
-                                    <base-input v-model="tname" 
-                                                alternative class="taskName col-"  
-                                                placeholder="e.g 3100_project">
-                                    </base-input>
-                                </div>
-                                <div class="col">
-                                    <span></span>
-                                </div>
+                        </h3>
+                        <br/>
+                        <div class="row">
+                            <div class="col text-right">
+                                <br/>
+                                <strong class="text-primary"> Task Name </strong>
+                            </div>
+                            <div class="col">
+                                <p class="lead text-white mt-3 mb-3"></p>
+                                <base-input v-model="tname" 
+                                            alternative class="taskName col-"  
+                                            placeholder="e.g 3100_project">
+                                </base-input>
+                            </div>
+                            <div class="col">
+                                <span></span>
                             </div>
                         </div>
-                        <p class="btn btn-link text-primary">Type</p>
-                        <div class="col">
+                        
+                        <div class="row">
+                            <div class = "col text-right">
+                                <br/>
+                                <strong class="text-primary">Type</strong>
+                            </div>
+                            <div class="col">
+                                <p class="lead text-white mt-3 mb-3"></p>
+                                <base-dropdown tag="li" class="nav-item">
+                                    <p class="lead text-white mt-3 mb-3"></p>
+                                    
+                                    <base-button slot="title" type="secondary" class="dropdown-toggle">
+                                        {{radioVal}}
+                                    </base-button>
+                                    <ul class="list-unstyled">
+                                        <li v-for= "(item, index) in radioData" :key="index">
+                                            <tab class="dropdown-item" :value ="item.value"
+                                                @click ="getRadioVal(item.value)">{{ item.value }}</tab>
+                                        </li>
+                                    </ul>
+                                </base-dropdown>
+                            </div>
+                            <div class="col">
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- <div class="col">
                             <ul class="list-unstyled">
                                 <li v-for= "(item, index) in radioData" :key="index">
                                     <input
@@ -106,60 +133,86 @@
                                 <span class="btn btn-link text-default">{{ item.value }}</span>
                                 </li>
                             </ul>
-                        </div>
-                        <p class="btn btn-link text-primary"> Due Date </p>
+                        </div> -->
+                        <br/>
                         <div class="row">
-                            <div class="col-sm">
-                                <div class="col">
-                                    <base-input addon-left-icon="ni ni-calendar-grid-58">
-                                        <flat-picker slot-scope="{focus, blur}"
-                                                    @on-open="focus"
-                                                    @on-close="blur"
-                                                    :config="{allowInput: true}"
-                                                    class="form-control datepicker"
-                                                    v-model="DueDate.simple">
-                                        </flat-picker>
-                                    </base-input>
-                                </div>
+                            <div class="col text-right">
+                                <br/>
+                                <strong class="text-primary"> Due Date </strong>
                             </div>
-                            <div class="col-sm">
-                                <span></span>
+                            <div class="col">
+                                <p class="lead text-white mt-3 mb-3"></p>
+                                <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                    <flat-picker slot-scope="{focus, blur}"
+                                                @on-open="focus"
+                                                @on-close="blur"
+                                                :config="{allowInput: true}"
+                                                class="form-control datepicker"
+                                                v-model="DueDate.simple">
+                                    </flat-picker>
+                                </base-input>
                             </div>
-                            <div class="col-sm">
+                            <div class="col">
                                 <span></span>
                             </div>
                         </div>
-                        <p class="btn btn-link text-primary"> Partner</p>
+                        
                         <div class="container ct-example-row">
                             <div class="row">
+                                <div class="col text-right">
+                                    <br/>
+                                    <strong class="text-primary"> Partner</strong>
+                                </div>
                                 <div class="col">
+                                    <p class="lead text-white mt-3 mb-3"></p>
                                     <base-input v-model="groupmates" 
                                                 alternative class="Partner col-" 
                                                 placeholder="e.g yourfriend@mail.com">
                                     </base-input>
                                 </div>
                                 <div class="col">
-                                    <base-button class="btn-1" type="info" @click="handleAdd()"> Add </base-button>
+                                    
+                                    <br/>
+                                    <span><base-button class="ni ni-fat-add" rounded size="sm" type="primary" @click="handleAdd()"> 
+                                        <!-- <i class="ni ni-fat-add"></i> -->
+                                    </base-button></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <ul class="list-unstyled">
-                                <li v-for = "(mates, num) in partnerEmail" :key="num">
-                                    <small type = "primary" class="text-muted">{{ mates }}</small>
-                                    <i class="ni ni-fat-remove"
-                                        size="sm"
-                                        @click="handleDelete(num)">
-                                    </i>
-                                </li>
-                            </ul>
+                        <div class="row">
+                            <div class="col">
+                                <span></span>
+                            </div>
+                            <div class="col">
+                                <ul class="list-unstyled">
+                                    <li v-for = "(mates, num) in partnerEmail" :key="num">
+                                        <small type = "primary" class="text-muted">&emsp;{{ mates }}</small>
+                                        <i class="ni ni-fat-remove"
+                                            size="sm"
+                                            @click="handleDelete(num)">
+                                        </i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col">
+                                <span></span>
+                            </div>
                         </div>
-                        <p class="btn btn-link text-primary"> Description </p>
-                        <div class="col">
-                            <textarea v-model="description"
-                                    class=" Description form-control form-control-alternative" 
-                                    placeholder="e.g Kill me Please!">
-                            </textarea>
+                        <div class="row">
+                            <div class="col text-right">
+                                <br/>
+                                <strong class="text-primary"> Description </strong>
+                            </div>
+                            <div class="col">
+                                <p class="lead text-white mt-3 mb-3"></p>
+                                <textarea v-model="description"
+                                        class=" Description form-control form-control-alternative" 
+                                        placeholder="e.g Kill me Please!">
+                                </textarea>
+                            </div>
+                            <div class="col">
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                     <div v-if="!validsubmit" class="col-lg-12 pt-lg">
@@ -167,8 +220,11 @@
                             <span slot="text"><strong>Warning!</strong> Please check whether your task name and date are input or not!</span>
                         </base-alert>
                     </div>
-                    <div class= "col-lg-12 pt-lg text-center">
-                        <base-button class="btn-1" outline type="success" @click="handleSubmit()">Submit</base-button>
+                    <br/>
+                    <br/>
+                    <div class= "text-center">
+                        <base-button class="btn-1" outline type="success" @click="handleSubmit()">ADD</base-button>
+                        <p class="lead text-white mt-3 mb-3"></p>
                     </div>
                 </card>
             </div>
@@ -184,10 +240,12 @@ import { service } from "@/plugins/request_service.js";
 import store from "@/store";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
-import Tabs from "@/components/Tabs/Tabs.vue";
-import TabPane from "@/components/Tabs/TabPane.vue";
+import Tabs from "../components/Tabs/Tabs";
+import TabPane from "../components/Tabs/TabPane";
 import TabsSection from "./components/JavascriptComponents/TabsSection";
 import Badge from '../components/Badge.vue';
+import BaseNav from "../components/BaseNav";
+import BaseDropdown from "../components/BaseDropdown";
 
 export default {
     components:{
@@ -196,6 +254,8 @@ export default {
         Tabs,
         TabsSection,
         Badge,
+        BaseNav,
+        BaseDropdown
     },
     data: () =>({
         task_id:'',
@@ -203,13 +263,14 @@ export default {
         radioData: [
             { value: 'Assignment' },
             { value: 'Present' },
+            { value: 'Project' },
             { value: 'Midterm' },
-            { value: 'Final' },
-            { value: 'Project' }
+            { value: 'Final' }
+            
         ],
         radioVal: 'Assignment',
         DueDate: {
-            simple: "2021-04-01"
+            simple: "20210401"
         },
         partnerEmail: [],
         groupmates: "xxx@link.cuhk.edu.hk",
@@ -219,6 +280,7 @@ export default {
     methods:{
         getRadioVal(val){
             this.radioVal =  val;
+            console.log(this.getRadioVal);
         },                     
         handleDelete(i){
             this.partnerEmail.splice(i,1);

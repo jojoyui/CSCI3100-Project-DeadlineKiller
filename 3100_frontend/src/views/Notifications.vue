@@ -80,20 +80,22 @@
                                     </strong>
                                 </h3>
                             </div>
+                            <br/>
                             <div>
                                 <ul class="list-unstyled">
                                     <li v-for = "(task, num) in tasks_name" :key="num">
                                         <div class="row">
-                                            <div class="col-sm">
+                                            <div class="col text-right">
                                                 <h5 type="primary">
-                                                    <i class="ni ni-single-copy-04"></i> 
+                                                    <i class="ni ni-atom text-info"></i> 
                                                     {{ task["task"] }}
+                                                    <badge type="primary"> {{ task["type"] }} </badge>
                                                 </h5>
                                             </div>
-                                            <div class="col-sm">
-                                                <badge type="primary">Type: {{ task["type"] }}</badge>
+                                            <div class="col text-left">
+                                                <!-- <badge type="primary"> {{ task["type"] }}</badge> -->
                                             </div>
-                                            <div class="col-sm">
+                                            <div class="col text-left">
                                                 <base-button size="sm" outline type="success" @click="handleAccept(num)">Accept</base-button>
                                                 <base-button size="sm" outline type="danger" @click="handleDecline(num)">Decline</base-button>
                                             </div>
