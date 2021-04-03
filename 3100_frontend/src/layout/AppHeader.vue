@@ -76,13 +76,14 @@
 
                 <!-- <router-link to="/create_task"  class="nav-link">Create Task</router-link> -->
 
-                <router-link @mouseover.native="refresh" to="/notification"  class="nav-link">
+                <!-- <router-link @mouseover.native="refresh" @click="modals.modal1 = true" to="/notification"  class="nav-link">
                     <div>
                         <span>Notification
                             <badge type="white">{{tasks}}</badge>
                         </span>
                     </div>
-                </router-link>
+                </router-link> -->
+                
 
             </ul>
             
@@ -117,6 +118,7 @@
                 </li> -->
                 <!-- <li class="nav-item d-none d-lg-block ml-lg-4"> -->
                     <!-- <router-link to="/register" class="dropdown-item">Register</router-link> -->
+                    
 
                     <router-link @mousemove.native="refresh" to="/create_task" rel="noopener" class="btn btn-neutral btn-icon">
                         <span class="btn-inner--icon">
@@ -124,6 +126,7 @@
                         </span>
                         <span class="nav-link-inner--text">Create Task</span>
                     </router-link>
+                    
                 <!-- </li> -->
             </ul>
         </base-nav>
@@ -134,16 +137,21 @@ import BaseNav from "@/components/BaseNav";
 import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
 import store from "@/store";
+import Modals from "../components/Modal.vue";
 import { service } from "@/plugins/request_service.js";
 
 export default {
     components: {
         BaseNav,
         CloseButton,
-        BaseDropdown
+        BaseDropdown,
+        Modals
     },
     data: () =>({
-        tasks: "0"
+        tasks: "0",
+        modals: {
+            modal1: false
+        }
     }),
     mounted (){
         this.notifis()

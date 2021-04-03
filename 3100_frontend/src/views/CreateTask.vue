@@ -173,7 +173,7 @@
                                 <div class="col">
                                     
                                     <br/>
-                                    <span><base-button class="ni ni-fat-add" rounded size="sm" type="primary" @click="handleAdd()"> 
+                                    <span><base-button class="ni ni-fat-add" size= "sm" type="primary" rounded @click="handleAdd()"> 
                                         <!-- <i class="ni ni-fat-add"></i> -->
                                     </base-button></span>
                                 </div>

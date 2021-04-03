@@ -71,6 +71,120 @@
         <section class="section section-skew">
             <div class="container">
                 <card shadow class="card-profile mt--300" no-body>
+                  <div>
+                        <div class="col-lg pt-lg-3">
+                            <div class="row">
+                                <div class="col">
+                                  <!-- <base-button type="default" class=" mb-3" @click="modals.modal3 = true" icon="ni ni-chat-round">
+                                        NOTES
+                                    </base-button>
+
+                                    <modal :show.sync="modals.modal3"
+                                        body-classes="p-0"
+                                        modal-classes="modal-dialog-centered modal-sm">
+                                        <card type="secondary" shadow
+                                            header-classes="bg-white pb-5"
+                                            body-classes="px-lg-5 py-lg-5"
+                                            class="border-0">
+                                            <template>
+                                                <div class="text-muted text-center mb-3">
+                                                    <small>Sign in with</small>
+                                                </div>
+                                                <div class="btn-wrapper text-center">
+                                                    <base-button type="neutral">
+                                                        <img slot="icon" src="img/icons/common/github.svg">
+                                                        Github
+                                                    </base-button>
+
+                                                    <base-button type="neutral">
+                                                        <img slot="icon" src="img/icons/common/google.svg">
+                                                        Google
+                                                    </base-button>
+                                                </div>
+                                            </template>
+                                            <template>
+                                                <div class="text-center text-muted mb-4">
+                                                    <small>Or sign in with credentials</small>
+                                                </div>
+                                                <form role="form">
+                                                    <base-input alternative
+                                                                class="mb-3"
+                                                                placeholder="Email"
+                                                                addon-left-icon="ni ni-email-83">
+                                                    </base-input>
+                                                    <base-input alternative
+                                                                type="password"
+                                                                placeholder="Password"
+                                                                addon-left-icon="ni ni-lock-circle-open">
+                                                    </base-input>
+                                                    <base-checkbox>
+                                                        Remember me
+                                                    </base-checkbox>
+                                                    <div class="text-center">
+                                                        <base-button type="primary" class="my-4">Sign In</base-button>
+                                                    </div>
+                                                </form>
+                                            </template>
+                                        </card>
+                                    </modal> -->
+                                    
+                                </div>
+                                <div class="col">
+                                  <span></span>
+                                </div>
+                                <div class="col">
+                                    <span></span>
+                                </div>
+                                <div class="col">
+                                    <span></span>
+                                </div>
+                                <div class="col text-right">
+                                  <base-button type="secondary" class="text-info mb-3" @click="modals.modal2 = true" icon="ni ni-bell-55">
+                                    <span>
+                                      <badge v-if="tasks_name.length === 0" type="success"> {{tasks_name.length}} </badge>
+                                      <badge v-else type="danger"> {{tasks_name.length}} </badge>
+                                    </span>         
+                                  </base-button>
+                                  <modal :show.sync="modals.modal2"
+                                      gradient="success"
+                                      modal-classes="modal-danger modal-dialog-centered">
+                                      <h6 slot="header" class="modal-title" id="modal-title-notification">Forming Group With Your Friends!</h6>
+                                      <div class="py-3 text-center">
+                                            <i class="ni ni-bell-55 ni-3x"></i>
+                                          <strong ><h4 class="heading mt-4">There are {{tasks_name.length}} requests!</h4></strong>
+                                      </div>
+                                      <div>
+                                        <ul class="list-unstyled">
+                                            <li v-for = "(task, num) in tasks_name" :key="num">
+                                                <div class="row">
+                                                    <div class="col text-left">
+                                                      
+                                                        <strong>
+                                                            <i class="ni ni-planet text-primary"></i> 
+                                                            {{ task["task"] }}
+                                                            <badge type="primary"> {{ task["type"] }} </badge>
+                                                        </strong>
+                                                        <br/>
+                                                        <br/>
+                                                      
+                                                    </div>
+                                                    
+                                                    <div class="col text-right">
+                                                      <!-- <div class="row"> -->
+                                                        <base-button size="sm" type="success" @click="handleAccept(num)">Accept</base-button>
+                                                        <base-button size="sm" type="danger" @click="handleDecline(num)">Decline</base-button>
+                                                      <!-- </div> -->
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                      </div>
+                                  </modal>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="todo-wrap">
                         <div class="caption">
@@ -139,6 +253,8 @@ import Tabs from "@/components/Tabs/Tabs.vue";
 import TabPane from "@/components/Tabs/TabPane.vue";
 import TabsSection from "./components/JavascriptComponents/TabsSection";
 import calendar from '@/components/todo/js/calendar';
+import Modal from "../components/Modal.vue";
+import Badge from '../components/Badge.vue';
 
 // import Fullcalendar from '@fullcalendar/vue'
 // import DayGridPlugin from '@fullcalendar/vue'
@@ -163,6 +279,8 @@ export default {
         TabPane,
         Tabs,
         TabsSection,
+        Modal,
+        Badge
         
     },
     props: {
@@ -197,7 +315,13 @@ export default {
         prevYear: 0,
         prevMonth: 0,
         nextYear: 0,
-        nextMonth: 0
+        nextMonth: 0,
+        modals: {
+            modal1: false,
+            modal2: false,
+            modal3: false
+        },
+        tasks_name: []
         // calendarPlugins: [
         //     DayGridPlugin,
         //     TimeGridPlugin,
@@ -219,6 +343,7 @@ export default {
         let date = new Date();
         this.curDay = date.getDate();
         this.handleFormatDate(date.getFullYear(), date.getMonth() + 1);
+        this.noti();
     },
     methods: {
         demo(){
@@ -343,7 +468,33 @@ export default {
             service.get(`/tasks/getTasks/${store.getters["getUserId"]}`).then(function(res){
                 console.log(res.data.data);
             });
-        }
+        },
+        //notification
+        noti(){
+            console.log("requests");
+            service.get(`/users/notification/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data);
+                this.tasks_name = res.data.data;
+            });
+            
+        },
+        handleAccept(i){
+            console.log("handleAccept");
+            console.log(this.tasks_name[i]["tid"]);
+            service.get(`/users/accept/${this.tasks_name[i]["tid"]}`).then(res =>{
+                console.log(res.data);
+            });
+            this.tasks_name.splice(i,1);
+        },
+        handleDecline(i){
+            console.log("handleDecline");
+            console.log(this.tasks_name[i]["tid"]);
+            service.get(`/users/decline/${this.tasks_name[i]["tid"]}`).then(res =>{
+                console.log(res.data);
+            });
+            this.tasks_name.splice(i,1);
+        },
+
     }
 
 
