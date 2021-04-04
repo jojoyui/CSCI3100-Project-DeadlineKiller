@@ -135,7 +135,8 @@
                                     <span></span>
                                 </div>
                                 <div class="col text-right">
-                                    <base-button type="secondary" class="text-default mb-3" @click="modals.modal2 = true" icon="ni ni-bell-55">
+                                    <base-button type="secondary" class="text-default mb-3" @click="modals.modal2 = true" icon="ni ni-bell-55" v-b-popover.hover.top="'Your friends are asking you!'"
+                                                title="Check Your Request">
                                         <span>
                                             Requests
                                             <badge v-if="tasks_name.length === 0" type="success"> {{tasks_name.length}} </badge>
@@ -210,6 +211,9 @@ import TabPane from "../components/Tabs/TabPane";
 import PillsLayout from "../components/Tabs/PillsLayout";
 import TabsLayout from "../components/Tabs/TabsLayout";
 import Badge from '../components/Badge.vue';
+import tooltip from './components/JavascriptComponents/Tooltips';
+import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
+import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
 
 //import  VueWindowModal  from  'vue-window-modal'
 //Vue.use(VueWindowModal)
@@ -222,8 +226,13 @@ export default {
             Tabs,
             PillsLayout,
             TabsLayout,
-            Badge
+            Badge,
+            tooltip
             
+        },
+        directives: {
+            BTooltip: VBTooltip,
+            BPopover: VBPopover
         },
 
         data: () => ({

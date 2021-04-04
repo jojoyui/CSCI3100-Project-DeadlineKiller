@@ -140,9 +140,11 @@
                                 </div>
                                 <div class="col text-right">
                                   <base-button type="secondary" 
-                                               class="text-default mb-3" 
+                                               class="text-default mb-3 btn-tooltip" 
                                                @click="modals.modal2 = true" 
-                                               icon="ni ni-bell-55">
+                                               icon="ni ni-bell-55"
+                                               v-b-popover.hover.top="'Your friends are asking you!'"
+                                                title="Check Your Request">
                                     <span>
                                       Requests
                                       <badge v-if="tasks_name.length === 0" type="success"> {{tasks_name.length}} </badge>
@@ -258,6 +260,10 @@ import TabsSection from "./components/JavascriptComponents/TabsSection";
 import calendar from '@/components/todo/js/calendar';
 import Modal from "../components/Modal.vue";
 import Badge from '../components/Badge.vue';
+import tooltip from './components/JavascriptComponents/Tooltips';
+import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
+import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
+
 
 
 
@@ -286,7 +292,12 @@ export default {
         Tabs,
         TabsSection,
         Modal,
-        Badge
+        Badge,
+        tooltip
+    },
+    directives: {
+      BTooltip: VBTooltip,
+      BPopover: VBPopover
     },
     props: {
     isWest: {
