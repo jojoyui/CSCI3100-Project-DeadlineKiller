@@ -129,7 +129,7 @@ setInterval(function(){
     var refreshHours = new Date().getHours();
     var refreshMin = new Date().getMinutes();
     var refreshSec = new Date().getSeconds();
-    if(refreshHours=='02' && refreshMin=='21' && refreshSec=='0'){
+    if(refreshHours=='11' && refreshMin=='00' && refreshSec=='0'){
         // 指定每天凌晨做的事情
         main().catch(console.error);
     }

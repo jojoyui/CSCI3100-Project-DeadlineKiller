@@ -70,7 +70,7 @@
         </section>
         <section class="section section-skew">
             <div class="container">
-                <card shadow class="card-createTask mt--300" no-body>
+                <card shadow class="card-createTask mt--300" no-body gradient="secondary">
                     <div class="col-lg-12 pt-lg">
                         <h3 class="text-center text-default">
                             <strong>
@@ -270,7 +270,7 @@ export default {
         ],
         radioVal: 'Assignment',
         DueDate: {
-            simple: "20210401"
+            simple: "2021-04-01"
         },
         partnerEmail: [],
         groupmates: "xxx@link.cuhk.edu.hk",

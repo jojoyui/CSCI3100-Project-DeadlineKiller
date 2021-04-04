@@ -135,14 +135,15 @@
                                     <span></span>
                                 </div>
                                 <div class="col text-right">
-                                    <base-button type="secondary" class="text-info mb-3" @click="modals.modal2 = true" icon="ni ni-bell-55">
+                                    <base-button type="secondary" class="text-default mb-3" @click="modals.modal2 = true" icon="ni ni-bell-55">
                                         <span>
+                                            Requests
                                             <badge v-if="tasks_name.length === 0" type="success"> {{tasks_name.length}} </badge>
                                             <badge v-else type="danger"> {{tasks_name.length}} </badge>
                                         </span>   
                                     </base-button>
                                     <modal :show.sync="modals.modal2"
-                                        gradient="success"
+                                        gradient="info"
                                         modal-classes="modal-danger modal-dialog-centered">
                                         <h6 slot="header" class="modal-title" id="modal-title-notification">Forming Group With Your Friends!</h6>
                                         <div class="py-3 text-center">
@@ -153,10 +154,10 @@
                                           <ul class="list-unstyled">
                                               <li v-for = "(task, num) in tasks_name" :key="num">
                                                   <div class="row">
-                                                      <div class="col text-left">
+                                                      <div class="col-7 text-left">
                                                         
                                                           <strong>
-                                                              <i class="ni ni-planet text-primary"></i> 
+                                                              <!-- <i class="ni ni-planet text-primary"></i>  -->
                                                               {{ task["task"] }}
                                                               <badge type="primary"> {{ task["type"] }} </badge>
                                                           </strong>
