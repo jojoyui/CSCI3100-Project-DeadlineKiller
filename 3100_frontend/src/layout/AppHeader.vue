@@ -1,11 +1,11 @@
 <template>
-    <header class="header-global">
-        <base-nav class="navbar-main" transparent type="" effect="light" expand>
-            <!-- <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
+  <header class="header-global">
+    <base-nav class="navbar-main" transparent type="" effect="light" expand>
+      <!-- <router-link slot="brand" class="navbar-brand mr-lg-5" to="/">
                 <img src="img/brand/white.png" alt="logo">
             </router-link> -->
 
-            <!-- <div class="row" slot="content-header" slot-scope="{closeMenu}">
+      <!-- <div class="row" slot="content-header" slot-scope="{closeMenu}">
                 <div class="col-6 collapse-brand">
                     <a href="https://demos.creative-tim.com/vue-argon-design-system/documentation/">
                         <img src="img/brand/blue.png">
@@ -16,8 +16,8 @@
                 </div>
             </div> -->
 
-            <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                <!-- <base-dropdown class="nav-item" menu-classes="dropdown-menu-xl">
+      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+        <!-- <base-dropdown class="nav-item" menu-classes="dropdown-menu-xl">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span class="nav-link-inner--text">Components</span>
@@ -58,37 +58,57 @@
                     <router-link to="/register" class="dropdown-item">Register</router-link>
                 </base-dropdown> -->
 
-                <base-dropdown tag="li" class="nav-item">
-                    <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <!-- <i class="ni ni-collection d-lg-none"></i> -->
-                        <img src="img/brand/test.png" style="width: 100px;" class="img-fluid">
-                        <!-- <span class="nav-link-inner--text">Deadline Killer</span> -->
-                    </a>
-                    <router-link @mousemove.native="refresh" to="/schedule" class="dropdown-item">Schedule</router-link>
-                    <router-link @mousedown.native="refresh" to="/list" class="dropdown-item">List</router-link> 
-                </base-dropdown>
+        <base-dropdown tag="li" class="nav-item">
+          <a
+            slot="title"
+            href="#"
+            class="nav-link"
+            data-toggle="dropdown"
+            role="button"
+          >
+            <!-- <i class="ni ni-collection d-lg-none"></i> -->
+            <img
+              src="img/brand/test.png"
+              style="width: 100px;"
+              class="img-fluid"
+            />
+            <!-- <span class="nav-link-inner--text">Deadline Killer</span> -->
+          </a>
+          <router-link
+            @mousemove.native="refresh"
+            to="/schedule"
+            class="dropdown-item"
+            >Schedule</router-link
+          >
+          <router-link
+            @mousedown.native="refresh"
+            to="/list"
+            class="dropdown-item"
+            >List</router-link
+          >
+        </base-dropdown>
 
-                <!-- <router-link to="/list" class="nav-link">List</router-link> -->
+        <!-- <router-link to="/list" class="nav-link">List</router-link> -->
 
-                <!-- <router-link to="/schedule" class="nav-link">Schedule</router-link> -->
+        <!-- <router-link to="/schedule" class="nav-link">Schedule</router-link> -->
 
-                <router-link @mouseup.native="refresh" to="/report"  class="nav-link">Report</router-link>
+        <router-link @mouseup.native="refresh" to="/report" class="nav-link"
+          >Report</router-link
+        >
 
-                <!-- <router-link to="/create_task"  class="nav-link">Create Task</router-link> -->
+        <!-- <router-link to="/create_task"  class="nav-link">Create Task</router-link> -->
 
-                <!-- <router-link @mouseover.native="refresh" @click="modals.modal1 = true" to="/notification"  class="nav-link">
+        <!-- <router-link @mouseover.native="refresh" @click="modals.modal1 = true" to="/notification"  class="nav-link">
                     <div>
                         <span>Notification
                             <badge type="white">{{tasks}}</badge>
                         </span>
                     </div>
                 </router-link> -->
-                
+      </ul>
 
-            </ul>
-            
-            <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                <!-- <li class="nav-item">
+      <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+        <!-- <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="https://www.facebook.com/creativetim" target="_blank" rel="noopener"
                        data-toggle="tooltip" title="Like us on Facebook">
                         <i class="fa fa-facebook-square"></i>
@@ -116,21 +136,29 @@
                         <span class="nav-link-inner--text d-lg-none">Github</span>
                     </a>
                 </li> -->
-                <!-- <li class="nav-item d-none d-lg-block ml-lg-4"> -->
-                    <!-- <router-link to="/register" class="dropdown-item">Register</router-link> -->
-                    
+        <!-- <li class="nav-item d-none d-lg-block ml-lg-4"> -->
+        <!-- <router-link to="/register" class="dropdown-item">Register</router-link> -->
 
-                    <router-link @mousemove.native="refresh" to="/create_task" rel="noopener" class="btn btn-neutral btn-icon">
-                        <span class="btn-inner--icon">
-                            <i class="fa fa-pencil fa-fw mr-2"></i>
-                        </span>
-                        <span class="nav-link-inner--text">Create Task</span>
-                    </router-link>
-                    
-                <!-- </li> -->
-            </ul>
-        </base-nav>
-    </header>
+        <router-link @mouseup.native="refresh" to="/logIn" class="nav-link"
+          >Log out
+        </router-link>
+
+        <router-link
+          @mousemove.native="refresh"
+          to="/create_task"
+          rel="noopener"
+          class="btn btn-neutral btn-icon"
+        >
+          <span class="btn-inner--icon">
+            <i class="fa fa-pencil fa-fw mr-2"></i>
+          </span>
+          <span class="nav-link-inner--text">Create Task</span>
+        </router-link>
+
+        <!-- </li> -->
+      </ul>
+    </base-nav>
+  </header>
 </template>
 <script>
 import BaseNav from "@/components/BaseNav";
@@ -141,35 +169,36 @@ import Modals from "../components/Modal.vue";
 import { service } from "@/plugins/request_service.js";
 
 export default {
-    components: {
-        BaseNav,
-        CloseButton,
-        BaseDropdown,
-        Modals
+  components: {
+    BaseNav,
+    CloseButton,
+    BaseDropdown,
+    Modals,
+  },
+  data: () => ({
+    tasks: "0",
+    modals: {
+      modal1: false,
     },
-    data: () =>({
-        tasks: "0",
-        modals: {
-            modal1: false
-        }
-    }),
-    mounted (){
-        this.notifis()
+  }),
+  mounted() {
+    this.notifis();
+  },
+  methods: {
+    notifis() {
+      console.log("Headerrequest");
+      service
+        .get(`/users/countrequest/${store.getters["getUserId"]}`)
+        .then((res) => {
+          console.log(res.data.data[0].number);
+          this.tasks = res.data.data[0].number;
+        });
     },
-    methods: {
-        notifis(){
-            console.log("Headerrequest");
-            service.get(`/users/countrequest/${store.getters["getUserId"]}`).then(res=>{
-                console.log(res.data.data[0].number);
-                this.tasks = res.data.data[0].number;
-            });
-        },
-        refresh: function(){
-            console.log("refresh");
-            this.notifis();
-        }
-    }
+    refresh: function() {
+      console.log("refresh");
+      this.notifis();
+    },
+  },
 };
 </script>
-<style>
-</style>
+<style></style>

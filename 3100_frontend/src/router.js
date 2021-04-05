@@ -23,6 +23,7 @@ import store from "@/store";
 //import router from "../../3100_backend/routes/users";
 
 
+
 const router = new Router({
   linkExactActiveClass: "active",
   routes: [
@@ -50,6 +51,10 @@ const router = new Router({
       components: {
         //header: AppHeader,
         default: Login,
+      },
+      beforeEnter: async (to, from, next) => {
+        await store.commit('logOut');
+        next();
       }
     },
     {
@@ -128,7 +133,9 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  
+ // await checkLoggedIn();
+  //check = await store.getters['checkLogged'];
+  await store.dispatch('sessionStorage');
   if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/register"){
     console.log("not yet log in");
     next("/login");
