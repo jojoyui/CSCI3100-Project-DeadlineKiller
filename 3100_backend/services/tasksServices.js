@@ -95,7 +95,6 @@ module.exports = {
             .where({user_id: user})
             .update({subtask_id: subid});
             
-    }
-
+    },
     
 }

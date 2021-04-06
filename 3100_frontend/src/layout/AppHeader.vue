@@ -75,13 +75,11 @@
             <!-- <span class="nav-link-inner--text">Deadline Killer</span> -->
           </a>
           <router-link
-            @mousemove.native="refresh"
             to="/schedule"
             class="dropdown-item"
             >Schedule</router-link
           >
           <router-link
-            @mousedown.native="refresh"
             to="/list"
             class="dropdown-item"
             >List</router-link
@@ -92,7 +90,7 @@
 
         <!-- <router-link to="/schedule" class="nav-link">Schedule</router-link> -->
 
-        <router-link @mouseup.native="refresh" to="/report" class="nav-link"
+        <router-link to="/report" class="nav-link"
           >Report</router-link
         >
 
@@ -139,12 +137,11 @@
         <!-- <li class="nav-item d-none d-lg-block ml-lg-4"> -->
         <!-- <router-link to="/register" class="dropdown-item">Register</router-link> -->
 
-        <router-link @mouseup.native="refresh" to="/logIn" class="nav-link"
+        <router-link to="/logIn" class="nav-link"
           >Log out
         </router-link>
 
         <router-link
-          @mousemove.native="refresh"
           to="/create_task"
           rel="noopener"
           class="btn btn-neutral btn-icon"
@@ -164,9 +161,9 @@
 import BaseNav from "@/components/BaseNav";
 import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
-import store from "@/store";
+// import store from "@/store";
 import Modals from "../components/Modal.vue";
-import { service } from "@/plugins/request_service.js";
+// import { service } from "@/plugins/request_service.js";
 
 export default {
   components: {
@@ -174,31 +171,31 @@ export default {
     CloseButton,
     BaseDropdown,
     Modals,
-  },
-  data: () => ({
-    tasks: "0",
-    modals: {
-      modal1: false,
-    },
-  }),
-  mounted() {
-    this.notifis();
-  },
-  methods: {
-    notifis() {
-      console.log("Headerrequest");
-      service
-        .get(`/users/countrequest/${store.getters["getUserId"]}`)
-        .then((res) => {
-          console.log(res.data.data[0].number);
-          this.tasks = res.data.data[0].number;
-        });
-    },
-    refresh: function() {
-      console.log("refresh");
-      this.notifis();
-    },
-  },
+  }
+  // data: () => ({
+  //   tasks: "0",
+  //   modals: {
+  //     modal1: false,
+  //   },
+  // }),
+  // mounted() {
+  //   this.notifis();
+  // },
+  // methods: {
+  //   notifis() {
+  //     console.log("Headerrequest");
+  //     service
+  //       .get(`/users/countrequest/${store.getters["getUserId"]}`)
+  //       .then((res) => {
+  //         console.log(res.data.data[0].number);
+  //         this.tasks = res.data.data[0].number;
+  //       });
+  //   },
+  //   refresh: function() {
+  //     console.log("refresh");
+  //     this.notifis();
+  //   },
+  // },
 };
 </script>
 <style></style>
