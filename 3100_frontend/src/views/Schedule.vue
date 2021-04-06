@@ -76,57 +76,85 @@
                             <div class="row">
                                 <div class="col">
                                   <!-- <base-button type="default" class=" mb-3" @click="modals.modal3 = true" icon="ni ni-chat-round">
-                                        NOTES
-                                    </base-button>
-
+                                        ADD Subtask
+                                    </base-button> -->
                                     <modal :show.sync="modals.modal3"
                                         body-classes="p-0"
                                         modal-classes="modal-dialog-centered modal-sm">
-                                        <card type="secondary" shadow
+                                        <card gradient="secondary" shadow
                                             header-classes="bg-white pb-5"
                                             body-classes="px-lg-5 py-lg-5"
                                             class="border-0">
                                             <template>
-                                                <div class="text-muted text-center mb-3">
-                                                    <small>Sign in with</small>
-                                                </div>
-                                                <div class="btn-wrapper text-center">
-                                                    <base-button type="neutral">
-                                                        <img slot="icon" src="img/icons/common/github.svg">
-                                                        Github
-                                                    </base-button>
-
-                                                    <base-button type="neutral">
-                                                        <img slot="icon" src="img/icons/common/google.svg">
-                                                        Google
-                                                    </base-button>
+                                                <div class="text-center text-primary mb-3">
+                                                    <strong>NEW SUBTASK</strong>
                                                 </div>
                                             </template>
                                             <template>
-                                                <div class="text-center text-muted mb-4">
-                                                    <small>Or sign in with credentials</small>
-                                                </div>
+                                                
                                                 <form role="form">
                                                     <base-input alternative
                                                                 class="mb-3"
-                                                                placeholder="Email"
-                                                                addon-left-icon="ni ni-email-83">
+                                                                v-model="tname"
+                                                                placeholder="Subtask Name"
+                                                                addon-left-icon="ni ni-map-big">
                                                     </base-input>
-                                                    <base-input alternative
-                                                                type="password"
-                                                                placeholder="Password"
-                                                                addon-left-icon="ni ni-lock-circle-open">
-                                                    </base-input>
-                                                    <base-checkbox>
-                                                        Remember me
-                                                    </base-checkbox>
-                                                    <div class="text-center">
-                                                        <base-button type="primary" class="my-4">Sign In</base-button>
+                                                    <div class="row">
+                                                      <div class="col">
+                                                        <badge type="primary">start date</badge>
+                                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                                            <flat-picker slot-scope="{focus, blur}"
+                                                                        @on-open="focus"
+                                                                        @on-close="blur"
+                                                                        :config="{allowInput: true}"
+                                                                        class="form-control datepicker"
+                                                                        v-model="dates.start">
+                                                            </flat-picker>
+                                                        </base-input>
+                                                      </div>
+                                                      <div class="col">
+                                                        <badge type="primary">end date</badge>
+                                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                                            <flat-picker slot-scope="{focus, blur}"
+                                                                        @on-open="focus"
+                                                                        @on-close="blur"
+                                                                        :config="{allowInput: true}"
+                                                                        class="form-control datepicker"
+                                                                        v-model="dates.end">
+                                                            </flat-picker>
+                                                        </base-input>
+                                                      </div>
                                                     </div>
+                                                    <!-- <br/> -->
+                                                    <badge type="primary">Details</badge>
+                                                    <textarea v-model="description"
+                                                                class="Description form-control form-control-alternative mb-3"
+                                                                placeholder="e.g Kill me Please!">
+                                                                
+                                                    </textarea>
+                                                    <base-alert v-if="!validsubmit" type="warning">
+                                                        <!-- <span class="alert-inner--icon"><i class="ni ni-bulb-61"></i></span> -->
+                                                        <span class="alert-inner--text">Please input the <strong>SUBTASK NAME!</strong></span>
+                                                    </base-alert>
+                                                    <div class="row">
+                                                      <div class="text-left col">
+                                                        <base-button type="link"
+                                                                      text-color = "default"
+                                                                      class="my-4"
+                                                                      @click="modals.modal3 = false, validsubmit = true">
+                                                              Close
+                                                        </base-button>
+                                                      </div>
+                                                      <div class="text-right col">
+                                                          <base-button type="primary" outline class="my-4" @click="handleSubmit()">ADD</base-button>
+                                                          
+                                                      </div>
+                                                    </div>
+                                                    
                                                 </form>
                                             </template>
                                         </card>
-                                    </modal> -->
+                                    </modal>
                                     
                                 </div>
                                 <div class="col">
@@ -223,12 +251,9 @@
                                 <span class="author">{{'subtask：' + isItem.desc.author}}</span>
                                 </div>
                                 <div class="link-box">
-                                <a class="link" :href="isItem.desc.link">Details</a>
-                                <!-- <span class="view">
-                                    已查看
-                                    <span class="strong">{{isItem.desc.num}}</span>
-                                    次
-                                </span> -->
+                                  <base-button type="success" class="mb-3" @click="modals.modal3 = true" size="sm">
+                                    Add Subtask
+                                  </base-button>
                                 </div>
                             </div>
                             </li>
@@ -253,6 +278,7 @@
 //  require('@fullcalendar/timegrid/main.min.css')
 
 import { service } from "@/plugins/request_service.js";
+import { uuid } from 'vue-uuid'; 
 import store from "@/store";
 import Tabs from "@/components/Tabs/Tabs.vue";
 import TabPane from "@/components/Tabs/TabPane.vue";
@@ -263,6 +289,8 @@ import Badge from '../components/Badge.vue';
 import tooltip from './components/JavascriptComponents/Tooltips';
 import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
 import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
+import flatPicker from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
 
 
 
@@ -281,7 +309,7 @@ const todoObj = {
     time: '2018.02.27',
     author: 'shaw',
     num: 369,
-    link: 'https://github.com/chilliness'
+    link: 'http://localhost:8080/#/create_subtask'
   }
 };
 
@@ -293,6 +321,7 @@ export default {
         TabsSection,
         Modal,
         Badge,
+        flatPicker,
         tooltip
     },
     directives: {
@@ -314,6 +343,16 @@ export default {
     data: () => ({
         temp: "original",
         task: "A",
+        user_id: store.getters["getUserId"],
+        task_id: store.getters["getTaskId"],
+        subtask_id:'',
+        tname:"",
+        dates: {
+            start: "2021-04-01",
+            end: '2021-04-30'
+        },
+        description: "",
+        validsubmit: true,
         prevMonthDays: 0,
         curMonthDays: [],
         nextMonthDays: 0,
@@ -369,6 +408,42 @@ export default {
                 this.temp = res.data.data[0].name;
             })
             
+        },
+        handleSubmit(){
+          console.log("clicked");
+          
+          this.subtask_id = uuid.v1();
+          if (this.tname == ''){
+              this.validsubmit = false;
+          }
+          else{
+            service.post("/tasks/createSubtask", {
+                subtask_id: this.subtask_id,
+                task_id: this.task_id,
+                name: this.tname,
+                start_date: this.dates.start,
+                end_date: this.dates.end,
+                description: this.description
+
+            }).then(res => {
+                if (res.data.success) {
+                    console.log("Update to task database success!");
+                    service.get(`/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`)
+                        .then(res => {
+                            console.log(res.data);
+                        }).catch((err)=>{
+                            console.log("err:", err);
+                            this.validsubmit = false;
+                        });
+                    this.$router.push("/list");
+                } else {
+                    console.log("Update to subtask database failed!");
+                }
+            }).catch((err)=>{
+                console.log("err:", err);
+                this.validsubmit = false;
+            });
+          }
         },
         handleLunar(year, month, date) {
             let { IMonthCn, IDayCn } = calendar.solar2lunar(year, month, date);
@@ -528,7 +603,7 @@ export default {
     align-items: center;
     height: 50px;
     color: #fff;
-    background: #00bbff;
+    background: linear-gradient(45deg,#85c4ff 0%, #1e90ff 17%, #7b68ee 46%, #7b68ee 46%, #7b68ee 56%, #8a2be2 82%, #ba55d3 100%);
     .item {
       display: flex;
       justify-content: center;
@@ -578,7 +653,7 @@ export default {
         height: 40px;
         color: #333;
         border-right: 1px solid #fff;
-        background: #e8ecef;
+        background: #e6e6fa;
         &:last-child {
           border-right: 0 none;
         }
@@ -624,7 +699,7 @@ export default {
           color: #666;
           cursor: pointer;
           border-radius: 2px;
-          background: #f2f2f2;
+          background: #f0f8ff;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
