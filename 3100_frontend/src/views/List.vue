@@ -223,7 +223,7 @@
                                         Name: {{item.name}} <br> Type: {{item.type}} <br> Deadline: {{item.due_date}} <br><br> Description: <br> {{item.description}} 
                                         <br/>
                                         <br/>
-                                        <base-button type="success" class="mb-3" @click="modals.modal3 = true" size="sm">
+                                        <base-button type="info" class="mb-3" @click="modals.modal3 = true" size="sm">
                                             Add Subtask
                                         </base-button>
                                         <hr>

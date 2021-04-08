@@ -251,7 +251,7 @@
                                 <span class="author">{{'subtask：' + isItem.desc.author}}</span>
                                 </div>
                                 <div class="link-box">
-                                  <base-button type="success" class="mb-3" @click="modals.modal3 = true" size="sm">
+                                  <base-button type="info" class="mb-3" @click="modals.modal3 = true" size="sm">
                                     Add Subtask
                                   </base-button>
                                 </div>
@@ -707,8 +707,8 @@ export default {
             margin-top: 35px;
           }
           &.on {
-            color: #0a7b5d;
-            background: #c6ede3;
+            color: #eff7f4;
+            background: #67a2f0;
           }
         }
         .todo-item {
@@ -719,7 +719,7 @@ export default {
           width: 318px;
           height: 213px;
           padding: 22px 30px 26px;
-          border: 1px solid #17b68c;
+          border: 1px solid #3c85da;
           transform: translateX(15px);
           background: #fff;
           box-shadow: 0 2px 10px #ccc;
@@ -731,8 +731,8 @@ export default {
             top: 4px;
             width: 14px;
             height: 14px;
-            border-left: 1px solid #17b68c;
-            border-top: 1px solid #17b68c;
+            border-left: 1px solid #3c85da;
+            border-top: 1px solid #3c85da;
             transform: rotate(-45deg);
             background: #fff;
           }
