@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get("/getTasks/:user", tasksControllers.getTasks);
+router.get("/getTasksId/:user", tasksControllers.getTasksId);
 //router.get("/report/:user", tasksControllers.Report);
 
 router.post("/createTask", tasksControllers.createTask);
@@ -16,8 +17,8 @@ router.get("/CountCompletedTask/:user/:start/:end", tasksControllers.CountComple
 router.get("/CountIncompletedTask/:user/:start/:end", tasksControllers.CountIncompletedTask);
 router.get("/CountTotalTask/:user", tasksControllers.CountTotalTask);
 router.get("/CountDueTask/:user", tasksControllers.CountDueTask);
-
-
+router.post("/createSubtask", tasksControllers.createSubtask);
+router.get("/updategroup/:task:user:subid", tasksControllers.Updategroup);
 
 
 module.exports = router;

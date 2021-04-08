@@ -18,5 +18,10 @@ router.get('/', function(req, res, next) {
 router.post("/register", usersControllers.register);
 router.post("/login", usersControllers.login);
 router.get("/getUserId/:email", usersControllers.getUserId);
+router.get("/getUserName/:user", usersControllers.getUserId);
+router.get("/notification/:user", usersControllers.notification);
+router.get("/countrequest/:user", usersControllers.countrequest);
+router.get("/accept/:task", usersControllers.Updateaccept);
+router.get("/decline/:task", usersControllers.Updatedecline);
 
 module.exports = router;

@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+const mission = require('../controllers/SendEmail.js');
 
 var app = require('../app');
 var debug = require('debug')('3100-backend:server');
@@ -87,4 +88,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  mission;
 }

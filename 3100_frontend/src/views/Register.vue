@@ -10,6 +10,11 @@
             <span></span>
             <span></span>
         </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-7 text-center pt-lg">
+                <img src="img/brand/test.png" style="width: 300px;" class="img-fluid">
+            </div>
+        </div>
         <div class="container pt-lg-md">
             <div class="row justify-content-center">
                 <div class="col-lg-5">

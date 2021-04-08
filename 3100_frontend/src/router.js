@@ -8,14 +8,20 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 
+
 //new
 import Schedule from "./views/Schedule.vue"
 import List from "./views/List.vue"
 import Report from "./views/Report.vue"
 import CreateTask from "./views/CreateTask.vue"
+import Subtask from "./views/Subtask.vue"
+import Notification from "./views/Notifications.vue"
+
+
 Vue.use(Router);
 import store from "@/store";
 //import router from "../../3100_backend/routes/users";
+
 
 
 const router = new Router({
@@ -43,15 +49,19 @@ const router = new Router({
       path: "/login",
       name: "login",
       components: {
-        header: AppHeader,
+        //header: AppHeader,
         default: Login,
+      },
+      beforeEnter: async (to, from, next) => {
+        await store.commit('logOut');
+        next();
       }
     },
     {
       path: "/register",
       name: "register",
       components: {
-        header: AppHeader,
+        //header: AppHeader,
         default: Register
       }
     },
@@ -95,7 +105,23 @@ const router = new Router({
         header: AppHeader,
         default: CreateTask,
       }
-    }
+    },
+    {
+      path: "/create_subtask",
+      name: "create_subtask",
+      components: {
+        header: AppHeader,
+        default: Subtask,
+      }
+    },
+    {
+      path: "/notification",
+      name: "notification",
+      components: {
+        header: AppHeader,
+        default: Notification
+      }
+    },
   ],
   scrollBehavior: to => {
     if (to.hash) {
@@ -107,7 +133,9 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  
+ // await checkLoggedIn();
+  //check = await store.getters['checkLogged'];
+  await store.dispatch('sessionStorage');
   if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/register"){
     console.log("not yet log in");
     next("/login");
