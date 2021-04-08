@@ -1,3 +1,5 @@
+const { GatewayTimeout, NotAcceptable } = require("http-errors");
+
 const knex = require("knex")(require("../knexfile.js")["development"]);
 
 module.exports = {
@@ -17,7 +19,7 @@ module.exports = {
         });
     },
 
-    countTask: async function(user, start, end){
+    CountCompletedTask: async function(user, start, end){
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -38,7 +40,7 @@ module.exports = {
             description: newTask.description
         });
     },
-    countTask2: async function(user, start, end){
+    CountIncompletedTask: async function(user, start, end){
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -46,5 +48,28 @@ module.exports = {
             .whereNull('completed_timestamp')
             .where('due_date', '>=', start)
             .where('due_date', '<', end+1);
+    },
+    CountTotalTask: async function(user){
+        return await knex('task')
+            .count('*', {as: 'number'})
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({user_id: user});
+    },
+    CountDueTask: async function(user){
+        var now = new Date();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var time = now.getFullYear() + "-" + month + "-" + day + " 00:00:00"
+        console.log(time)
+        return await knex('task')
+        .count('*', {as: 'number'})
+        .innerJoin('group','group.task_id','task.task_id')
+        .where ({
+            user_id: user,
+            request: 'accept'
+        })
+        .whereNull('completed_timestamp')
+        .where('due_date', '>', time);
     }
+
 }

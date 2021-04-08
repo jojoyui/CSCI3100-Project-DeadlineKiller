@@ -10,86 +10,230 @@
                 <span></span>
                 <span></span>
             </div>
+            <div class="container shape-container d-flex align-items-center">
+                <div class="col px-0">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-lg-7 text-center pt-lg">
+                            <img src="img/brand/test.png" style="width: 300px;" class="img-fluid">
+                            <p class="lead text-white mt-4 mb-5"></p >
+                            <div class="btn-wrapper">
+                                <base-button tag="a"
+                                            href="http://localhost:8080/#/list"
+                                            class="mb-3 mb-sm-0"
+                                            type="white"
+                                            icon="ni ni-bullet-list-67">
+                                    Task List
+                                </base-button>
+                                <base-button tag="a"
+                                            href="http://localhost:8080/#/schedule"
+                                            class="mb-3 mb-sm-0"
+                                            type="white"
+                                            icon="ni ni-calendar-grid-58">
+                                    Schedule
+                                </base-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around stars-and-coded">
+                        <div class="row">
+                            <div class="col">
+                                <!-- <base-button tag="a"
+                                                href="https://demos.creative-tim.com/vue-argon-design-system/documentation"
+                                                class="mb-3 mb-sm-0"
+                                                type="info"
+                                                icon="fa fa-code">
+                                        Create Task
+                                </base-button> -->
+                            </div>
+                            <div class="col">
+                                <span></span>
+                            </div>
+                            <div class="col">
+                                <span></span>
+                            </div>
+                            <div class="col">
+                                <div class="col-sm-4 mt-4 mt-sm-0 text-right">
+                                    <!-- <base-button tag="a"
+                                                href="https://www.creative-tim.com/product/vue-argon-design-system"
+                                                class="mb-3 mb-sm-0"
+                                                type="white"
+                                                icon="ni ni-cloud-download-95">
+                                        schedule
+                                    </base-button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section class="section section-skew">
             <div class="container">
                    <card shadow class="card-createTask mt--300" no-body>
-                        <div class="col-lg-12 pt-lg">
+                        <div>
                             <div>
-                                <h1 class="mb-5 text-center">
-                                     <div>Progress Report</div>
-                                </h1>
+                                
                                 <blockquote class="blockquote">
-                                    <p class="mb-0">Please select your date range:</p>
+                                    <!-- <p class="mb-0">Please select your date range:</p > -->
                                 </blockquote>
 
                             </div>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <badge type="primary">start date</badge>
-                                    <base-input addon-left-icon="ni ni-calendar-grid-58">
-                                        <flat-picker slot-scope="{focus, blur}"
-                                                    @on-open="focus"
-                                                    @on-close="blur"
-                                                    :config="{allowInput: true}"
-                                                    class="form-control datepicker"
-                                                    v-model="dates.start">
-                                        </flat-picker>
-                                    </base-input>
+                            <div class="col-lg ">
+    
+                                <div class="row">
+                                    <div class="col">
+                                        <badge type="primary">start date</badge>
+                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                            <flat-picker slot-scope="{focus, blur}"
+                                                        @on-open="focus"
+                                                        @on-close="blur"
+                                                        :config="{allowInput: true}"
+                                                        class="form-control datepicker"
+                                                        v-model="dates.start">
+                                            </flat-picker>
+                                        </base-input>
+                                    </div>
+                                    <div class="col">
+                                        <badge type="primary">end date</badge>
+                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                            <flat-picker slot-scope="{focus, blur}"
+                                                        @on-open="focus"
+                                                        @on-close="blur"
+                                                        :config="{allowInput: true}"
+                                                        class="form-control datepicker"
+                                                        v-model="dates.end">
+                                            </flat-picker>
+                                        </base-input>
+                                    </div>
+                                    <div class="col">
+                                        
+                                        <div>
+                                            <p class="lead text-white mt-3 mb-3"></p >
+                                            <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button></span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <span></span>
+                                    </div>
+
                                 </div>
-                                <div class="col-sm">
-                                    <badge type="primary">end date</badge>
-                                    <base-input addon-left-icon="ni ni-calendar-grid-58">
-                                        <flat-picker slot-scope="{focus, blur}"
-                                                    @on-open="focus"
-                                                    @on-close="blur"
-                                                    :config="{allowInput: true}"
-                                                    class="form-control datepicker"
-                                                    v-model="dates.end">
-                                        </flat-picker>
-                                    </base-input>
-                                </div>
-                                <div class="col-sm">
-                                    <!-- <div>
-                                    <badge type="primary">search</badge>
-                                    </div> -->
-                                    <div>
-                                    <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button></span>
+                                <br/>
+                                <br/>
+                                <h2 class="mb-5 text-center">
+                                        <strong>Progress Report</strong>
+                                </h2>
+                                <div class="row">
+                                    <div class="col-md-auto">
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-success font-weight-bold mb-0">{{finishTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Completed Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-green text-white rounded-circle shadow">
+                                                                <i class="ni ni-like-2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats" data-placement="left">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-primary font-weight-bold mb-0">{{unfinishTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Incompleted Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
+                                                                <i class="ni ni-spaceship"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-auto">
+                                        
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats" data-placement="left">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-warning font-weight-bold mb-0">{{DueTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Overdue Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                                                <i class="ni ni-time-alarm"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-auto">
+                                        
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats" data-placement="left">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-default font-weight-bold mb-0">{{totalTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-default text-white rounded-circle shadow">
+                                                                <i class="ni ni-user-run"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
-                                <div class="col-sm">
-                                    <span></span>
-                                </div>
-                            </div> 
-                            <div class="ct-example-row">
-                                <div class="row">
-                                    <div class="col"><h2 class="mb-5"></h2></div>
-                                </div>
-                            </div>
-                        <!-- <h2 class="mb-5 text-center"> -->
-                            <!-- <div class="h1 font-weight-300">Progress Report</div> -->
-                            <h3>
-                                <span>You have finished <span class="h4 text-success front-weight-bold mb-4">{{finishTask}}</span> tasks! </span>
-                                <i class="ni ni-like-2"></i>
-                            </h3>
-                            <h3 class="mb-5">
-                                <span>You have <span class="h4 text-warning front-weight-bold mb-4">{{unfinishTask}}</span> tasks left! Come on! </span>
-                            </h3>
-                            <h2>Progress Bars</h2>
-                            <!-- </h2> -->
+                                <!-- <div class="text-center">
+                                    <h3>
+                                        <span>You have finished <span class="h4 text-success front-weight-bold mb-4">{{finishTask}}</span> tasks! </span>
+                                        <i class="ni ni-like-2"></i>
+                                    </h3>
+                                    <h3 class="mb-5 default">
+                                        <span>You have <span class="h4 text-warning front-weight-bold mb-4">{{unfinishTask}}</span> tasks left! Keep up! </span>
+                                    </h3>
+                                </div> -->
+                    
                                 <div class="progress-wrapper">
                                     <div class="progress-primary">
                                                 <div class="progress-label">
-                                                     <span>Task Completed</span>
+                                                        <span>Task Completed</span>
                                                 </div>
                                         <div class="progress-percentage">
-                                           <span>{{Math.round(percent)}}%</span>
+                                            <span>{{Math.round(percent)}}%</span>
                                         </div>
                                     </div>
                                     <div class="progress" style="height:8px;">
                                         <div class="progress-bar progress-bar-success progress-bar-striped active" :style="{ width: parseFloat(percent) +'%' }" ></div>
-                                    </div>
                                 </div>
+                            </div>
+                        </div>
                         <!-- </h2> -->
                    </div>
                 </card>
@@ -102,16 +246,20 @@ import { service } from "@/plugins/request_service.js";
 import store from "@/store";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import DatePickers from './components/JavascriptComponents/DatePickers.vue';
+
 
 
 export default {
     components:{
-        flatPicker
+        flatPicker,
+        DatePickers
     },
-
     data: () =>({
-        finishTask:"",
-        unfinishTask:"",
+        finishTask:"0",
+        unfinishTask:"0",
+        totalTask:"0",
+        DueTask:"0",
         percentage:"",
         dates: {
             start: "2021-01-01",
@@ -136,16 +284,27 @@ export default {
             console.log("report")
             service.post
            
-            service.get(`/tasks/countTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
+            service.get(`/tasks/CountCompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
                 console.log(res.data.data[0].number);
                 this.finishTask=res.data.data[0].number;
             })
-            service.get(`/tasks/countTask2/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
+            service.get(`/tasks/CountIncompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
                 console.log(res.data.data[0].number);
                 this.unfinishTask=res.data.data[0].number;
+            })
+            service.get(`/tasks/CountTotalTask/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data.data[0].number);
+                this.totalTask=res.data.data[0].number;
+            })
+            service.get(`/tasks/CountDueTask/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data.data[0].number);
+                console.log(res.data.data);
+                this.DueTask=res.data.data[0].number;
             })
         }
     }
 }
 
 </script>
+<style scoped>
+</style>
