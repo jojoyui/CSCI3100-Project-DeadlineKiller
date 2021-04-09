@@ -35,6 +35,23 @@ module.exports = {
             //next(err);
         }
     },
+    getPasswordReminder: async function (req, res, next){
+        try{
+            console.log("users controller, getPasswordReminder");
+            const email = req.params.email;
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.getPasswordReminder(email)
+            );
+        } catch(err){
+            console.log(
+                "Error: usersController.getPasswordReminder: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
     getUserId: async function(req,res,next){
         try{
             console.log("register controller");
