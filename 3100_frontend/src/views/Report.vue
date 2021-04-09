@@ -15,7 +15,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-7 text-center pt-lg">
                             <img src="img/brand/test.png" style="width: 300px;" class="img-fluid">
-                            <p class="lead text-white mt-4 mb-5"></p>
+                            <p class="lead text-white mt-4 mb-5"></p >
                             <div class="btn-wrapper">
                                 <base-button tag="a"
                                             href="http://localhost:8080/#/list"
@@ -74,7 +74,7 @@
                             <div>
                                 
                                 <blockquote class="blockquote">
-                                    <!-- <p class="mb-0">Please select your date range:</p> -->
+                                    <!-- <p class="mb-0">Please select your date range:</p > -->
                                 </blockquote>
 
                             </div>
@@ -108,7 +108,7 @@
                                     <div class="col">
                                         
                                         <div>
-                                            <p class="lead text-white mt-3 mb-3"></p>
+                                            <p class="lead text-white mt-3 mb-3"></p >
                                             <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button></span>
                                         </div>
                                     </div>
@@ -122,8 +122,95 @@
                                 <h2 class="mb-5 text-center">
                                         <strong>Progress Report</strong>
                                 </h2>
-                                
-                                <div class="text-center">
+                                <div class="row">
+                                    <div class="col-md-auto">
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-success font-weight-bold mb-0">{{finishTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Completed Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-green text-white rounded-circle shadow">
+                                                                <i class="ni ni-like-2"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats" data-placement="left">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-primary font-weight-bold mb-0">{{unfinishTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Incompleted Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
+                                                                <i class="ni ni-spaceship"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-auto">
+                                        
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats" data-placement="left">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-warning font-weight-bold mb-0">{{DueTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Overdue Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                                                <i class="ni ni-time-alarm"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-auto">
+                                        
+                                        <div style="width: 28rem;">
+                                            <div class="card card-stats" data-placement="left">
+                                                <!-- Card body -->
+                                                <div class="card-body">  
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <span class="h1 text-default font-weight-bold mb-0">{{totalTask}}</span>
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Tasks</h5>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-default text-white rounded-circle shadow">
+                                                                <i class="ni ni-user-run"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- <div class="text-center">
                                     <h3>
                                         <span>You have finished <span class="h4 text-success front-weight-bold mb-4">{{finishTask}}</span> tasks! </span>
                                         <i class="ni ni-like-2"></i>
@@ -131,7 +218,7 @@
                                     <h3 class="mb-5 default">
                                         <span>You have <span class="h4 text-warning front-weight-bold mb-4">{{unfinishTask}}</span> tasks left! Keep up! </span>
                                     </h3>
-                                </div>
+                                </div> -->
                     
                                 <div class="progress-wrapper">
                                     <div class="progress-primary">
@@ -168,10 +255,11 @@ export default {
         flatPicker,
         DatePickers
     },
-
     data: () =>({
-        finishTask:"",
-        unfinishTask:"",
+        finishTask:"0",
+        unfinishTask:"0",
+        totalTask:"0",
+        DueTask:"0",
         percentage:"",
         dates: {
             start: "2021-01-01",
@@ -196,13 +284,22 @@ export default {
             console.log("report")
             service.post
            
-            service.get(`/tasks/countTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
+            service.get(`/tasks/CountCompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
                 console.log(res.data.data[0].number);
                 this.finishTask=res.data.data[0].number;
             })
-            service.get(`/tasks/countTask2/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
+            service.get(`/tasks/CountIncompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
                 console.log(res.data.data[0].number);
                 this.unfinishTask=res.data.data[0].number;
+            })
+            service.get(`/tasks/CountTotalTask/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data.data[0].number);
+                this.totalTask=res.data.data[0].number;
+            })
+            service.get(`/tasks/CountDueTask/${store.getters["getUserId"]}`).then(res=>{
+                console.log(res.data.data[0].number);
+                console.log(res.data.data);
+                this.DueTask=res.data.data[0].number;
             })
         }
     }

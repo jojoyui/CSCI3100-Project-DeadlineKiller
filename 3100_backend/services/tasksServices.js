@@ -1,3 +1,5 @@
+const { GatewayTimeout, NotAcceptable } = require("http-errors");
+
 const knex = require("knex")(require("../knexfile.js")["development"]);
 
 function addDate(date, days) {
@@ -45,8 +47,7 @@ module.exports = {
         });
     },
 
-    countTask: async function(user, start, end){
-        var end_date = new Date(end);
+    CountCompletedTask: async function(user, start, end){
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -54,7 +55,6 @@ module.exports = {
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1));
-            // .where('completed_timestamp', '<', '2021-03-16T23:59:59Z');
     },
 
     createTask: async function(newTask){
@@ -67,8 +67,7 @@ module.exports = {
             description: newTask.description
         });
     },
-    countTask2: async function(user, start, end){
-        var end_date = new Date(end);
+    CountIncompletedTask: async function(user, start, end){
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -96,5 +95,28 @@ module.exports = {
             .update({subtask_id: subid});
             
     },
-    
+
+    CountTotalTask: async function(user){
+        return await knex('task')
+            .count('*', {as: 'number'})
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({user_id: user});
+    },
+    CountDueTask: async function(user){
+        var now = new Date();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var time = now.getFullYear() + "-" + month + "-" + day + " 00:00:00"
+        console.log(time)
+        return await knex('task')
+        .count('*', {as: 'number'})
+        .innerJoin('group','group.task_id','task.task_id')
+        .where ({
+            user_id: user,
+            request: 'accept'
+        })
+        .whereNull('completed_timestamp')
+        .where('due_date', '>', time);
+    }
+
 }
