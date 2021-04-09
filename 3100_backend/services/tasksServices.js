@@ -52,7 +52,10 @@ module.exports = {
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
-            .where ({user_id: user})
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1));
@@ -73,7 +76,10 @@ module.exports = {
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
-            .where ({user_id: user})
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
             .whereNull('completed_timestamp')
             .where('due_date', '>=', start)
             .where('due_date', '<', addDate(end_date,1));
@@ -102,7 +108,10 @@ module.exports = {
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
-            .where ({user_id: user});
+            .where ({
+                user_id: user,
+                request: 'accept'
+            });
     },
 
     CountDueTask: async function(user){

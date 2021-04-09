@@ -73,12 +73,14 @@
                         <div>
                             <div>
                                 
+                                
                                 <blockquote class="blockquote">
                                     <!-- <p class="mb-0">Please select your date range:</p > -->
                                 </blockquote>
 
                             </div>
                             <div class="col-lg ">
+                                
     
                                 <div class="row">
                                     <div class="col">
@@ -95,7 +97,7 @@
                                     </div>
                                     <div class="col">
                                         <badge type="primary">end date</badge>
-                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
+                                        <base-input addon-left-icon="ni ni-calendar-grid-58" @change="valid=true">
                                             <flat-picker slot-scope="{focus, blur}"
                                                         @on-open="focus"
                                                         @on-close="blur"
@@ -105,24 +107,37 @@
                                             </flat-picker>
                                         </base-input>
                                     </div>
+                                    <div class="col-md-auto">
+                                        <p class="lead text-white mt-3 mb-3"></p >
+                                        <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button>
+                                        </span>
+                                    </div>
                                     <div class="col">
+                                        <p class="lead text-white mt-3 mb-3"></p >
                                         
-                                        <div>
-                                            <p class="lead text-white mt-3 mb-3"></p >
-                                            <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button></span>
-                                        </div>
                                     </div>
-                                    <div class="col">
+                                    <!-- <div class="col">
                                         <span></span>
-                                    </div>
+                                    </div> -->
 
                                 </div>
+                                
+                                <badge v-if="!valid" type="danger">
+                                    <span class="alert-inner--text"><strong>The end date should be after the start date</strong></span>
+                                    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button> -->
+                                    <i class="ni ni-fat-remove text-default"
+                                            size="sm"
+                                            @click="valid=true">
+                                    </i>
+                                </badge>
                                 <br/>
                                 <br/>
                                 <h2 class="mb-5 text-center">
                                         <strong>Progress Report</strong>
                                 </h2>
-                                <div class="row">
+                                <div class="row justify-content-center align-items-center">
                                     <div class="col-md-auto">
                                         <div style="width: 28rem;">
                                             <div class="card card-stats">
@@ -165,6 +180,10 @@
                                         </div>
                                         
                                     </div>
+                                </div>
+                                <br/>
+                                <div class="row justify-content-center align-items-center">
+
                                     <div class="col-md-auto">
                                         
                                         <div style="width: 28rem;">
@@ -247,28 +266,49 @@ import store from "@/store";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import DatePickers from './components/JavascriptComponents/DatePickers.vue';
+import Badge from '../components/Badge.vue';
 
+
+var now = new Date();
+var month = now.getMonth() + 1;
+if (month<10){
+    month = '0'+ month
+};
+var day = now.getDate();
+if (day<10){
+    day = '0'+ day
+};
+var time1 = now.getFullYear() + "-" + month + "-" + "01";
+
+var time2 = now.getFullYear() + "-" + month + "-" + day;
 
 
 export default {
     components:{
         flatPicker,
-        DatePickers
+        DatePickers,
+        Badge
     },
     data: () =>({
         finishTask:"0",
         unfinishTask:"0",
         totalTask:"0",
         DueTask:"0",
-        percentage:"",
+        percentage:"0",
         dates: {
-            start: "2021-01-01",
-            end:"2021-12-31"
-          }
+            start: time1,
+            end: time2
+        },
+        valid: true
     }),
     computed:{
          percent(){
-             return (this.finishTask/(this.finishTask+this.unfinishTask))*100
+             if((this.finishTask+this.unfinishTask) == 0){
+                 return 0;
+             }
+             else{
+                 return (this.finishTask/(this.finishTask+this.unfinishTask))*100;
+             }
          }
      },
     mounted (){
@@ -276,9 +316,18 @@ export default {
     },
     methods: {
         handlego(){
-            console.log(this.dates.start)
-            console.log(this.dates.end)
-            this.report()
+            console.log(this.valid)
+            var start_date = new Date(this.dates.start)
+            var end_date = new Date(this.dates.end)
+            if(end_date < start_date){
+                console.log('error!!!!')
+                this.valid = false;
+            }
+            else{
+                console.log(this.dates.start, start_date)
+                console.log(this.dates.end, end_date)
+                this.report()
+            }
         },
         report(){
             console.log("report")
