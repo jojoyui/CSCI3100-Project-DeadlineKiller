@@ -183,11 +183,19 @@
                             <div class="col">
                                 <span></span>
                             </div>
-                            <div class="col">
-                                <ul class="list-unstyled">
+                            <div class="col text-center">
+                                <badge v-if="!valid" type="danger" dismissible>
+                                    <span class="alert-inner--text"><strong>Invalid Email!</strong></span>
+                                    <i class="ni ni-fat-remove text-default"
+                                            size="sm"
+                                            @click="valid=true">
+                                    </i>
+                                </badge>
+                                
+                                <ul class="list-unstyled text-left">
                                     <li v-for = "(mates, num) in partnerEmail" :key="num">
-                                        <small type = "primary" class="text-muted">&emsp;{{ mates }}</small>
-                                        <i class="ni ni-fat-remove"
+                                        <badge type = "primary" class="text-muted">&emsp;{{ mates }}</badge>
+                                        <i class="ni ni-fat-remove "
                                             size="sm"
                                             @click="handleDelete(num)">
                                         </i>
@@ -215,17 +223,34 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="!validsubmit" class="col-lg-12 pt-lg">
-                        <base-alert type="warning" icon="ni ni-bell-55" dismissible>
-                            <span slot="text"><strong>Warning!</strong> Please check whether your task name and date are input or not!</span>
-                        </base-alert>
-                    </div>
                     <br/>
                     <br/>
                     <div class= "text-center">
                         <base-button class="btn-1" outline type="success" @click="handleSubmit()">ADD</base-button>
                         <p class="lead text-white mt-3 mb-3"></p>
                     </div>
+                    <br/>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <span></span>
+                        </div>
+                        
+                        <div class="col-5 text-center">
+                            <base-alert v-if="!validsubmit" type="warning">
+                                <span class="alert-inner--icon"><i class="ni ni-bulb-61"></i></span>
+                                <span class="alert-inner--text">Please input your <strong>TASK NAME!</strong></span>
+                                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button> -->
+                            </base-alert>
+                        </div>
+                        <div class="col">
+                            <span></span>
+                        </div>
+                        
+                    </div>
+                    
                 </card>
             </div>
         </section>
@@ -276,6 +301,7 @@ export default {
         groupmates: "xxx@link.cuhk.edu.hk",
         description: "",
         validsubmit: true,
+        valid: true,
     }),
     methods:{
         getRadioVal(val){
@@ -286,68 +312,91 @@ export default {
             this.partnerEmail.splice(i,1);
         },
         handleAdd(){
+            this.valid = true;
             console.log(this.groupmates);
-            this.partnerEmail.push(this.groupmates);
-            console.log(this.partnerEmail);
+            service.get(`/users/getUserId/${this.groupmates}`).then(res=>{
+                if(res.data.data.length == 0){
+                    this.valid = false;
+                }
+                else{
+                    for(let i of this.partnerEmail){
+                        if (this.groupmates == i){
+                            this.valid = false;
+                            break;
+                        }
+                    }
+                    if(this.valid){
+                        this.partnerEmail.push(this.groupmates);
+                        console.log(this.partnerEmail);
+                    }
+                }
+            })
         },
         handleSubmit(){
+            console.log(this.validsubmit);
             console.log("clicked");
             console.log(this.partnerEmail.length);
             this.task_id = uuid.v1();
-            service.post("/tasks/createTask", {
-                task_id: this.task_id,
-                name: this.tname,
-                type: this.radioVal,
-                DueDate: this.DueDate.simple,
-                description: this.description
-
-            }).then(res => {
-                if (res.data.success) {
-                    console.log("Update to task database success!");
-                    if(this.partnerEmail.length != 0){
-                        console.log(this.partnerEmail);
-                        for(let i of this.partnerEmail){
-                            service.get(`/users/getUserId/${i}`).then(res=>{
-                                service.post("/tasks/createGroup", {
-                                task_id: this.task_id,
-                                user_id: res.data.data[0].user_id,
-                                request: 'request'
-                                }).then(res => {
-                                    if (res.data.success) {
-                                        console.log("Update to group database success!");
-                                        
-                                    } else {
-                                        console.log("Update to group database failed!");
-                                    }
-                                }).catch((err)=>{
-                                    console.log("err:", err);
-                                    this.validsubmit = false;
-                                });
-                            });
-                        }    
-                    }
-                    service.post("/tasks/createGroup", {
-                        task_id: this.task_id,
-                        user_id: store.getters["getUserId"],
-                        request: 'accept'
-                        }).then(res => {
-                            if (res.data.success) {
-                                console.log("Update to group database success!");
-                            } else {
-                                console.log("Update to group database failed!");
-                            }
-                        }).catch((err)=>{
-                            console.log("err:", err);
-                            this.validsubmit = false;
-                        });
-                    this.$router.push("/list");
-                } else {
-                    console.log("Update to task database failed!");
-                }
-            }).catch((err)=>{
-                console.log("err:", err);
+            if (this.tname == ''){
                 this.validsubmit = false;
-            });
+            }
+            else{
+                service.post("/tasks/createTask", {
+                    task_id: this.task_id,
+                    name: this.tname,
+                    type: this.radioVal,
+                    DueDate: this.DueDate.simple,
+                    description: this.description
+
+                }).then(res => {
+                    if (res.data.success) {
+                        console.log("Update to task database success!");
+                        if(this.partnerEmail.length != 0){
+                            //console.log(this.partnerEmail);
+                            for(let i of this.partnerEmail){
+                                service.get(`/users/getUserId/${i}`).then(res=>{
+                                    console.log(res.data.data.length)
+                                    service.post("/tasks/createGroup", {
+                                    task_id: this.task_id,
+                                    user_id: res.data.data[0].user_id,
+                                    request: 'request'
+                                    }).then(res => {
+                                        if (res.data.success) {
+                                            console.log("Update to group database success!");
+                                            
+                                        } else {
+                                            console.log("Update to group database failed!");
+                                        }
+                                    }).catch((err)=>{
+                                        console.log("err:", err);
+                                        this.validsubmit = false;
+                                    });
+                                });
+                            }    
+                        }
+                        service.post("/tasks/createGroup", {
+                            task_id: this.task_id,
+                            user_id: store.getters["getUserId"],
+                            request: 'accept'
+                            }).then(res => {
+                                if (res.data.success) {
+                                    console.log("Update to group database success!");
+                                } else {
+                                    console.log("Update to group database failed!");
+                                }
+                            }).catch((err)=>{
+                                console.log("err:", err);
+                                this.validsubmit = false;
+                            });
+                        this.$router.push("/list");
+                    } else {
+                        console.log("Update to task database failed!");
+                    }
+                }).catch((err)=>{
+                    console.log("err:", err);
+                    this.validsubmit = false;
+                });
+            }
         }
     }
 };

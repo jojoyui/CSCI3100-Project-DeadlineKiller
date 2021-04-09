@@ -48,6 +48,10 @@ export default {
     SlideYUpTransition
   },
   props: {
+    clickoutside: {
+      type: Boolean,
+      default: false
+    },
     show: Boolean,
     showClose: {
       type: Boolean,
@@ -94,6 +98,10 @@ export default {
   },
   methods: {
     closeModal() {
+      console.log(this.clickoutside);
+      if(!this.clickoutside){
+        return
+      }
       this.$emit("update:show", false);
       this.$emit("close");
     }
