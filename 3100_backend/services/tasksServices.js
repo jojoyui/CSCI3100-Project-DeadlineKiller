@@ -108,7 +108,13 @@ module.exports = {
     CountDueTask: async function(user){
         var now = new Date();
         var month = now.getMonth() + 1;
+        if (month<10){
+            month = '0'+ month
+        };
         var day = now.getDate();
+        if (day<10){
+            day = '0'+ day
+        };
         var time = now.getFullYear() + "-" + month + "-" + day + " 00:00:00"
         console.log(time)
         return await knex('task')
