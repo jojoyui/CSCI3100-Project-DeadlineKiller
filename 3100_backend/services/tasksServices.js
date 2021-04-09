@@ -48,6 +48,7 @@ module.exports = {
     },
 
     CountCompletedTask: async function(user, start, end){
+        var end_date = new Date(end);
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -68,6 +69,7 @@ module.exports = {
         });
     },
     CountIncompletedTask: async function(user, start, end){
+        var end_date = new Date(end);
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -102,6 +104,7 @@ module.exports = {
             .innerJoin('group','group.task_id','task.task_id')
             .where ({user_id: user});
     },
+
     CountDueTask: async function(user){
         var now = new Date();
         var month = now.getMonth() + 1;
@@ -116,7 +119,7 @@ module.exports = {
             request: 'accept'
         })
         .whereNull('completed_timestamp')
-        .where('due_date', '>', time);
+        .where('due_date', '<', time);
     }
 
 }

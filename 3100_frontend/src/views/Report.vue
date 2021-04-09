@@ -282,8 +282,6 @@ export default {
         },
         report(){
             console.log("report")
-            service.post
-           
             service.get(`/tasks/CountCompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
                 console.log(res.data.data[0].number);
                 this.finishTask=res.data.data[0].number;
