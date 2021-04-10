@@ -61,6 +61,15 @@ module.exports = {
             .where('completed_timestamp', '<', addDate(end_date,1));
     },
 
+    completeTask: async function(task){
+        console.log("completeTask service");
+        return await knex("task")
+        .where({task_id: task})
+        .update({
+          completed_timestamp: new Date(),
+        })
+    },
+
     createTask: async function(newTask){
         console.log("create task service");
         return await knex("task").insert({

@@ -20,6 +20,7 @@ router.get("/CountIncompletedTask/:user/:start/:end", tasksControllers.CountInco
 router.get("/CountTotalTask/:user", tasksControllers.CountTotalTask);
 router.get("/CountDueTask/:user", tasksControllers.CountDueTask);
 
+router.post("/completeTask", tasksControllers.completeTask);
 
 
 

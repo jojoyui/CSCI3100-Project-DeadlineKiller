@@ -97,8 +97,6 @@
                         </div>
                       </form>
                     </template>
-
-                  
                   </modal>
                 </div>
                 <div class="text-center">

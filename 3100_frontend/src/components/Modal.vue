@@ -98,10 +98,10 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log(this.clickoutside);
-      if(!this.clickoutside){
-        return
-      }
+      console.log(this.clickoutside, "??");
+      // if(!this.clickoutside){
+      //   return
+      // }
       this.$emit("update:show", false);
       this.$emit("close");
     }

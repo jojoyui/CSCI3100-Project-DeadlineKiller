@@ -1,278 +1,419 @@
 <template>
-    <div class="profile-page">
-        <section class="section-profile-cover section-shaped my-0">
-            <div class="shape shape-style-1 shape-primary shape-skew alpha-4">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+  <div class="profile-page">
+    <section class="section-profile-cover section-shaped my-0">
+      <div class="shape shape-style-1 shape-primary shape-skew alpha-4">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="container shape-container d-flex align-items-center">
+        <div class="col px-0">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-7 text-center pt-lg">
+              <img
+                src="img/brand/test.png"
+                style="width: 300px;"
+                class="img-fluid"
+              />
+              <p class="lead text-white mt-4 mb-5"></p>
+              <div class="btn-wrapper">
+                <base-button
+                  tag="a"
+                  href="http://localhost:8080/#/list"
+                  class="mb-3 mb-sm-0"
+                  type="white"
+                  icon="ni ni-bullet-list-67"
+                >
+                  Task List
+                </base-button>
+
+                <base-button
+                  tag="a"
+                  href="http://localhost:8080/#/schedule"
+                  class="mb-3 mb-sm-0"
+                  type="primary"
+                  icon="ni ni-calendar-grid-58"
+                >
+                  Schedule
+                </base-button>
+              </div>
             </div>
-            <div class="container shape-container d-flex align-items-center">
-                <div class="col px-0">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-lg-7 text-center pt-lg">
-                            <img src="img/brand/test.png" style="width: 300px;" class="img-fluid">
-                            <p class="lead text-white mt-4 mb-5"></p>
-                            <div class="btn-wrapper">
-                                <base-button tag="a"
-                                            href="http://localhost:8080/#/list"
-                                            class="mb-3 mb-sm-0"
-                                            type="white"
-                                            icon="ni ni-bullet-list-67">
-                                    Task List
-                                </base-button>
-                                
-                                <base-button tag="a"
-                                            href="http://localhost:8080/#/schedule"
-                                            class="mb-3 mb-sm-0"
-                                            type="primary"
-                                            icon="ni ni-calendar-grid-58">
-                                    Schedule
-                                </base-button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-around stars-and-coded">
-                        <div class="row">
-                            <div class="col">
-                                <!-- <base-button tag="a"
+          </div>
+          <div class="row justify-content-around stars-and-coded">
+            <div class="row">
+              <div class="col">
+                <!-- <base-button tag="a"
                                                 href="https://demos.creative-tim.com/vue-argon-design-system/documentation"
                                                 class="mb-3 mb-sm-0"
                                                 type="info"
                                                 icon="fa fa-code">
                                         Create Task
                                 </base-button> -->
-                            </div>
-                            <div class="col">
-                                <span></span>
-                            </div>
-                            <div class="col">
-                                <span></span>
-                            </div>
-                            <div class="col">
-                                <div class="col-sm-4 mt-4 mt-sm-0 text-right">
-                                    <!-- <base-button tag="a"
+              </div>
+              <div class="col">
+                <span></span>
+              </div>
+              <div class="col">
+                <span></span>
+              </div>
+              <div class="col">
+                <div class="col-sm-4 mt-4 mt-sm-0 text-right">
+                  <!-- <base-button tag="a"
                                                 href="https://www.creative-tim.com/product/vue-argon-design-system"
                                                 class="mb-3 mb-sm-0"
                                                 type="white"
                                                 icon="ni ni-cloud-download-95">
                                         schedule
                                     </base-button> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+              </div>
             </div>
-        </section>
-        <section class="section section-skew">
-            <div class="container">
-                <card shadow class="card-profile mt--300" no-body>
-                  <div>
-                        <div class="col-lg pt-lg-3">
-                            <div class="row">
-                                <div class="col">
-                                  <!-- <base-button type="default" class=" mb-3" @click="modals.modal3 = true" icon="ni ni-chat-round">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section section-skew">
+      <div class="container">
+        <card shadow class="card-profile mt--300" no-body>
+          <div>
+            <div class="col-lg pt-lg-3">
+              <div class="row">
+                <div class="col">
+                  <!-- <base-button type="default" class=" mb-3" @click="modals.modal3 = true" icon="ni ni-chat-round">
                                         ADD Subtask
                                     </base-button> -->
-                                    <modal :show.sync="modals.modal3"
-                                        :clickoutside="false"
-                                        body-classes="p-0"
-                                        modal-classes="modal-dialog-centered modal-sm">
-                                        <card gradient="secondary" shadow
-                                            header-classes="bg-white pb-5"
-                                            body-classes="px-lg-5 py-lg-5"
-                                            class="border-0">
-                                            <template>
-                                                <div class="text-center text-primary mb-3">
-                                                    <strong>NEW SUBTASK</strong>
-                                                </div>
-                                            </template>
-                                            <template>
-                                                
-                                                <form role="form">
-                                                    <base-input alternative
-                                                                class="mb-3"
-                                                                v-model="tname"
-                                                                placeholder="Subtask Name"
-                                                                addon-left-icon="ni ni-map-big">
-                                                    </base-input>
-                                                    <div class="row">
-                                                      <div class="col">
-                                                        <badge type="primary">start date</badge>
-                                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
-                                                            <flat-picker slot-scope="{focus, blur}"
-                                                                        @on-open="focus"
-                                                                        @on-close="blur"
-                                                                        :config="{allowInput: true}"
-                                                                        class="form-control datepicker"
-                                                                        v-model="dates.start">
-                                                            </flat-picker>
-                                                        </base-input>
-                                                      </div>
-                                                      <div class="col">
-                                                        <badge type="primary">end date</badge>
-                                                        <base-input addon-left-icon="ni ni-calendar-grid-58">
-                                                            <flat-picker slot-scope="{focus, blur}"
-                                                                        @on-open="focus"
-                                                                        @on-close="blur"
-                                                                        :config="{allowInput: true}"
-                                                                        class="form-control datepicker"
-                                                                        v-model="dates.end">
-                                                            </flat-picker>
-                                                        </base-input>
-                                                      </div>
-                                                    </div>
-                                                    <!-- <br/> -->
-                                                    <badge type="primary">Details</badge>
-                                                    <textarea v-model="description"
-                                                                class="Description form-control form-control-alternative mb-3"
-                                                                placeholder="e.g Kill me Please!">
-                                                                
-                                                    </textarea>
-                                                    <base-alert v-if="!validsubmit" type="warning">
-                                                        <!-- <span class="alert-inner--icon"><i class="ni ni-bulb-61"></i></span> -->
-                                                        <span class="alert-inner--text">Please input the <strong>SUBTASK NAME!</strong></span>
-                                                    </base-alert>
-                                                    <div class="row">
-                                                      <div class="text-left col">
-                                                        <base-button type="link"
-                                                                      text-color = "default"
-                                                                      class="my-4"
-                                                                      @click="modals.modal3 = false, validsubmit = true">
-                                                              Close
-                                                        </base-button>
-                                                      </div>
-                                                      <div class="text-right col">
-                                                          <base-button type="primary" outline class="my-4" @click="handleSubmit()">ADD</base-button>
-                                                          
-                                                      </div>
-                                                    </div>
-                                                    
-                                                </form>
-                                            </template>
-                                        </card>
-                                    </modal>
-                                    
-                                </div>
-                                <div class="col">
-                                  <span></span>
-                                </div>
-                                <div class="col">
-                                    <span></span>
-                                </div>
-                                <div class="col">
-                                    <span></span>
-                                </div>
-                                <div class="col text-right">
-                                  <base-button type="secondary" 
-                                               class="text-default mb-3 btn-tooltip" 
-                                               @click="modals.modal2 = true" 
-                                               icon="ni ni-bell-55"
-                                               v-b-popover.hover.top="'Your friends are asking you!'"
-                                                title="Check Your Request">
-                                    <span>
-                                      Requests
-                                      <badge v-if="tasks_name.length === 0" type="success"> {{tasks_name.length}} </badge>
-                                      <badge v-else type="danger"> {{tasks_name.length}} </badge>
-                                    </span>         
-                                  </base-button>
-                                  <modal :show.sync="modals.modal2"
-                                      :clickoutside="true"
-                                      gradient="info"
-                                      modal-classes="modal-danger modal-dialog-centered">
-                                      <h6 slot="header" class="modal-title" id="modal-title-notification">Forming Group With Your Friends!</h6>
-                                      <div class="py-3 text-center">
-                                            <i class="ni ni-bell-55 ni-3x"></i>
-                                          <strong ><h4 class="heading mt-4">There are {{tasks_name.length}} requests!</h4></strong>
-                                      </div>
-                                      <div >
-                                        <ul class="list-unstyled">
-                                            <li v-for = "(task, num) in tasks_name" :key="num">
-                                                <div class="row">
-                                                    <div class="col-7 text-left">
-                                                      
-                                                        <strong>
-                                                            <!-- <i class="ni ni-planet text-primary"></i>  -->
-                                                            {{ task["task"] }}
-                                                            <badge type="primary"> {{ task["type"] }} </badge>
-                                                        </strong>
-                                                        <br/>
-                                                        <br/>
-                                                      
-                                                    </div>
-                                                    <div class="col text-right">
-                                                      <!-- <div class="row"> -->
-                                                        <base-button size="sm" type="success" @click="handleAccept(num)">Accept</base-button>
-                                                        <base-button size="sm" type="danger" @click="handleDecline(num)">Decline</base-button>
-                                                      <!-- </div> -->
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                      </div>
-                                  </modal>
-                                    
-                                </div>
-                            </div>
+                  <modal
+                    :show.sync="modals.modal3"
+                    :clickoutside="false"
+                    body-classes="p-0"
+                    modal-classes="modal-dialog-centered modal-sm"
+                  >
+                    <card
+                      gradient="secondary"
+                      shadow
+                      header-classes="bg-white pb-5"
+                      body-classes="px-lg-5 py-lg-5"
+                      class="border-0"
+                    >
+                      <template>
+                        <div class="text-center text-primary mb-3">
+                          <strong>NEW SUBTASK</strong>
                         </div>
-                    </div>
+                      </template>
+                      <template>
+                        <form role="form">
+                          <base-input
+                            alternative
+                            class="mb-3"
+                            v-model="tname"
+                            placeholder="Subtask Name"
+                            addon-left-icon="ni ni-map-big"
+                          >
+                          </base-input>
+                          <div class="row">
+                            <div class="col">
+                              <badge type="primary">start date</badge>
+                              <base-input
+                                addon-left-icon="ni ni-calendar-grid-58"
+                              >
+                                <flat-picker
+                                  slot-scope="{ focus, blur }"
+                                  @on-open="focus"
+                                  @on-close="blur"
+                                  :config="{ allowInput: true }"
+                                  class="form-control datepicker"
+                                  v-model="dates.start"
+                                >
+                                </flat-picker>
+                              </base-input>
+                            </div>
+                            <div class="col">
+                              <badge type="primary">end date</badge>
+                              <base-input
+                                addon-left-icon="ni ni-calendar-grid-58"
+                              >
+                                <flat-picker
+                                  slot-scope="{ focus, blur }"
+                                  @on-open="focus"
+                                  @on-close="blur"
+                                  :config="{ allowInput: true }"
+                                  class="form-control datepicker"
+                                  v-model="dates.end"
+                                >
+                                </flat-picker>
+                              </base-input>
+                            </div>
+                          </div>
+                          <!-- <br/> -->
+                          <badge type="primary">Details</badge>
+                          <textarea
+                            v-model="description"
+                            class="Description form-control form-control-alternative mb-3"
+                            placeholder="e.g Kill me Please!"
+                          >
+                          </textarea>
+                          <base-alert v-if="!validsubmit" type="warning">
+                            <!-- <span class="alert-inner--icon"><i class="ni ni-bulb-61"></i></span> -->
+                            <span class="alert-inner--text"
+                              >Please input the
+                              <strong>SUBTASK NAME!</strong></span
+                            >
+                          </base-alert>
+                          <div class="row">
+                            <div class="text-left col">
+                              <base-button
+                                type="link"
+                                text-color="default"
+                                class="my-4"
+                                @click="
+                                  (modals.modal3 = false), (validsubmit = true)
+                                "
+                              >
+                                Close
+                              </base-button>
+                            </div>
+                            <div class="text-right col">
+                              <base-button
+                                type="primary"
+                                outline
+                                class="my-4"
+                                @click="handleSubmit()"
+                                >ADD</base-button
+                              >
+                            </div>
+                          </div>
+                        </form>
+                      </template>
+                    </card>
+                  </modal>
+                  <modal :show.sync="modals.modal4">
+                    <p class="modal-title">
+                      Completed Task?
+                    </p>
 
-                    <div class="todo-wrap">
-                        <div class="caption">
-                        <span class="item" @click="handleToggleMonth('prev')">
-                            <i class="prev"></i>
-                        </span>
-                        <time class="time">{{curYearMonth}}</time>
-                        <span class="item" @click="handleToggleMonth('next')">
-                            <i class="next"></i>
-                        </span>
-                        </div>
-                        <div class="container">
-                        <ul class="week list-unstyled">
-                            <li class="item" v-for="(item, index) in _week" :key="index">{{item}}</li>
-                        </ul>
-                        <ul class="data clear class list-unstyled">
-                            <li class="item invalid" v-for="(item, index) in startDay" :key="index - startDay">
-                            <span class="lunar" v-if="isLunar">{{handleLunar(prevYear, prevMonth, prevMonthDays + 1 + index - startDay)}}</span>
-                            <span class="text">{{prevMonthDays + 1 + index - startDay}}</span>
-                            </li>
-                            <li class="item" v-for="(item, index) in curMonthDays" :key="index">
-                            <span class="lunar" v-if="isLunar">{{handleLunar(curYear, curMonth, item.date)}}</span>
-                            <span class="text" :class="{active: curDay == index + 1}">{{item.date}}</span>
-                            <template v-for="(_item, _index) in item.todo">
-                                <p class="todo" :class="{on: index == isItem.index && isIndex == _index}" :key="_index" @click="handleToggleTodo(item.todo[_index], index, _index, $event)" :title="_item.title" v-if="_index < 2">{{_item.title}}</p>
-                            </template>
-                            <div class="todo-item" :class="{left: isShowLeft, top: isShowTop}" v-if="index == isItem.index && isIndex == isItem._index" :style="posTop">
-                                <h2 class="title">{{isItem.desc.caption}}</h2>
-                                <div class="time">{{'Due_date：' + isItem.desc.time}}</div>
-                                <div class="author-box">
-                                <span class="author">{{'subtask：' + isItem.desc.author}}</span>
-                                </div>
-                                <div class="link-box">
-                                  <base-button type="info" class="mb-3" @click="modals.modal3 = true" size="sm">
-                                    Add Subtask
-                                  </base-button>
-                                </div>
-                            </div>
-                            </li>
-                            <li class="item invalid" v-for="(item, index) in endDay" :key="curMonthDays + index + 1">
-                            <span class="lunar" v-if="isLunar">{{handleLunar(nextYear, nextMonth, item)}}</span>
-                            <span class="text">{{item}}</span>
-                            </li>
-                        </ul>
-                        </div>
+                    <base-button @click="completedTask()" type="primary"
+                      >Yes</base-button
+                    >
+                    <base-button
+                      type="link"
+                      class="ml-auto"
+                      @click="modals.modal4 = false"
+                      >Close
+                    </base-button>
+                  </modal>
+                </div>
+                <div class="col">
+                  <span></span>
+                </div>
+                <div class="col">
+                  <span></span>
+                </div>
+                <div class="col">
+                  <span></span>
+                </div>
+                <div class="col text-right">
+                  <base-button
+                    type="secondary"
+                    class="text-default mb-3 btn-tooltip"
+                    @click="modals.modal2 = true"
+                    icon="ni ni-bell-55"
+                    v-b-popover.hover.top="'Your friends are asking you!'"
+                    title="Check Your Request"
+                  >
+                    <span>
+                      Requests
+                      <badge v-if="tasks_name.length === 0" type="success">
+                        {{ tasks_name.length }}
+                      </badge>
+                      <badge v-else type="danger">
+                        {{ tasks_name.length }}
+                      </badge>
+                    </span>
+                  </base-button>
+                  <modal
+                    :show.sync="modals.modal2"
+                    :clickoutside="true"
+                    gradient="info"
+                    modal-classes="modal-danger modal-dialog-centered"
+                  >
+                    <h6
+                      slot="header"
+                      class="modal-title"
+                      id="modal-title-notification"
+                    >
+                      Forming Group With Your Friends!
+                    </h6>
+                    <div class="py-3 text-center">
+                      <i class="ni ni-bell-55 ni-3x"></i>
+                      <strong
+                        ><h4 class="heading mt-4">
+                          There are {{ tasks_name.length }} requests!
+                        </h4></strong
+                      >
                     </div>
-                    
-                </card>
-                
+                    <div>
+                      <ul class="list-unstyled">
+                        <li v-for="(task, num) in tasks_name" :key="num">
+                          <div class="row">
+                            <div class="col-7 text-left">
+                              <strong>
+                                <!-- <i class="ni ni-planet text-primary"></i>  -->
+                                {{ task["task"] }}
+                                <badge type="primary">
+                                  {{ task["type"] }}
+                                </badge>
+                              </strong>
+                              <br />
+                              <br />
+                            </div>
+                            <div class="col text-right">
+                              <!-- <div class="row"> -->
+                              <base-button
+                                size="sm"
+                                type="success"
+                                @click="handleAccept(num)"
+                                >Accept</base-button
+                              >
+                              <base-button
+                                size="sm"
+                                type="danger"
+                                @click="handleDecline(num)"
+                                >Decline</base-button
+                              >
+                              <!-- </div> -->
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </modal>
+                </div>
+              </div>
             </div>
-        </section>
-        <!-- <Fullcalendar :plugins="calendarPlugin" /> -->
-    </div>
+          </div>
+
+          <div class="todo-wrap">
+            <div class="caption">
+              <span class="item" @click="handleToggleMonth('prev')">
+                <i class="prev"></i>
+              </span>
+              <time class="time">{{ curYearMonth }}</time>
+              <span class="item" @click="handleToggleMonth('next')">
+                <i class="next"></i>
+              </span>
+            </div>
+            <div class="container">
+              <ul class="week list-unstyled">
+                <li class="item" v-for="(item, index) in _week" :key="index">
+                  {{ item }}
+                </li>
+              </ul>
+              <ul class="data clear class list-unstyled">
+                <li
+                  class="item invalid"
+                  v-for="(item, index) in startDay"
+                  :key="index - startDay"
+                >
+                  <span class="lunar" v-if="isLunar">{{
+                    handleLunar(
+                      prevYear,
+                      prevMonth,
+                      prevMonthDays + 1 + index - startDay
+                    )
+                  }}</span>
+                  <span class="text">{{
+                    prevMonthDays + 1 + index - startDay
+                  }}</span>
+                </li>
+                <li
+                  class="item"
+                  v-for="(item, index) in curMonthDays"
+                  :key="index"
+                >
+                  <span class="lunar" v-if="isLunar">{{
+                    handleLunar(curYear, curMonth, item.date)
+                  }}</span>
+                  <span class="text" :class="{ active: curDay == index + 1 }">{{
+                    item.date
+                  }}</span>
+                  <template v-for="(_item, _index) in item.todo">
+                    <p
+                      class="todo"
+                      :class="{
+                        on: index == isItem.index && isIndex == _index,
+                      }"
+                      :key="_index"
+                      @click="
+                        handleToggleTodo(
+                          item.todo[_index],
+                          index,
+                          _index,
+                          $event
+                        )
+                      "
+                      :title="_item.title"
+                      v-if="_index < 2"
+                    >
+                      {{ _item.title }}
+                    </p>
+                  </template>
+                  <div
+                    class="todo-item"
+                    :class="{ left: isShowLeft, top: isShowTop }"
+                    v-if="index == isItem.index && isIndex == isItem._index"
+                    :style="posTop"
+                  >
+                    <h2 class="title">{{ isItem.desc.caption }}</h2>
+                    <div class="time">
+                      {{ "Due_date：" + isItem.desc.time }}
+                    </div>
+                    <div class="author-box">
+                      <span class="author">{{
+                        "subtask：" + isItem.desc.author
+                      }}</span>
+                    </div>
+                    <div class="link-box">
+                      <base-button
+                        type="info"
+                        class="mb-3"
+                        @click="modals.modal3 = true"
+                        size="sm"
+                      >
+                        Add Subtask
+                      </base-button>
+                      <base-button
+                        type="info"
+                        class="mb-3"
+                        @click="modals.modal4 = true"
+                        size="sm"
+                      >
+                        Complete Task
+                      </base-button>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="item invalid"
+                  v-for="(item, index) in endDay"
+                  :key="curMonthDays + index + 1"
+                >
+                  <span class="lunar" v-if="isLunar">{{
+                    handleLunar(nextYear, nextMonth, item)
+                  }}</span>
+                  <span class="text">{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </card>
+      </div>
+    </section>
+    <!-- <Fullcalendar :plugins="calendarPlugin" /> -->
+  </div>
 </template>
 <script>
 //  require('@fullcalendar/core/main.min.css')
@@ -280,317 +421,368 @@
 //  require('@fullcalendar/timegrid/main.min.css')
 
 import { service } from "@/plugins/request_service.js";
-import { uuid } from 'vue-uuid'; 
+import { uuid } from "vue-uuid";
 import store from "@/store";
 import Tabs from "@/components/Tabs/Tabs.vue";
 import TabPane from "@/components/Tabs/TabPane.vue";
 import TabsSection from "./components/JavascriptComponents/TabsSection";
-import calendar from '@/components/todo/js/calendar';
+import calendar from "@/components/todo/js/calendar";
 import Modal from "../components/Modal.vue";
-import Badge from '../components/Badge.vue';
-import tooltip from './components/JavascriptComponents/Tooltips';
+import Badge from "../components/Badge.vue";
+import tooltip from "./components/JavascriptComponents/Tooltips";
 import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
 import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
-
-
-
-
 
 // import Fullcalendar from '@fullcalendar/vue'
 // import DayGridPlugin from '@fullcalendar/vue'
 // import TimeGridPlugin from '@fullcalendar/vue'
 // import InteractionPlugin from '@fullcalendar/vue'
 // import ListPlugin from '@fullcalendar/vue'
-
 const todoObj = {
-  title: 'DEAD',
+  title: "DEAD",
   desc: {
-    caption: 'Task name',
-    time: '2018.02.27',
-    author: 'shaw',
+    caption: "Task name",
+    time: "2018.02.27",
+    author: "shaw",
     num: 369,
-    link: 'http://localhost:8080/#/create_subtask'
-  }
+    link: "http://localhost:8080/#/create_subtask",
+  },
 };
 
-
 export default {
-    components: {
-        TabPane,
-        Tabs,
-        TabsSection,
-        Modal,
-        Badge,
-        flatPicker,
-        tooltip
-    },
-    directives: {
-      BTooltip: VBTooltip,
-      BPopover: VBPopover
-    },
-    props: {
+  components: {
+    TabPane,
+    Tabs,
+    TabsSection,
+    Modal,
+    Badge,
+    flatPicker,
+    tooltip,
+  },
+  directives: {
+    BTooltip: VBTooltip,
+    BPopover: VBPopover,
+  },
+  props: {
     isWest: {
       // 是否启用西方模式
       type: Boolean,
-      default: true
+      default: true,
     },
     isLunar: {
       // 是否开启农历
       type: Boolean,
-      default: false
-    }
+      default: false,
     },
-    data: () => ({
-        temp: "original",
-        task: "A",
-        user_id: store.getters["getUserId"],
-        task_id: store.getters["getTaskId"],
-        subtask_id:'',
-        tname:"",
-        dates: {
-            start: "2021-04-01",
-            end: '2021-04-30'
-        },
-        description: "",
-        validsubmit: true,
-        prevMonthDays: 0,
-        curMonthDays: [],
-        nextMonthDays: 0,
-        curYearMonth: '',
-        startDay: 0,
-        endDay: 0,
-        curDay: 0,
-        posTop: null,
-        isItem: {},
-        isIndex: -1,
-        isShowLeft: false,
-        isShowTop: false,
-        curYear: 0,
-        curMonth: 0,
-        prevYear: 0,
-        prevMonth: 0,
-        nextYear: 0,
-        nextMonth: 0,
-        modals: {
-            modal1: false,
-            modal2: false,
-            modal3: false
-        },
-        tasks_name: []
-        // calendarPlugins: [
-        //     DayGridPlugin,
-        //     TimeGridPlugin,
-        //     InteractionPlugin,
-        //    ListPlugin
-        // ] 
-    }),
-    computed: {
-        _week() {
-        let arr = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        if (this.isWest) {
-            arr.unshift(arr.pop());
-        }
-        return arr;
-        }
-    },
-    mounted (){
-        this.fetchTask();
-        let date = new Date();
-        this.curDay = date.getDate();
-        this.handleFormatDate(date.getFullYear(), date.getMonth() + 1);
-        this.noti();
-    },
-    methods: {
-        demo(){
-            console.log("clicked")
-            service.get("/users/testing").then(res => {
-                console.log(res.data.data[0].name);
-                this.temp = res.data.data[0].name;
-            })
-            
-        },
-        handleSubmit(){
-          console.log("clicked");
-          
-          this.subtask_id = uuid.v1();
-          if (this.tname == ''){
-              this.validsubmit = false;
-          }
-          else{
-            service.post("/tasks/createSubtask", {
-                subtask_id: this.subtask_id,
-                task_id: this.task_id,
-                name: this.tname,
-                start_date: this.dates.start,
-                end_date: this.dates.end,
-                description: this.description
+  },
+  data: () => ({
+    getTask: [],
 
-            }).then(res => {
-                if (res.data.success) {
-                    console.log("Update to task database success!");
-                    service.get(`/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`)
-                        .then(res => {
-                            console.log(res.data);
-                        }).catch((err)=>{
-                            console.log("err:", err);
-                            this.validsubmit = false;
-                        });
-                    this.$router.push("/list");
-                } else {
-                    console.log("Update to subtask database failed!");
-                }
-            }).catch((err)=>{
-                console.log("err:", err);
-                this.validsubmit = false;
-            });
-          }
-        },
-        handleLunar(year, month, date) {
-            let { IMonthCn, IDayCn } = calendar.solar2lunar(year, month, date);
-            return IMonthCn + IDayCn;
-        },
-        handleToggleTodo(item, index, _index, ev) {
-            let parent = ev.target.parentNode.getBoundingClientRect();
-            let top = ev.target.getBoundingClientRect().top - parent.top + 'px';
-            let right = parent.right + 330;
-            let bottom = ev.target.getBoundingClientRect().top + 213;
-            let todoEl = document.querySelector('.container').getBoundingClientRect();
-            // 判断显示层应该是在左边还是右边
-            this.isShowLeft = right > todoEl.right;
-            // 判断显示层应该是在下边还是上边
-            this.isShowTop = bottom > todoEl.bottom;
-            if (this.isShowTop) {
-                bottom =
-                parent.bottom - ev.target.getBoundingClientRect().bottom + 'px';
-                this.posTop = { bottom };
+    temp: "original",
+    task: "A",
+    user_id: store.getters["getUserId"],
+    task_id: store.getters["getTaskId"],
+    subtask_id: "",
+    tname: "",
+    dates: {
+      start: "2021-04-01",
+      end: "2021-04-30",
+    },
+    description: "",
+    validsubmit: true,
+    prevMonthDays: 0,
+    curMonthDays: [],
+    nextMonthDays: 0,
+    curYearMonth: "",
+    startDay: 0,
+    endDay: 0,
+    curDay: 0,
+    posTop: null,
+    isItem: {},
+    isIndex: -1,
+    isShowLeft: false,
+    isShowTop: false,
+    curYear: 0,
+    curMonth: 0,
+    prevYear: 0,
+    prevMonth: 0,
+    nextYear: 0,
+    nextMonth: 0,
+    modals: {
+      modal1: false,
+      modal2: false,
+      modal3: false,
+      modal4: false,
+    },
+    tasks_name: [],
+    // calendarPlugins: [
+    //     DayGridPlugin,
+    //     TimeGridPlugin,
+    //     InteractionPlugin,
+    //    ListPlugin
+    // ]
+  }),
+  computed: {
+    _week() {
+      let arr = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ];
+      if (this.isWest) {
+        arr.unshift(arr.pop());
+      }
+      return arr;
+    },
+  },
+  mounted() {
+    this.fetchTask();
+    let date = new Date();
+    this.curDay = date.getDate();
+    this.handleFormatDate(date.getFullYear(), date.getMonth() + 1);
+    this.noti();
+  },
+  methods: {
+    demo() {
+      console.log("clicked");
+      service.get("/users/testing").then((res) => {
+        console.log(res.data.data[0].name);
+        this.temp = res.data.data[0].name;
+      });
+    },
+    completedTask() {
+      console.log("completed");
+    },
+    handleSubmit() {
+      console.log("clicked");
+
+      this.subtask_id = uuid.v1();
+      if (this.tname == "") {
+        this.validsubmit = false;
+      } else {
+        service
+          .post("/tasks/createSubtask", {
+            subtask_id: this.subtask_id,
+            task_id: this.task_id,
+            name: this.tname,
+            start_date: this.dates.start,
+            end_date: this.dates.end,
+            description: this.description,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              console.log("Update to task database success!");
+              service
+                .get(
+                  `/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`
+                )
+                .then((res) => {
+                  console.log(res.data);
+                })
+                .catch((err) => {
+                  console.log("err:", err);
+                  this.validsubmit = false;
+                });
+              this.$router.push("/list");
             } else {
-                this.posTop = { top };
+              console.log("Update to subtask database failed!");
             }
-            if (this.isIndex === _index && this.isItem.index === index) {
-                this.isIndex = -1;
-            } else {
-                this.isIndex = _index;
-            }
-            this.isItem = { ...item, index, _index };
+          })
+          .catch((err) => {
+            console.log("err:", err);
+            this.validsubmit = false;
+          });
+      }
+    },
+    handleLunar(year, month, date) {
+      let { IMonthCn, IDayCn } = calendar.solar2lunar(year, month, date);
+      return IMonthCn + IDayCn;
+    },
+    handleToggleTodo(item, index, _index, ev) {
+      let parent = ev.target.parentNode.getBoundingClientRect();
+      let top = ev.target.getBoundingClientRect().top - parent.top + "px";
+      let right = parent.right + 330;
+      let bottom = ev.target.getBoundingClientRect().top + 213;
+      let todoEl = document.querySelector(".container").getBoundingClientRect();
+      // 判断显示层应该是在左边还是右边
+      this.isShowLeft = right > todoEl.right;
+      // 判断显示层应该是在下边还是上边
+      this.isShowTop = bottom > todoEl.bottom;
+      if (this.isShowTop) {
+        bottom =
+          parent.bottom - ev.target.getBoundingClientRect().bottom + "px";
+        this.posTop = { bottom };
+      } else {
+        this.posTop = { top };
+      }
+      if (this.isIndex === _index && this.isItem.index === index) {
+        this.isIndex = -1;
+      } else {
+        this.isIndex = _index;
+      }
+      this.isItem = { ...item, index, _index };
+    },
+    handleFormatDate(year, month) {
+      if (month > 12) {
+        ++year;
+        month = 1;
+      } else if (month < 1) {
+        --year;
+        month = 12;
+      }
+
+      this.curYear = year;
+      this.curMonth = month;
+
+      let prevDate = new Date(year, month);
+      this.prevYear = prevDate.getFullYear();
+      this.prevMonth = prevDate.getMonth() - 1;
+
+      if (this.prevMonth === 0) {
+        --this.prevYear;
+        this.prevMonth = 12;
+      } else if (this.prevMonth === -1) {
+        --this.prevYear;
+        this.prevMonth = 11;
+      }
+
+      let nextDate = new Date(year, month);
+      this.nextYear = nextDate.getFullYear();
+      this.nextMonth = nextDate.getMonth() + 1;
+
+      // 输出年月
+      this.curYearMonth = `${String(month).padStart(2, "0")}/${year}`;
+      // 获取当前月总天数
+      let allDays = this.handleMonthDays(year, month);
+      this.curMonthDays = [];
+
+      for (let i = 0; i < allDays; i++) {
+        let item = { date: i + 1 };
+        //show the tasks
+        let obj = this.getCurMonthDaysTask(year, month, i + 1);
+        //item.todo = [obj];
+        // if (Math.random() > 0.5) {
+        //   console.log(item);
+        //
+        // }
+        //console.log(obj);
+
+        if (obj) {
+          item.todo = [obj];
+          console.log(obj);
+        }
+        this.curMonthDays.push(item);
+      }
+
+      // 获取上月总天数
+      this.prevMonthDays = this.handleMonthDays(year, month - 1);
+      // 获取下月总天数
+      this.nextMonthDays = this.handleMonthDays(year, month + 1);
+      this.handleStartAndEndWeek(year, month, this.curMonthDays.length);
+    },
+    getCurMonthDaysTask(year, month, day) {
+      var tempObj;
+
+      this.getTask.forEach((task) => {
+        var date = new Date(task.due_date);
+        // console.log("gettask?", year, month, day);
+
+        // //console.log(date.getFullYear(), date.getMonth(), date.getDate());
+        // console.log("check", date.getDate() == day);
+        if (
+          date.getFullYear() == year &&
+          date.getMonth() == month &&
+          date.getDate() == day
+        ) {
+          console.log("add");
+          tempObj = {
+            title: task.name,
+            desc: {
+              caption: task.description,
+              time: task.due_date,
+              author: "shaw",
+              num: 369,
+              link: "http://localhost:8080/#/create_subtask",
             },
-        handleFormatDate(year, month) {
-            if (month > 12) {
-                ++year;
-                month = 1;
-            } else if (month < 1) {
-                --year;
-                month = 12;
-            }
+          };
+          console.log("add task at", year, month, day);
+          console.log(tempObj);
+        }
+      });
+      return tempObj;
+    },
+    handleMonthDays(year, month) {
+      return new Date(year, month, 0).getDate();
+    },
+    handleStartAndEndWeek(year, month, monthDays) {
+      this.startDay = new Date(year, month - 1, 0).getDay();
+      this.endDay =
+        new Date(year, month, 0).getDay() &&
+        7 - new Date(year, month, 0).getDay();
+      if (this.isWest) {
+        this.endDay = 7 - (new Date(year, month, 0).getDay() + 1);
+        if (++this.startDay === 7) {
+          this.startDay = 0;
+        }
+      }
 
-            this.curYear = year;
-            this.curMonth = month;
-
-            let prevDate = new Date(year, month);
-            this.prevYear = prevDate.getFullYear();
-            this.prevMonth = prevDate.getMonth() - 1;
-
-            if (this.prevMonth === 0) {
-                --this.prevYear;
-                this.prevMonth = 12;
-            } else if (this.prevMonth === -1) {
-                --this.prevYear;
-                this.prevMonth = 11;
-            }
-
-            let nextDate = new Date(year, month);
-            this.nextYear = nextDate.getFullYear();
-            this.nextMonth = nextDate.getMonth() + 1;
-
-            // 输出年月
-            this.curYearMonth = `${String(month).padStart(2, '0')}/${year}`;
-            // 获取当前月总天数
-            let allDays = this.handleMonthDays(year, month);
-            this.curMonthDays = [];
-            for (let i = 0; i < allDays; i++) {
-                let item = { date: i + 1 };
-                //show the tasks
-                if (Math.random() > 0.5) {
-                    item.todo = [todoObj];
-                    // if (Math.random() > 0.5) {
-                    //     item.todo.push(todoObj);
-                    // }
-                }
-                this.curMonthDays.push(item);
-            }
-            // 获取上月总天数
-            this.prevMonthDays = this.handleMonthDays(year, month - 1);
-            // 获取下月总天数
-            this.nextMonthDays = this.handleMonthDays(year, month + 1);
-            this.handleStartAndEndWeek(year, month, this.curMonthDays.length);
-        },
-        handleMonthDays(year, month) {
-            return new Date(year, month, 0).getDate();
-        },
-        handleStartAndEndWeek(year, month, monthDays) {
-            this.startDay = new Date(year, month - 1, 0).getDay();
-            this.endDay =
-                new Date(year, month, 0).getDay() &&
-                7 - new Date(year, month, 0).getDay();
-            if (this.isWest) {
-                this.endDay = 7 - (new Date(year, month, 0).getDay() + 1);
-                if (++this.startDay === 7) {
-                this.startDay = 0;
-                }
-            }
-
-            if (
-                Math.ceil(monthDays / 7) < 6 &&
-                Math.ceil((monthDays + this.startDay + this.endDay + 7) / 7) < 7
-            ) {
-                if (this.startDay === 0) {
-                this.startDay += 7;
-                } else {
-                this.endDay += 7;
-                }
-            }
-        },
-        handleToggleMonth(str = 'next') {
-            this.isIndex = -1;
-            let [month, year] = this.curYearMonth.match(/\d+/g);
-            str === 'next' ? ++month : --month;
-            this.handleFormatDate(year, month);
-        },
-        fetchTask(){
-            service.get(`/tasks/getTasks/${store.getters["getUserId"]}`).then(function(res){
-                console.log(res.data.data);
-            });
-        },
-        //notification
-        noti(){
-            console.log("requests");
-            service.get(`/users/notification/${store.getters["getUserId"]}`).then(res=>{
-                console.log(res.data);
-                this.tasks_name = res.data.data;
-            });
-            
-        },
-        handleAccept(i){
-            console.log("handleAccept");
-            console.log(this.tasks_name[i]["tid"]);
-            service.get(`/users/accept/${this.tasks_name[i]["tid"]}`).then(res =>{
-                console.log(res.data);
-            });
-            this.tasks_name.splice(i,1);
-        },
-        handleDecline(i){
-            console.log("handleDecline");
-            console.log(this.tasks_name[i]["tid"]);
-            service.get(`/users/decline/${this.tasks_name[i]["tid"]}`).then(res =>{
-                console.log(res.data);
-            });
-            this.tasks_name.splice(i,1);
-        },
-
-    }
-
-
+      if (
+        Math.ceil(monthDays / 7) < 6 &&
+        Math.ceil((monthDays + this.startDay + this.endDay + 7) / 7) < 7
+      ) {
+        if (this.startDay === 0) {
+          this.startDay += 7;
+        } else {
+          this.endDay += 7;
+        }
+      }
+    },
+    handleToggleMonth(str = "next") {
+      this.isIndex = -1;
+      let [month, year] = this.curYearMonth.match(/\d+/g);
+      str === "next" ? ++month : --month;
+      this.handleFormatDate(year, month);
+    },
+    fetchTask() {
+      service
+        .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+        .then((res) => {
+          this.getTask = res.data.data;
+        });
+    },
+    //notification
+    noti() {
+      console.log("requests");
+      service
+        .get(`/users/notification/${store.getters["getUserId"]}`)
+        .then((res) => {
+          console.log(res.data);
+          this.tasks_name = res.data.data;
+        });
+    },
+    handleAccept(i) {
+      console.log("handleAccept");
+      console.log(this.tasks_name[i]["tid"]);
+      service.get(`/users/accept/${this.tasks_name[i]["tid"]}`).then((res) => {
+        console.log(res.data);
+      });
+      this.tasks_name.splice(i, 1);
+    },
+    handleDecline(i) {
+      console.log("handleDecline");
+      console.log(this.tasks_name[i]["tid"]);
+      service.get(`/users/decline/${this.tasks_name[i]["tid"]}`).then((res) => {
+        console.log(res.data);
+      });
+      this.tasks_name.splice(i, 1);
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -605,7 +797,16 @@ export default {
     align-items: center;
     height: 50px;
     color: #fff;
-    background: linear-gradient(45deg,#85c4ff 0%, #1e90ff 17%, #7b68ee 46%, #7b68ee 46%, #7b68ee 56%, #8a2be2 82%, #ba55d3 100%);
+    background: linear-gradient(
+      45deg,
+      #85c4ff 0%,
+      #1e90ff 17%,
+      #7b68ee 46%,
+      #7b68ee 46%,
+      #7b68ee 56%,
+      #8a2be2 82%,
+      #ba55d3 100%
+    );
     .item {
       display: flex;
       justify-content: center;
@@ -670,12 +871,12 @@ export default {
         border-top: 1px solid #e5e5e5;
         border-right: 1px solid #e5e5e5;
         &:before {
-          content: '';
+          content: "";
           float: left;
           padding-top: 100%;
         }
         &:after {
-          content: '';
+          content: "";
           display: block;
           clear: both;
         }
@@ -727,7 +928,7 @@ export default {
           box-shadow: 0 2px 10px #ccc;
           box-sizing: border-box;
           &:before {
-            content: '';
+            content: "";
             position: absolute;
             left: -8px;
             top: 4px;
@@ -799,5 +1000,3 @@ export default {
   }
 }
 </style>
-
-
