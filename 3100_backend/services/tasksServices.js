@@ -71,6 +71,7 @@ module.exports = {
     },
     CountIncompletedTask: async function(user, start, end){
         var end_date = new Date(end);
+        console.log(end_date)
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
@@ -86,10 +87,10 @@ module.exports = {
             .where ({user_id: user});
     },
     CountDueTask: async function(user){
-        var now = new Date();
-        var month = now.getMonth() + 1;
-        var day = now.getDate();
-        var time = now.getFullYear() + "-" + month + "-" + day + " 00:00:00"
+        let now = new Date();
+        let month = now.getMonth() + 1;
+        let day = now.getDate();
+        let time = now.getFullYear() + "-" + ('0' + month).slice(-2)  + "-" + ('0' + day).slice(-2); 
         console.log(time)
         return await knex('task')
         .count('*', {as: 'number'})
@@ -99,7 +100,7 @@ module.exports = {
             request: 'accept'
         })
         .whereNull('completed_timestamp')
-        .where('due_date', '>', time);
+        .where('due_date', '<', time);
     },
     createSubTask: async function(newSubTask){
         console.log("create subtask service");
