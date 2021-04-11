@@ -16,7 +16,7 @@ import Report from "./views/Report.vue"
 import CreateTask from "./views/CreateTask.vue"
 import Subtask from "./views/Subtask.vue"
 import Notification from "./views/Notifications.vue"
-
+import VerifyAccount from "./views/VerifyAccount.vue"
 
 Vue.use(Router);
 import store from "@/store";
@@ -64,6 +64,13 @@ const router = new Router({
         //header: AppHeader,
         default: Register
       }
+    },
+    {
+      path: "/verifyAccount/:user_id",
+      name: "verifyAccount",
+      components: {
+        default: VerifyAccount,
+      },
     },
     {
       path: "/profile",
@@ -136,12 +143,13 @@ router.beforeEach(async (to, from, next) => {
  // await checkLoggedIn();
   //check = await store.getters['checkLogged'];
   await store.dispatch('sessionStorage');
-  if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/register"){
+  if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/register" && !to.path.startsWith("/verifyAccount")){
     console.log("not yet log in");
     next("/login");
   }
-  else 
+  else {
     next();
+  }
 
   // if (to.path === "/") next();
   // else {

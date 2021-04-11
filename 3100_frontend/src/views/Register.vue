@@ -81,7 +81,30 @@
                   <base-button type="primary" class="my-4" @click="register()"
                     >Create account</base-button
                   >
+                  <modal :show.sync="modals.modal1">
+                    <h6
+                      slot="header"
+                      class="modal-title"
+                      id="modal-title-default"
+                    >
+                      Register Success
+                    </h6>
+
+                    <p>
+                      Check you mail box to verify your account!
+                    </p>
+
+                    <template slot="footer">
+                      <base-button
+                        type="link"
+                        class="ml-auto"
+                        @click="modals.modal1 = false"
+                        >Close
+                      </base-button>
+                    </template>
+                  </modal>
                 </div>
+
                 <div class="text-center">
                   You have accout aready?
                   <a href="/login" class="text-light">
@@ -99,14 +122,21 @@
 <script>
 import { uuid } from "vue-uuid";
 import { service } from "@/plugins/request_service.js";
+import Modal from "@/components/Modal.vue";
 
 export default {
+  components: {
+    Modal,
+  },
   data: () => ({
     name: "",
     email: "",
     password: "",
     password_reminder: "",
     invalid_message: "",
+    modals: {
+      modal1: false,
+    },
   }),
   methods: {
     register() {
@@ -119,8 +149,8 @@ export default {
 
       service.get(`/users/getUserId/${this.email}`).then((res) => {
         // check email valid or not
-
-        if (res.data[0] != undefined) {
+        console.log("check email", res.data.data[0]);
+        if (res.data.data[0] != undefined) {
           console.log("email has been used");
           this.invalid_message = "This email has been used before.";
         } else if (!this.name) {
@@ -141,7 +171,8 @@ export default {
               if (res.data.success) {
                 console.log("Update to database success!");
                 //this.finished = true;
-                this.$router.push("/login");
+                this.modals.modal1 = true;
+                // this.$router.push("/login");
               } else {
                 //action for unsuccessful connection
                 console.log("Update to database failed!");

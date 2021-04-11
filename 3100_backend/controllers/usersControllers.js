@@ -21,6 +21,23 @@ module.exports = {
               next(err);
         }
     },
+    verify : async function (req, res, next){
+        try{
+            console.log("verify controller");
+            const newUser = req.body;
+            return standardServiceResponse(
+                res,
+                next,
+                usersServices.verify(newUser)
+            );
+        } catch(err){
+            console.log(
+                "Error: UsersController.verify: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
     login : async function (req, res, next){
         try{
             const logInUser = req.body;
