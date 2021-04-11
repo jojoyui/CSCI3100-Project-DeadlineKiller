@@ -49,20 +49,17 @@
                   addon-left-icon="ni ni-lock-circle-open"
                 >
                 </base-input>
-                <!-- <base-checkbox>
-                                    Remember me
-                                </base-checkbox> -->
+                <div class="text-right">
+                  <label @click="modals = true">
+                    <small>Forgot password? </small></label
+                  >
+                </div>
+
                 <div class="text-center">
                   <base-button type="primary" class="my-4" @click="login()"
                     >Sign In</base-button
                   >
-                  <base-button
-                    type="primary"
-                    class="my-4"
-                    @click="modals = true"
-                  >
-                    Forgot password
-                  </base-button>
+
                   <modal :show.sync="modals">
                     <h6
                       slot="header"
@@ -71,7 +68,6 @@
                     >
                       Forgot password
                     </h6>
-
                     <template>
                       <div class="text-center text-muted mb-4">
                         <small
@@ -90,8 +86,9 @@
                           type="primary"
                           class="my-4"
                           @click="getPasswordreminder()"
-                          >Enter</base-button
+                          >Get password reminder</base-button
                         >
+
                         <div v-if="password_reminder">
                           {{ password_reminder }}
                         </div>
@@ -100,7 +97,7 @@
                   </modal>
                 </div>
                 <div class="text-center">
-                  You do not have an accout?
+                  You do not have an account?
                   <a href="/register" class="text-light">
                     <router-link to="/register">
                       <small>Register here</small>
