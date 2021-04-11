@@ -133,9 +133,6 @@ module.exports = {
             .where({user_id: user})
             .update({subtask_id: subid});
             
-<<<<<<< HEAD
-    } 
-=======
     },
 
     CountTotalTask: async function(user){
@@ -171,5 +168,4 @@ module.exports = {
         .where('due_date', '<', time);
     }
 
->>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
 }
