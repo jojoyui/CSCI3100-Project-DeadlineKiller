@@ -115,13 +115,10 @@
                                     <div class="col">
                                         <p class="lead text-white mt-3 mb-3"></p >
                                         
-<<<<<<< HEAD
                                         <div>
                                             <p class="lead text-white mt-3 mb-3"></p >
                                             <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button></span>
                                         </div>
-=======
->>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
                                     </div>
                                     <!-- <div class="col">
                                         <span></span>
@@ -144,11 +141,7 @@
                                 <h2 class="mb-5 text-center">
                                         <strong>Progress Report</strong>
                                 </h2>
-<<<<<<< HEAD
-                                <div class="row">
-=======
                                 <div class="row justify-content-center align-items-center">
->>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
                                     <div class="col-md-auto">
                                         <div style="width: 28rem;">
                                             <div class="card card-stats">
