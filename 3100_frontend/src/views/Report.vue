@@ -107,11 +107,6 @@
                                             </flat-picker>
                                         </base-input>
                                     </div>
-                                    <div class="col-md-auto">
-                                        <p class="lead text-white mt-3 mb-3"></p >
-                                        <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button>
-                                        </span>
-                                    </div>
                                     <div class="col">
                                         <p class="lead text-white mt-3 mb-3"></p >
                                         
