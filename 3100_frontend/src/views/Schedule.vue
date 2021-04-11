@@ -344,7 +344,7 @@
                     <p
                       class="todo"
                       :class="{
-                        on: index == isItem.index && isIndex == _index,
+                        on: index == isItem.index && isIndex == _index
                       }"
                       :key="_index"
                       @click="
@@ -353,8 +353,7 @@
                           index,
                           _index,
                           $event
-                        )
-                      "
+                        )"
                       :title="_item.title"
                       v-if="_index < 2"
                     >
@@ -541,21 +540,28 @@ export default {
       return arr;
     },
   },
+
   mounted() {
     this.fetchTask();
     let date = new Date();
     this.curDay = date.getDate();
     this.handleFormatDate(date.getFullYear(), date.getMonth() + 1);
     this.noti();
+    
   },
   methods: {
-    demo() {
-      console.log("clicked");
-      service.get("/users/testing").then((res) => {
-        console.log(res.data.data[0].name);
-        this.temp = res.data.data[0].name;
-      });
+    // demo() {
+    //   console.log("clicked");
+    //   service.get("/users/testing").then((res) => {
+    //     console.log(res.data.data[0].name);
+    //     this.temp = res.data.data[0].name;
+    //   });
+    // },
+    fetchTask() {
+      this.getTask.push(store.getters["getTask"]);
+      console.log("fetchTask", this.getTask);
     },
+
     completedTask() {
       console.log("completed");
     },
@@ -628,6 +634,45 @@ export default {
       }
       this.isItem = { ...item, index, _index };
     },
+
+    //show tasks name and info
+    getCurMonthDaysTask(year, month, day) {
+      var tempObj;
+      this.getTask.forEach((task) => {
+        // console.log("getCurMonthDaysTask")
+        for(let i = 0; i < task.length; i++){
+        // console.log(task[i].name);
+        var date = new Date(task[i].due_date);
+        var tmonth = date.getMonth() + 1;
+        if (tmonth<10){
+            tmonth = '0'+ tmonth
+        };
+        var tday = date.getDate();
+        if (tday<10){
+            tday = '0'+ tday
+        };
+        var tdate = date.getFullYear() + "-" + tmonth + "-" + tday;
+        if (
+          date.getFullYear() == year &&
+          tmonth == month &&
+          tday == day
+        ) {
+          console.log("add");
+          tempObj = {
+            title: task[i].name,
+            desc: {
+              caption: task[i].description,
+              time: tdate,
+              subtask: "shaw",
+              link: "http://localhost:8080/#/create_subtask",
+            },
+          };
+        }
+        }
+      });
+      return tempObj;
+    },
+
     handleFormatDate(year, month) {
       if (month > 12) {
         ++year;
@@ -636,7 +681,6 @@ export default {
         --year;
         month = 12;
       }
-
       this.curYear = year;
       this.curMonth = month;
 
@@ -661,21 +705,17 @@ export default {
       // 获取当前月总天数
       let allDays = this.handleMonthDays(year, month);
       this.curMonthDays = [];
-
+      
       for (let i = 0; i < allDays; i++) {
         let item = { date: i + 1 };
         //show the tasks
+        
         let obj = this.getCurMonthDaysTask(year, month, i + 1);
-        //item.todo = [obj];
-        // if (Math.random() > 0.5) {
-        //   console.log(item);
-        //
-        // }
-        //console.log(obj);
-
+        console.log(obj);
         if (obj) {
           item.todo = [obj];
-          console.log(obj);
+          
+          // console.log(obj);
         }
         this.curMonthDays.push(item);
       }
@@ -686,37 +726,8 @@ export default {
       this.nextMonthDays = this.handleMonthDays(year, month + 1);
       this.handleStartAndEndWeek(year, month, this.curMonthDays.length);
     },
-    getCurMonthDaysTask(year, month, day) {
-      var tempObj;
 
-      this.getTask.forEach((task) => {
-        var date = new Date(task.due_date);
-        // console.log("gettask?", year, month, day);
-
-        // //console.log(date.getFullYear(), date.getMonth(), date.getDate());
-        // console.log("check", date.getDate() == day);
-        if (
-          date.getFullYear() == year &&
-          date.getMonth() == month &&
-          date.getDate() == day
-        ) {
-          console.log("add");
-          tempObj = {
-            title: task.name,
-            desc: {
-              caption: task.description,
-              time: task.due_date,
-              author: "shaw",
-              num: 369,
-              link: "http://localhost:8080/#/create_subtask",
-            },
-          };
-          console.log("add task at", year, month, day);
-          console.log(tempObj);
-        }
-      });
-      return tempObj;
-    },
+    
     handleMonthDays(year, month) {
       return new Date(year, month, 0).getDate();
     },
@@ -749,20 +760,14 @@ export default {
       str === "next" ? ++month : --month;
       this.handleFormatDate(year, month);
     },
-    fetchTask() {
-      service
-        .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
-        .then((res) => {
-          this.getTask = res.data.data;
-        });
-    },
+    
     //notification
     noti() {
       console.log("requests");
       service
         .get(`/users/notification/${store.getters["getUserId"]}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.tasks_name = res.data.data;
         });
     },

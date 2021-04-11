@@ -147,6 +147,13 @@ export default {
             "Invalid email. Please register a new account.";
         });
     },
+    // fetchTask() {
+    //   service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+    //     .then((res) => {
+    //       store.commit("setTask", res.data.data);
+    //       console.log('fetch task');
+    //     });
+    // },
     login() {
       console.log("clicked");
 
@@ -166,7 +173,13 @@ export default {
           // set state - user id
           service.get(`/users/getUserId/${this.email}`).then((res) => {
             store.commit("setUserId", res.data.data[0].user_id);
+            service.get(`/tasks/getTasks/${res.data.data[0].user_id}`)
+            .then((res1) => {
+              store.commit("setTask", res1.data.data);
+              console.log('fetch task');
+            });
           });
+          
 
           this.$router.push("/list");
         })
