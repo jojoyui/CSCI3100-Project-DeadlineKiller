@@ -13,23 +13,14 @@ router.get("/getTasksId/:user", tasksControllers.getTasksId);
 
 router.post("/createTask", tasksControllers.createTask);
 router.post("/createGroup", tasksControllers.createGroup);
-<<<<<<< HEAD
-=======
 router.post("/createSubtask", tasksControllers.createSubtask);
 router.get("/updategroup/:task:user:subid", tasksControllers.Updategroup);
->>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
 router.get("/CountCompletedTask/:user/:start/:end", tasksControllers.CountCompletedTask);
 router.get("/CountIncompletedTask/:user/:start/:end", tasksControllers.CountIncompletedTask);
 router.get("/CountTotalTask/:user", tasksControllers.CountTotalTask);
 router.get("/CountDueTask/:user", tasksControllers.CountDueTask);
-<<<<<<< HEAD
-router.post("/createSubtask", tasksControllers.createSubtask);
-router.get("/updategroup/:task:user:subid", tasksControllers.Updategroup);
-=======
-
 router.post("/completeTask", tasksControllers.completeTask);
 
->>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
 
 
 module.exports = router;
