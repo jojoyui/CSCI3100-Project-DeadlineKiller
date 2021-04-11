@@ -82,10 +82,6 @@ module.exports = {
     },
     CountIncompletedTask: async function(user, start, end){
         var end_date = new Date(end);
-<<<<<<< HEAD
-        console.log(end_date)
-=======
->>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
