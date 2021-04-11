@@ -52,11 +52,22 @@ module.exports = {
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
-            .where ({user_id: user})
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1));
-            // .where('completed_timestamp', '<', '2021-03-16T23:59:59Z');
+    },
+
+    completeTask: async function(task){
+        console.log("completeTask service");
+        return await knex("task")
+        .where({task_id: task})
+        .update({
+          completed_timestamp: new Date(),
+        })
     },
 
     createTask: async function(newTask){
@@ -71,11 +82,17 @@ module.exports = {
     },
     CountIncompletedTask: async function(user, start, end){
         var end_date = new Date(end);
+<<<<<<< HEAD
         console.log(end_date)
+=======
+>>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
         return await knex('task')
             .count('*', {as: 'number'})
             .innerJoin('group','group.task_id','task.task_id')
-            .where ({user_id: user})
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
             .whereNull('completed_timestamp')
             .where('due_date', '>=', start)
             .where('due_date', '<', addDate(end_date,1));
@@ -120,5 +137,43 @@ module.exports = {
             .where({user_id: user})
             .update({subtask_id: subid});
             
+<<<<<<< HEAD
     } 
+=======
+    },
+
+    CountTotalTask: async function(user){
+        return await knex('task')
+            .count('*', {as: 'number'})
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({
+                user_id: user,
+                request: 'accept'
+            });
+    },
+
+    CountDueTask: async function(user){
+        var now = new Date();
+        var month = now.getMonth() + 1;
+        if (month<10){
+            month = '0'+ month
+        };
+        var day = now.getDate();
+        if (day<10){
+            day = '0'+ day
+        };
+        var time = now.getFullYear() + "-" + month + "-" + day + " 00:00:00"
+        console.log(time)
+        return await knex('task')
+        .count('*', {as: 'number'})
+        .innerJoin('group','group.task_id','task.task_id')
+        .where ({
+            user_id: user,
+            request: 'accept'
+        })
+        .whereNull('completed_timestamp')
+        .where('due_date', '<', time);
+    }
+
+>>>>>>> 2bac24416bc1d80eff6c551cac310d955cf6a7a9
 }

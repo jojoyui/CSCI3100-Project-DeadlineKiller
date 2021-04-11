@@ -75,6 +75,7 @@
                             <div class="row">
                                 <div class="col">
                                   <modal :show.sync="modals.modal3"
+                                        :clickoutside="false"
                                         body-classes="p-0"
                                         modal-classes="modal-dialog-centered modal-sm">
                                         <card gradient="secondary" shadow
@@ -173,6 +174,7 @@
                                     </base-button>
                                     <modal :show.sync="modals.modal2"
                                         gradient="info"
+                                        :clickoutside="true"
                                         modal-classes="modal-danger modal-dialog-centered">
                                         <h6 slot="header" class="modal-title" id="modal-title-notification">Forming Group With Your Friends!</h6>
                                         <div class="py-3 text-center">

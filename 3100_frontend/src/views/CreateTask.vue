@@ -183,17 +183,19 @@
                             <div class="col">
                                 <span></span>
                             </div>
-                            <div class="col">
-                                <base-alert v-if="!valid" type="danger" dismissible>
+                            <div class="col text-center">
+                                <badge v-if="!valid" type="danger" dismissible>
                                     <span class="alert-inner--text"><strong>Invalid Email!</strong></span>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </base-alert>
-                                <ul class="list-unstyled">
+                                    <i class="ni ni-fat-remove text-default"
+                                            size="sm"
+                                            @click="valid=true">
+                                    </i>
+                                </badge>
+                                
+                                <ul class="list-unstyled text-left">
                                     <li v-for = "(mates, num) in partnerEmail" :key="num">
-                                        <small type = "primary" class="text-muted">&emsp;{{ mates }}</small>
-                                        <i class="ni ni-fat-remove"
+                                        <badge type = "primary" class="text-muted">&emsp;{{ mates }}</badge>
+                                        <i class="ni ni-fat-remove "
                                             size="sm"
                                             @click="handleDelete(num)">
                                         </i>

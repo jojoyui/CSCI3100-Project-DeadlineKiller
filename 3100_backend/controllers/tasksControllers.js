@@ -73,6 +73,23 @@ module.exports = {
                 next(err);
           }
       },
+      completeTask : async function (req, res, next){
+        try{
+            console.log("task controller: completeTask");
+            const task = req.body;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.completeTask(task)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.completeTask: " +
+                    JSON.parse(err.message)["message"]
+                );
+                next(err);
+          }
+      },
       Updategroup: async function(req,res,next){
         try{
             console.log("Updategroup controller");
@@ -152,8 +169,6 @@ module.exports = {
         try{
             console.log("task controller");
             const user = req.params.user;
-            const start = req.params.start;
-            const end = req.params.end;
             return standardServiceResponse(
                 res,
                 next,
@@ -171,8 +186,6 @@ module.exports = {
         try{
             console.log("countDuetask controller");
             const user = req.params.user;
-            const start = req.params.start;
-            const end = req.params.end;
             return standardServiceResponse(
                 res,
                 next,

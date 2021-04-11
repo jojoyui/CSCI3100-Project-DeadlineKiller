@@ -43,6 +43,10 @@ module.exports = {
         console.log("usersService: getuserid");
         return await knex("user").where({email: email}).select('user_id');
     },
+    getPasswordReminder: async function(email){
+        console.log("usersService: getPasswordReminder");
+        return await knex("user").where({email: email}).select('password_reminder');
+    },
 
     notification: async function(user){
         console.log("usersService: notification")
