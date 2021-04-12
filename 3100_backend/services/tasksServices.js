@@ -28,7 +28,8 @@ module.exports = {
     getTasks: async function(user){
         return await knex('task')
             .innerJoin('group','group.task_id','task.task_id')
-            .where({user_id: user});           
+            .where({user_id: user})
+            .whereNull('completed_timestamp');
     },
 
     getTasksId: async function(user){
@@ -101,7 +102,7 @@ module.exports = {
             name: newSubTask.name,
             start_date: newSubTask.start_date,
             end_date: newSubTask.end_date,
-            description: newTask.description
+            description: newSubTask.description
         });
     },
     Updategroup: async function(task,user,subid){

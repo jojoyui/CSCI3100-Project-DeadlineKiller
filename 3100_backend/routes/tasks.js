@@ -14,13 +14,13 @@ router.get("/getTasksId/:user", tasksControllers.getTasksId);
 router.post("/createTask", tasksControllers.createTask);
 router.post("/createGroup", tasksControllers.createGroup);
 router.post("/createSubtask", tasksControllers.createSubtask);
-router.get("/updategroup/:task:user:subid", tasksControllers.Updategroup);
+router.get("/updategroup/:task/:user/:subid", tasksControllers.Updategroup);
 router.get("/CountCompletedTask/:user/:start/:end", tasksControllers.CountCompletedTask);
 router.get("/CountIncompletedTask/:user/:start/:end", tasksControllers.CountIncompletedTask);
 router.get("/CountTotalTask/:user", tasksControllers.CountTotalTask);
 router.get("/CountDueTask/:user", tasksControllers.CountDueTask);
 
-router.post("/completeTask", tasksControllers.completeTask);
+router.get("/completeTask/:tid", tasksControllers.completeTask);
 
 
 

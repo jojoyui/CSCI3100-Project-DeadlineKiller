@@ -76,7 +76,7 @@ module.exports = {
       completeTask : async function (req, res, next){
         try{
             console.log("task controller: completeTask");
-            const task = req.body;
+            const task = req.params.tid;
             return standardServiceResponse(
                 res,
                 next,

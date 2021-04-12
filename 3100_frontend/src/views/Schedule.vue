@@ -194,10 +194,9 @@
                     <p class="modal-title">
                       Completed Task?
                     </p>
-
-                    <base-button @click="completedTask()" type="primary"
-                      >Yes</base-button
-                    >
+                    <base-button @click="completedTask()" type="primary" class="ml-auto">
+                      Yes
+                    </base-button>
                     <base-button
                       type="link"
                       class="ml-auto"
@@ -357,7 +356,7 @@
                       :title="_item.title"
                       v-if="_index < 2"
                     >
-                      {{ _item.title }}
+                      <strong>{{ _item.title }}</strong>
                     </p>
                   </template>
                   <div
@@ -366,20 +365,24 @@
                     v-if="index == isItem.index && isIndex == isItem._index"
                     :style="posTop"
                   >
-                    <h2 class="title">{{ isItem.desc.caption }}</h2>
-                    <div class="time">
-                      {{ "Due_date：" + isItem.desc.time }}
+                    <div class="author" v-if="isItem.desc.caption === ''"><strong>{{isItem.desc.caption }}</strong></div>
+                    <div class="author" v-else><strong>{{"Description："}}</strong> {{isItem.desc.caption }}</div>
+                    <div class="author">
+                      <strong>{{ "Due_date："}}</strong>  {{isItem.desc.time }}
                     </div>
-                    <div class="author-box">
-                      <span class="author">{{
-                        "subtask：" + isItem.desc.author
-                      }}</span>
+                    <div class="author">
+                      <strong>{{"Subtask："}}</strong> {{isItem.desc.subtask}}
+                    </div>
+                    <div v-if="progress >= 0" class="bar">
+                      <base-progress v-if="progress <= 40 " type="danger" :value=progress label="Task progress"></base-progress>
+                      <base-progress v-else-if="progress >= 70 " type="success" :value=progress label="Task progress"></base-progress>
+                      <base-progress v-else type="primary" :value=progress label="Task progress"></base-progress>
                     </div>
                     <div class="link-box">
                       <base-button
-                        type="info"
+                        type="primary"
                         class="mb-3"
-                        @click="modals.modal3 = true"
+                        @click="modals.modal3 = true, task_id=isItem.desc.tid"
                         size="sm"
                       >
                         Add Subtask
@@ -387,7 +390,7 @@
                       <base-button
                         type="info"
                         class="mb-3"
-                        @click="modals.modal4 = true"
+                        @click="modals.modal4 = true, task_id=isItem.desc.tid"
                         size="sm"
                       >
                         Complete Task
@@ -478,11 +481,12 @@ export default {
   },
   data: () => ({
     getTask: [],
+    progress: 70,
 
     temp: "original",
     task: "A",
     user_id: store.getters["getUserId"],
-    task_id: store.getters["getTaskId"],
+    task_id: "",
     subtask_id: "",
     tname: "",
     dates: {
@@ -540,6 +544,16 @@ export default {
       return arr;
     },
   },
+  // computed:{
+  //   percent(){
+  //       if((this.finishTask+this.unfinishTask) == 0){
+  //           return 0;
+  //       }
+  //       else{
+  //           return (this.finishTask/(this.finishTask+this.unfinishTask))*100;
+  //       }
+  //   }
+  // },
 
   mounted() {
     this.fetchTask();
@@ -564,9 +578,25 @@ export default {
 
     completedTask() {
       console.log("completed");
+      service.get(`/tasks/completeTask/${this.task_id}`)
+            .then((res) => {
+              if (res.data.success) {
+                console.log("Update to task database success!");
+                service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+                      .then((res1) => {
+                          store.commit("setTask", res1.data.data);
+                          console.log('fetch task');
+                      });
+                this.modals.modal4 = false;
+                this.$router.replace('/empty');
+              }
+              else{
+                console.log("Update to task database failed!");
+              }
+            });
     },
     handleSubmit() {
-      console.log("clicked");
+      console.log(this.task_id);
 
       this.subtask_id = uuid.v1();
       if (this.tname == "") {
@@ -590,12 +620,16 @@ export default {
                 )
                 .then((res) => {
                   console.log(res.data);
+                  service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+                      .then((res1) => {
+                          store.commit("setTask", res1.data.data);
+                          console.log('fetch task');
+                      });
                 })
                 .catch((err) => {
                   console.log("err:", err);
                   this.validsubmit = false;
                 });
-              this.$router.push("/list");
             } else {
               console.log("Update to subtask database failed!");
             }
@@ -604,6 +638,8 @@ export default {
             console.log("err:", err);
             this.validsubmit = false;
           });
+          this.modals.modal3 = false;
+          this.fetchTask();
       }
     },
     handleLunar(year, month, date) {
@@ -638,39 +674,43 @@ export default {
     //show tasks name and info
     getCurMonthDaysTask(year, month, day) {
       var tempObj;
+      var obj = [];
       this.getTask.forEach((task) => {
         // console.log("getCurMonthDaysTask")
         for(let i = 0; i < task.length; i++){
         // console.log(task[i].name);
-        var date = new Date(task[i].due_date);
-        var tmonth = date.getMonth() + 1;
-        if (tmonth<10){
-            tmonth = '0'+ tmonth
-        };
-        var tday = date.getDate();
-        if (tday<10){
-            tday = '0'+ tday
-        };
-        var tdate = date.getFullYear() + "-" + tmonth + "-" + tday;
-        if (
-          date.getFullYear() == year &&
-          tmonth == month &&
-          tday == day
-        ) {
-          console.log("add");
-          tempObj = {
-            title: task[i].name,
-            desc: {
-              caption: task[i].description,
-              time: tdate,
-              subtask: "shaw",
-              link: "http://localhost:8080/#/create_subtask",
-            },
+          var date = new Date(task[i].due_date);
+          var tmonth = date.getMonth() + 1;
+          if (tmonth<10){
+              tmonth = '0'+ tmonth
           };
-        }
+          var tday = date.getDate();
+          if (tday<10){
+              tday = '0'+ tday
+          };
+          var tdate = date.getFullYear() + "-" + tmonth + "-" + tday;
+          if (
+            date.getFullYear() == year &&
+            tmonth == month &&
+            tday == day
+          ) {
+            // console.log("add");
+            tempObj = {
+              title: task[i].name,
+              desc: {
+                tid: task[i].task_id,
+                caption: task[i].description,
+                time: tdate,
+                finish_date: task[i].completed_timestamp,
+                subtask: "shaw",
+                link: "http://localhost:8080/#/create_subtask",
+              }
+            };
+            obj.push(tempObj);
+          }
         }
       });
-      return tempObj;
+      return obj;
     },
 
     handleFormatDate(year, month) {
@@ -707,15 +747,26 @@ export default {
       this.curMonthDays = [];
       
       for (let i = 0; i < allDays; i++) {
+        // let item = { date: i + 1 };
+        // if (Math.random() > 0.5) {
+        //   item.todo = [todoObj];
+        //   if (Math.random() > 0.5) {
+        //     item.todo.push(todoObj);
+        //   }
+        // }
         let item = { date: i + 1 };
         //show the tasks
-        
         let obj = this.getCurMonthDaysTask(year, month, i + 1);
-        console.log(obj);
-        if (obj) {
-          item.todo = [obj];
+        if (obj.length == 1) {
+          item.todo = [obj[0]];
+        }
+        if(obj.length > 1){
+          item.todo = []
+          for(let j = 0; j < obj.length; j++){
+            item.todo.push(obj[j]);
+          };
+          console.log(item.todo);
           
-          // console.log(obj);
         }
         this.curMonthDays.push(item);
       }
@@ -904,7 +955,7 @@ export default {
           margin: 6px 6px 0;
           padding: 5px 10px;
           font-size: 12px;
-          color: #666;
+          color: rgb(0, 0, 0);
           cursor: pointer;
           border-radius: 2px;
           background: #f0f8ff;
@@ -919,13 +970,33 @@ export default {
             background: #67a2f0;
           }
         }
+        .finished {
+          line-height: 19px;
+          margin: 6px 6px 0;
+          padding: 5px 10px;
+          font-size: 12px;
+          color: #666;
+          cursor: pointer;
+          border-radius: 2px;
+          background: #8cf3ba;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &:nth-of-type(1) {
+            margin-top: 35px;
+          }
+          &.on {
+            color: #eff7f4;
+            background: #67f072;
+          }
+        }
         .todo-item {
           position: absolute;
           left: 100%;
           top: 0;
           z-index: 9;
           width: 318px;
-          height: 213px;
+          height: 310px;
           padding: 22px 30px 26px;
           border: 1px solid #3c85da;
           transform: translateX(15px);
@@ -982,7 +1053,7 @@ export default {
             align-items: center;
             margin-top: 25px;
             padding-top: 25px;
-            border-top: 1px dashed #bababa;
+            //border-top: 1px dashed #bababa;
             .link {
               padding: 6px 16px;
               font-size: 16px;
