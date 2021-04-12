@@ -67,13 +67,205 @@
                 </div>
             </div>
         </section>
+        <modal
+                    :show.sync="modals.modal1"
+                    :clickoutside="false"
+                    body-classes="p-0"
+                    modal-classes="modal-dialog-centered"
+                  >
+                    <card
+                      gradient="secondary"
+                      shadow
+                      header-classes="bg-white pb-5"
+                      body-classes="px-lg-5 py-lg-5"
+                      class="border-0"
+                    >
+                      <template>
+                        <div class="text-center text-primary mb-3">
+                          <strong>Completed Task</strong>
+                        </div>
+                      </template>
+                       <template>
+                        <ul class="list-unstyled">
+                            <li v-for="(item) in CompletedTask" :key = "item.id"> 
+                                        <strong> {{item.name}} </strong>
+                                        <div v-if="item.type === 'assignment'">
+                                            <span class="badge badge-primary"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'present'">
+                                            <span class="badge badge-info"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'project'">
+                                            <span class="badge badge-success"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'midterm'">
+                                            <span class="badge badge-warning"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge badge-danger"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div>Completed Date: {{item.completed_timestamp}}</div> <br>
+                                        <div id="no_description"  v-if="item.description === ''">{{item.description}}</div>
+                                        <div id="has_description"  v-else>Description:{{item.description}}</div>
+                                        <hr>
+                            </li>
+                        </ul>
+                      </template>
+                      <template>
+                        <form role="form">
+                          <div class="row">
+                            <div class="text-left col">
+                              <base-button
+                                type="link"
+                                text-color="default"
+                                class="my-4"
+                                @click="
+                                  (modals.modal1 = false), (validsubmit = true)
+                                "
+                              >
+                                Close
+                              </base-button>
+                            </div>
+                          </div>
+                        </form>
+                      </template>
+                    </card>
+        </modal>
+        <modal
+                    :show.sync="modals.modal2"
+                    :clickoutside="false"
+                    body-classes="p-0"
+                    modal-classes="modal-dialog-centered"
+                  >
+                    <card
+                      gradient="secondary"
+                      shadow
+                      header-classes="bg-white pb-5"
+                      body-classes="px-lg-5 py-lg-5"
+                      class="border-0"
+                    >
+                      <template>
+                        <div class="text-center text-primary mb-3">
+                          <strong>Incompleted Task</strong>
+                          <br>
+                        </div>
+                      </template>
+                       <template>
+                        <ul class="list-unstyled">
+                            <li v-for="(item) in InCompletedTask" :key = "item.id"> 
+                                        <strong> {{item.name}} </strong>
+                                        <div v-if="item.type === 'assignment'">
+                                            <span class="badge badge-primary"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'present'">
+                                            <span class="badge badge-info"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'project'">
+                                            <span class="badge badge-success"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'midterm'">
+                                            <span class="badge badge-warning"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge badge-danger"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div>Due Date: {{item.due_date}}</div> <br>
+                                        <div id="no_description"  v-if="item.description === ''">{{item.description}}</div>
+                                        <div id="has_description"  v-else>Description:{{item.description}}</div>
+                                        <hr>
+                            </li>
+                        </ul>
+                      </template>
+                      <template>
+                        <form role="form">
+                          <div class="row">
+                            <div class="text-left col">
+                              <base-button
+                                type="link"
+                                text-color="default"
+                                class="my-4"
+                                @click="
+                                  (modals.modal2 = false), (validsubmit = true)
+                                "
+                              >
+                                Close
+                              </base-button>
+                            </div>
+                          </div>
+                        </form>
+                      </template>
+                    </card>
+        </modal>
+        <modal
+                    :show.sync="modals.modal3"
+                    :clickoutside="false"
+                    body-classes="p-0"
+                    modal-classes="modal-dialog-centered"
+                  >
+                    <card
+                      gradient="secondary"
+                      shadow
+                      header-classes="bg-white pb-5"
+                      body-classes="px-lg-5 py-lg-5"
+                      class="border-0"
+                    >
+                      <template>
+                        <div class="text-center text-primary mb-3">
+                          <strong>Overdued Task</strong>
+                          <br>
+                        </div>
+                      </template>
+                       <template>
+                        <ul class="list-unstyled">
+                            <li v-for="(item) in OverduedTask" :key = "item.id"> 
+                                        <strong> {{item.name}} </strong>
+                                        <div v-if="item.type === 'assignment'">
+                                            <span class="badge badge-primary"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'present'">
+                                            <span class="badge badge-info"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'project'">
+                                            <span class="badge badge-success"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else-if="item.type === 'midterm'">
+                                            <span class="badge badge-warning"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div v-else>
+                                            <span class="badge badge-danger"><strong>{{item.type}}</strong></span> <br><br> 
+                                        </div>
+                                        <div>Due Date: {{item.due_date}}</div> <br>
+                                        <div id="no_description"  v-if="item.description === ''">{{item.description}}</div>
+                                        <div id="has_description"  v-else>Description:{{item.description}}</div>
+                                        <hr>
+                            </li>
+                        </ul>
+                      </template>
+                      <template>
+                        <form role="form">
+                          <div class="row">
+                            <div class="text-left col">
+                              <base-button
+                                type="link"
+                                text-color="default"
+                                class="my-4"
+                                @click="
+                                  (modals.modal3 = false), (validsubmit = true)
+                                "
+                              >
+                                Close
+                              </base-button>
+                            </div>
+                          </div>
+                        </form>
+                      </template>
+                    </card>
+        </modal>
         <section class="section section-skew">
             <div class="container">
                    <card shadow class="card-createTask mt--300" no-body>
                         <div>
                             <div>
-                                
-                                
                                 <blockquote class="blockquote">
                                     <!-- <p class="mb-0">Please select your date range:</p > -->
                                 </blockquote>
@@ -138,7 +330,7 @@
                                 </h2>
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-md-auto">
-                                        <div style="width: 28rem;">
+                                        <div style="width: 17rem;">
                                             <div class="card card-stats">
                                                 <!-- Card body -->
                                                 <div class="card-body">  
@@ -148,10 +340,24 @@
                                                             <h5 class="card-title text-uppercase text-muted mb-0">Completed Tasks</h5>
                                                         </div>
                                                         <div class="col-auto">
-                                                            <div class="icon icon-shape bg-green text-white rounded-circle shadow">
+                                                            <div class="icon icon-shape bg-green text-white rounded-circle shadow" size="lg">
                                                                 <i class="ni ni-like-2"></i>
                                                             </div>
                                                         </div>
+                                                        <div class="mt-3 mb-0 text-sm"> 
+                                                            <p v-if="finishTask === 0"></p>
+                                                            <p v-else>
+                                                                <base-button
+                                                                    type="secondary"
+                                                                    class="mb-3"
+                                                                    @click="modals.modal1 = true"
+                                                                    size="sm"
+                                                                >   
+                                                                    Show the tasks
+                                                                </base-button>
+                                                            </p>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +365,7 @@
                                     </div>
                                     <div class="col-md-auto">
                                         
-                                        <div style="width: 28rem;">
+                                        <div style="width: 17rem;">
                                             <div class="card card-stats" data-placement="left">
                                                 <!-- Card body -->
                                                 <div class="card-body">  
@@ -173,19 +379,32 @@
                                                                 <i class="ni ni-spaceship"></i>
                                                             </div>
                                                         </div>
+                                                        <div class="mt-3 mb-0 text-sm">
+                                                            <p v-if="unfinishTask === 0"></p>
+                                                            <p v-else>
+                                                                <base-button
+                                                                    type="secondary"
+                                                                    class="mb-3"
+                                                                    @click="modals.modal2 = true"
+                                                                    size="sm"
+                                                                >   
+                                                                    Show the tasks
+                                                                </base-button>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         
                                     </div>
-                                </div>
-                                <br/>
-                                <div class="row justify-content-center align-items-center">
+                                <!-- </div> -->
+                                <!-- <br/> -->
+                                <!-- <div class="row justify-content-center align-items-center"> -->
 
                                     <div class="col-md-auto">
                                         
-                                        <div style="width: 28rem;">
+                                        <div style="width: 17rem;">
                                             <div class="card card-stats" data-placement="left">
                                                 <!-- Card body -->
                                                 <div class="card-body">  
@@ -199,27 +418,18 @@
                                                                 <i class="ni ni-time-alarm"></i>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="col-md-auto">
-                                        
-                                        <div style="width: 28rem;">
-                                            <div class="card card-stats" data-placement="left">
-                                                <!-- Card body -->
-                                                <div class="card-body">  
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <span class="h1 text-default font-weight-bold mb-0">{{totalTask}}</span>
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">Total Tasks</h5>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-default text-white rounded-circle shadow">
-                                                                <i class="ni ni-user-run"></i>
-                                                            </div>
+                                                        <div class="mt-3 mb-0 text-sm">
+                                                            <p v-if="DueTask === 0"></p>
+                                                            <p v-else>
+                                                                <base-button
+                                                                    type="secondary"
+                                                                    class="mb-3"
+                                                                    @click="modals.modal3 = true"
+                                                                    size="sm"
+                                                                >   
+                                                                    Show the tasks
+                                                                </base-button>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -228,16 +438,7 @@
                                         
                                     </div>
                                 </div>
-                                <!-- <div class="text-center">
-                                    <h3>
-                                        <span>You have finished <span class="h4 text-success front-weight-bold mb-4">{{finishTask}}</span> tasks! </span>
-                                        <i class="ni ni-like-2"></i>
-                                    </h3>
-                                    <h3 class="mb-5 default">
-                                        <span>You have <span class="h4 text-warning front-weight-bold mb-4">{{unfinishTask}}</span> tasks left! Keep up! </span>
-                                    </h3>
-                                </div> -->
-                    
+
                                 <div class="progress-wrapper">
                                     <div class="progress-primary">
                                                 <div class="progress-label">
@@ -266,6 +467,9 @@ import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import DatePickers from './components/JavascriptComponents/DatePickers.vue';
 import Badge from '../components/Badge.vue';
+import Modal from "../components/Modal.vue";
+import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
+import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
 
 
 var now = new Date();
@@ -286,7 +490,12 @@ export default {
     components:{
         flatPicker,
         DatePickers,
-        Badge
+        Badge,
+        Modal
+    },
+    directives: {
+    BTooltip: VBTooltip,
+    BPopover: VBPopover,
     },
     data: () =>({
         finishTask:"0",
@@ -298,7 +507,33 @@ export default {
             start: time1,
             end: time2
         },
-        valid: true
+        valid: true,
+        CompletedTask:[ 
+            {
+                description: "",
+                completed_timestamp: "",
+                name: "",
+                type: "",             
+            }],
+        InCompletedTask:[ 
+            {
+                description: "",
+                due_date: "",
+                name: "",
+                type: "",             
+            }],
+        OverduedTask:[ 
+            {
+                description: "",
+                due_date: "",
+                name: "",
+                type: "",             
+            }],
+        modals: {
+            modal1: false,
+            modal2: false,
+            modal3: false,
+    },
     }),
     computed:{
          percent(){
@@ -331,22 +566,33 @@ export default {
         report(){
             console.log("report")
             service.get(`/tasks/CountCompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
-                console.log(res.data.data[0].number);
+                console.log(res.data.data[0]);
                 this.finishTask=res.data.data[0].number;
             })
             service.get(`/tasks/CountIncompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res=>{
                 console.log(res.data.data[0].number);
                 this.unfinishTask=res.data.data[0].number;
             })
-            service.get(`/tasks/CountTotalTask/${store.getters["getUserId"]}`).then(res=>{
-                console.log(res.data.data[0].number);
-                this.totalTask=res.data.data[0].number;
-            })
             service.get(`/tasks/CountDueTask/${store.getters["getUserId"]}`).then(res=>{
                 console.log(res.data.data[0].number);
                 console.log(res.data.data);
                 this.DueTask=res.data.data[0].number;
             })
+            service.get(`/tasks/CompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res => {
+                console.log(res.data.data);
+                console.log(this.route);
+                this.CompletedTask = res.data.data;
+            });
+            service.get(`/tasks/InCompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res => {
+                console.log(res.data.data);
+                console.log(this.route);
+                this.InCompletedTask = res.data.data;
+            });
+            service.get(`/tasks/OverduedTask/${store.getters["getUserId"]}`).then(res => {
+                console.log(res.data.data);
+                console.log(this.route);
+                this.OverduedTask = res.data.data;
+            });
         }
     }
 }
