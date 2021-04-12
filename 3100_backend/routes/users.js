@@ -17,6 +17,8 @@ router.get('/', function(req, res, next) {
 //router.get("/testing", testingControllers.testingControll);
 router.post("/register", usersControllers.register);
 router.post("/login", usersControllers.login);
+
+router.post("/verify", usersControllers.verify);
 router.get("/getPasswordReminder/:email", usersControllers.getPasswordReminder);
 
 router.get("/getUserId/:email", usersControllers.getUserId);
