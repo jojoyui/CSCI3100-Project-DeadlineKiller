@@ -56,7 +56,7 @@ module.exports = {
                 next(err);
           }
       },
-      createSubtask : async function (req, res, next){
+    createSubtask : async function (req, res, next){
         try{
             console.log("task controller");
             const task = req.body;
@@ -72,8 +72,8 @@ module.exports = {
                 );
                 next(err);
           }
-      },
-      completeTask : async function (req, res, next){
+    },
+    completeTask : async function (req, res, next){
         try{
             console.log("task controller: completeTask");
             const task = req.params.tid;
@@ -89,8 +89,8 @@ module.exports = {
                 );
                 next(err);
           }
-      },
-      Updategroup: async function(req,res,next){
+    },
+    Updategroup: async function(req,res,next){
         try{
             console.log("Updategroup controller");
             const task = req.params.task;
@@ -146,6 +146,25 @@ module.exports = {
               next(err);
         }
     },
+    CompletedTask : async function (req, res, next){
+        try{
+            console.log("task controller");
+            const user = req.params.user;
+            const start = req.params.start;
+            const end = req.params.end;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.CompletedTask(user, start, end)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.Report: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
     CountIncompletedTask : async function (req, res, next){
         try{
             console.log("task controller");
@@ -165,14 +184,16 @@ module.exports = {
               next(err);
         }
     },
-    CountTotalTask : async function (req, res, next){
+    IncompletedTask : async function (req, res, next){
         try{
             console.log("task controller");
             const user = req.params.user;
+            const start = req.params.start;
+            const end = req.params.end;
             return standardServiceResponse(
                 res,
                 next,
-                tasksServices.CountTotalTask(user)
+                tasksServices.IncompletedTask(user, start, end)
             );
         } catch(err){
             console.log(
@@ -198,5 +219,22 @@ module.exports = {
               );
               next(err);
         }
-    }    
+    }, 
+    OverduedTask : async function (req, res, next){
+        try{
+            console.log("countDuetask controller");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.OverduedTask(user)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.Report: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    }       
 }

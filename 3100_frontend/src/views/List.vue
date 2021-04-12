@@ -222,15 +222,28 @@
                                 -->
                                 <ul class="list-unstyled">
                                     <li v-for="(item) in task" :key = "item.id"> 
-                                        Name: {{item.name}} <br> Type: {{item.type}} <br> Deadline: {{item.due_date}} <br><br> Description: <br> {{item.description}} 
+                                        Name: {{item.name}} 
                                         <br/>
                                         <br/>
                                         <base-button type="info" class="mb-3" @click="modals.modal3 = true" size="sm">
                                             Add Subtask
                                         </base-button>
-                                        <hr>
+                                        <!-- <hr> -->
+                                        <div class="progress-wrapper">
+                                            <div class="progress-primary">
+                                                <div class="progress-label">
+                                                    <span>Task Progress</span>
+                                                </div>
+                                            <div class="progress-percentage">
+                                                <span>50%</span>
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="height:8px;">
+                                                <div class="progress-bar progress-bar-success progress-bar-striped active" :style="{ width: '50%' }" ></div>
+                                            </div>
+                                            <hr>
+                                        </div>
                                     </li>
-                                    
                                 </ul>
                             </h4>
                         </div>

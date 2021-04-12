@@ -6,8 +6,8 @@ module.exports = {
     connection: {
       host: "127.0.0.1",
       port: 3306,
-      user: "root",
-      password: '08ce267f',
+      user: "OMG",
+      password: '1234567',
       database: "3100proj",
     },
     debug: true,
