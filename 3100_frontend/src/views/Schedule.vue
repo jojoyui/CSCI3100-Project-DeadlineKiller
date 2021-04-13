@@ -425,7 +425,7 @@
                       <base-button
                         type="primary"
                         class="mb-3"
-                        @click="modals.modal3 = true, task_id=isItem.tid"
+                        @click="modals.modal3 = true, task_id=isItem.tid, dates.end=isItem.desc.time"
                         size="sm"
                       >
                         Add Subtask
@@ -485,16 +485,16 @@ import "flatpickr/dist/flatpickr.css";
 // import TimeGridPlugin from '@fullcalendar/vue'
 // import InteractionPlugin from '@fullcalendar/vue'
 // import ListPlugin from '@fullcalendar/vue'
-const todoObj = {
-  title: "DEAD",
-  desc: {
-    caption: "Task name",
-    time: "2018.02.27",
-    author: "shaw",
-    num: 369,
-    link: "http://localhost:8080/#/create_subtask",
-  },
+var now = new Date();
+var month = now.getMonth()+1
+var day = now.getDate();
+if (month<10){
+    month = '0'+ month
 };
+if (day<10){
+    day = '0'+ day
+};
+var current = now.getFullYear() + "-" + month + "-" + day;
 
 export default {
   components: {
@@ -533,7 +533,7 @@ export default {
     subtask_id: "",
     tname: "",
     dates: {
-      start: "2021-04-01",
+      start: current,
       end: "2021-04-30",
     },
     description: "",

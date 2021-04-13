@@ -75,6 +75,7 @@ module.exports = {
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1))
+            .orderBy('updated_at', 'desc');
     },
 
     completeTask: async function(task){
@@ -119,7 +120,8 @@ module.exports = {
             })
             .whereNull('completed_timestamp')
             .where('due_date', '>=', start)
-            .where('due_date', '<', addDate(end_date,1));
+            .where('due_date', '<', addDate(end_date,1))
+            .orderBy('due_date', 'asc');
     },
     CountDueTask: async function(user){
         let now = new Date();
@@ -150,7 +152,8 @@ module.exports = {
             request: 'accept'
         })
         .whereNull('completed_timestamp')
-        .where('due_date', '<', time);
+        .where('due_date', '<', time)
+        .orderBy('due_date', 'desc');;
     },
 
     //subtask
@@ -176,7 +179,8 @@ module.exports = {
     getSubTasks: async function(tid){
         console.log("getSubTask service");
         return await knex('subtask')
-            .where({task_id: tid});
+            .where({task_id: tid})
+            .orderBy('created_at', 'asc');;
     },
     completeSubTask: async function(sid){
         console.log("completeSubTask service");
