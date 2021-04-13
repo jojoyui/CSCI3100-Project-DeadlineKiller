@@ -574,16 +574,18 @@
                             class="custom-control custom-checkbox custom-checkbox-success"
                           >
                             <div class="w-10000"></div>
-                            <input
-                              class="custom-control-input"
-                              id="chk-todo-task-1"
-                              type="checkbox"
-                              checked
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="chk-todo-task-1"
-                            ></label>
+
+                            <div v-if="item.completed_timestamp">Completed</div>
+                            <div v-else>
+                              <base-button
+                                type="info"
+                                class="mb-3"
+                                @click="modals.modal4 = true"
+                                size="sm"
+                              >
+                                Complete Task
+                              </base-button>
+                            </div>
                           </div>
                         </td>
                       </tr>
