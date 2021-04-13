@@ -166,7 +166,7 @@
                                 text-color="default"
                                 class="my-4"
                                 @click="
-                                  (modals.modal3 = false), (validsubmit = true)
+                                  (modals.modal3 = false), (validsubmit = true),(modals.modal1 = true)
                                 "
                               >
                                 Close
@@ -327,7 +327,7 @@
                                           class="my-4"
                                           @click="
                                             (modals.modal3 = false),
-                                              (validsubmit = true)
+                                              (validsubmit = true),(modals.modal1 = true)
                                           "
                                         >
                                           Close
@@ -496,13 +496,15 @@
                       </tr>
                     </thead>
 
-                    <tbody class="list">
+                    <tbody class="list">                      
                       <tr v-for="item in task" :key="item.id">
                         <!-- <div class="list-group">-->
 
+                        <div class="row">
+
                         <th>
                           <span> {{ item.name }} </span>
-
+                          <br> <br>
                           <base-button
                             block
                             type="primary"
@@ -550,11 +552,23 @@
                                 </div>
                                 <hr />
                               </div>
-
+                            
+                              
                               <template slot="footer">
-                                <base-button type="primary"
-                                  >Save changes</base-button
-                                >
+
+                              <div class="col-sm-2">
+                                <span>
+                                  <base-button
+                                    type="info"
+                                    class="sm-3"
+                                    @click="(modals.modal1 = false), (modals.modal3 = true)"
+                                    size="sm-1"
+                                  >
+                                    Add Subtask                                    
+                                  </base-button>
+                                </span>
+                              </div>
+
                                 <base-button
                                   type="link"
                                   class="ml-auto"
@@ -568,25 +582,16 @@
 
                           <!-- </div>-->
 
-                          <div class="col-sm-2">
-                            <span>
-                              <base-button
-                                type="info"
-                                class="sm-3"
-                                @click="modals.modal3 = true"
-                                size="sm-1"
-                              >
-                                Add Subtask
-                              </base-button>
-                            </span>
-                          </div>
+                          
                         </th>
+                        </div>
                         <td>
-                          {{ new Date(item.due_date).toLocaleDateString() }}
+                          <br>{{ new Date(item.due_date).toLocaleDateString() }}
                         </td>
 
                         <!--<hr>-->
                         <td class="completion">
+                          <br>
                           <div v-if="item.completed_timestamp">Completed</div>
 
                           <div v-else>
