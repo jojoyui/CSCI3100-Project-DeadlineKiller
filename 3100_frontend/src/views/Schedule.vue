@@ -190,8 +190,11 @@
                       </template>
                     </card>
                   </modal>
-                  <modal :show.sync="modals.modal4" body-classes="p-2"
-                    modal-classes="modal-dialog-centered">
+                  <modal
+                    :show.sync="modals.modal4"
+                    body-classes="p-2"
+                    modal-classes="modal-dialog-centered"
+                  >
                     <h4 class="modal-title text-center">
                       Completed Task?
                     </h4>
@@ -201,16 +204,21 @@
                       </div>
                       <div clas="col-md-auto">
                         <p class="lead text-white mt-3 mb-3"></p>
-                        <base-button size="sm" @click="completedTask()" type="primary">
+                        <base-button
+                          size="sm"
+                          @click="completedTask()"
+                          type="primary"
+                        >
                           Yes
                         </base-button>
                       </div>
                       <div class="col-md-auto">
                         <p class="lead text-white mt-3 mb-3"></p>
-                        <base-button size="sm"
+                        <base-button
+                          size="sm"
                           type="default"
                           @click="modals.modal4 = false"
-                        >No
+                          >No
                         </base-button>
                       </div>
                       <div class="col-sm">
@@ -357,7 +365,7 @@
                     <p
                       class="todo"
                       :class="{
-                        on: index == isItem.index && isIndex == _index
+                        on: index == isItem.index && isIndex == _index,
                       }"
                       :key="_index"
                       @click="
@@ -366,12 +374,19 @@
                           index,
                           _index,
                           $event
-                        ),getSubtask(_item.tid),checkboxes=[]"
+                        ),
+                          getSubtask(_item.tid),
+                          (checkboxes = [])
+                      "
                       :title="_item.title"
                       v-if="_index < 2"
                     >
-                      <strong v-if="_item.type === 'project'">{{ _item.title }}</strong>
-                      <strong v-else>{{ _item.title + " " + _item.type }}</strong>
+                      <strong v-if="_item.type === 'project'">{{
+                        _item.title
+                      }}</strong>
+                      <strong v-else>{{
+                        _item.title + " " + _item.type
+                      }}</strong>
                     </p>
                   </template>
                   <div
@@ -380,52 +395,93 @@
                     v-if="index == isItem.index && isIndex == isItem._index"
                     :style="posTop"
                   >
-                    <div class="author" v-if="isItem.desc.caption === ''"><strong>{{isItem.desc.caption }}</strong></div>
-                    <div class="author" v-else><strong>{{"Description："}}</strong> {{isItem.desc.caption }}</div>
+                    <div class="author" v-if="isItem.desc.caption === ''">
+                      <strong>{{ isItem.desc.caption }}</strong>
+                    </div>
+                    <div class="author" v-else>
+                      <strong>{{ "Description：" }}</strong>
+                      {{ isItem.desc.caption }}
+                    </div>
                     <div class="author">
-                      <strong>{{ "Due_date："}}</strong>  {{isItem.desc.time }}
+                      <strong>{{ "Due_date：" }}</strong> {{ isItem.desc.time }}
                     </div>
                     <p></p>
                     <div class="author">
                       <div class="row">
                         <div class="col">
-                            <ul class="list-unstyled">
-                            <li v-for= "(item, index) in subtask" :key="index">
-                                <base-checkbox v-model="checkboxes[index].unchecked" v-if="item.completed_timestamp === null " @click.native="completeSubtask(index), task_id = isItem.tid">
-                                  <div v-if="item.description === ''"> 
-                                            {{ item.name }}
-                                  </div>
-                                  <div v-else 
-                                       v-b-popover.hover.right="item.description"
-                                       title="Descirption"> 
-                                      {{ item.name }}
-                                  </div>
-                                </base-checkbox>
-                                <base-checkbox v-model="checkboxes[index].unchecked" v-else disabled>
-                                  <div v-if="item.description === ''"> 
-                                            {{ item.name }}
-                                  </div>
-                                  <div v-else 
-                                       v-b-popover.hover.right="item.description"
-                                       title="Descirption"> 
-                                      {{ item.name }}
-                                  </div>
-                                </base-checkbox>
+                          <ul class="list-unstyled">
+                            <li v-for="(item, index) in subtask" :key="index">
+                              <base-checkbox
+                                v-model="checkboxes[index].unchecked"
+                                v-if="item.completed_timestamp === null"
+                                @click.native="
+                                  completeSubtask(index), (task_id = isItem.tid)
+                                "
+                              >
+                                <div v-if="item.description === ''">
+                                  {{ item.name }}
+                                </div>
+                                <div
+                                  v-else
+                                  v-b-popover.hover.right="item.description"
+                                  title="Descirption"
+                                >
+                                  {{ item.name }}
+                                </div>
+                              </base-checkbox>
+                              <base-checkbox
+                                v-model="checkboxes[index].unchecked"
+                                v-else
+                                disabled
+                              >
+                                <div v-if="item.description === ''">
+                                  {{ item.name }}
+                                </div>
+                                <div
+                                  v-else
+                                  v-b-popover.hover.right="item.description"
+                                  title="Descirption"
+                                >
+                                  {{ item.name }}
+                                </div>
+                              </base-checkbox>
                             </li>
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div v-if="progress >= 0" class="bar" >
-                      <base-progress style="margin:0px" v-if="progress <= 40 " type="danger" :value=progress label="Task progress"></base-progress>
-                      <base-progress style="margin:0px" v-else-if="progress >= 70 " type="success" :value=progress label="Task progress"></base-progress>
-                      <base-progress style="margin:0px" v-else type="primary" :value=progress label="Task progress"></base-progress>
+                    <div v-if="progress >= 0" class="bar">
+                      <base-progress
+                        style="margin:0px"
+                        v-if="progress <= 40"
+                        type="danger"
+                        :value="progress"
+                        label="SubTask progress"
+                      ></base-progress>
+                      <base-progress
+                        style="margin:0px"
+                        v-else-if="progress >= 70"
+                        type="success"
+                        :value="progress"
+                        label="SubTask progress"
+                      ></base-progress>
+                      <base-progress
+                        style="margin:0px"
+                        v-else
+                        type="primary"
+                        :value="progress"
+                        label="SubTask progress"
+                      ></base-progress>
                     </div>
                     <div class="link-box">
                       <base-button
                         type="primary"
                         class="mb-3"
-                        @click="modals.modal3 = true, task_id=isItem.tid, dates.end=isItem.desc.time"
+                        @click="
+                          (modals.modal3 = true),
+                            (task_id = isItem.tid),
+                            (dates.end = isItem.desc.time)
+                        "
                         size="sm"
                       >
                         Add Subtask
@@ -433,7 +489,7 @@
                       <base-button
                         type="info"
                         class="mb-3"
-                        @click="modals.modal4 = true, task_id=isItem.tid"
+                        @click="(modals.modal4 = true), (task_id = isItem.tid)"
                         size="sm"
                       >
                         Complete Task
@@ -486,14 +542,14 @@ import "flatpickr/dist/flatpickr.css";
 // import InteractionPlugin from '@fullcalendar/vue'
 // import ListPlugin from '@fullcalendar/vue'
 var now = new Date();
-var month = now.getMonth()+1
+var month = now.getMonth() + 1;
 var day = now.getDate();
-if (month<10){
-    month = '0'+ month
-};
-if (day<10){
-    day = '0'+ day
-};
+if (month < 10) {
+  month = "0" + month;
+}
+if (day < 10) {
+  day = "0" + day;
+}
 var current = now.getFullYear() + "-" + month + "-" + day;
 
 export default {
@@ -563,7 +619,7 @@ export default {
       modal4: false,
     },
     tasks_name: [],
-    subtask: []
+    subtask: [],
     // calendarPlugins: [
     //     DayGridPlugin,
     //     TimeGridPlugin,
@@ -600,10 +656,8 @@ export default {
     this.curDay = date.getDate();
     this.handleFormatDate(date.getFullYear(), date.getMonth() + 1);
     this.noti();
-    
   },
   methods: {
-    
     fetchTask() {
       this.getTask.push(store.getters["getTask"]);
       console.log("fetchTask", this.getTask);
@@ -611,38 +665,37 @@ export default {
 
     completedTask() {
       console.log("completed task");
-      service.get(`/tasks/completeTask/${this.task_id}`)
-            .then((res) => {
-              if (res.data.success) {
-                console.log("Update to task database success!");
-                for(let i=0; i<this.subtask.length; i++){
-                  this.completeSubtask(i);
-                };
-                service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
-                      .then((res1) => {
-                          store.commit("setTask", res1.data.data);
-                          console.log('fetch task');
-                      });
-                this.modals.modal4 = false;
-                this.$router.replace('/empty');
-              }
-              else{
-                console.log("Update to task database failed!");
-              }
+      service.get(`/tasks/completeTask/${this.task_id}`).then((res) => {
+        if (res.data.success) {
+          console.log("Update to task database success!");
+          for (let i = 0; i < this.subtask.length; i++) {
+            this.completeSubtask(i);
+          }
+          service
+            .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+            .then((res1) => {
+              store.commit("setTask", res1.data.data);
+              console.log("fetch task");
             });
+          this.modals.modal4 = false;
+          this.$router.replace("/empty");
+        } else {
+          console.log("Update to task database failed!");
+        }
+      });
     },
-    completeSubtask(index){
+    completeSubtask(index) {
       console.log("completed subtask");
-      service.get(`/tasks/completeSubTask/${this.subtask[index].subtask_id}`)
-            .then((res) => {
-              if (res.data.success) {
-                console.log("Update to task database success!");
-                this.getSubtask(this.task_id);
-              }
-              else{
-                console.log("Update to task database failed!");
-              }
-            });
+      service
+        .get(`/tasks/completeSubTask/${this.subtask[index].subtask_id}`)
+        .then((res) => {
+          if (res.data.success) {
+            console.log("Update to task database success!");
+            this.getSubtask(this.task_id);
+          } else {
+            console.log("Update to task database failed!");
+          }
+        });
     },
     handleSubmit() {
       console.log(this.task_id);
@@ -668,11 +721,12 @@ export default {
                 )
                 .then((res) => {
                   console.log(res.data);
-                  service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
-                      .then((res1) => {
-                          store.commit("setTask", res1.data.data);
-                          console.log('fetch task');
-                      });
+                  service
+                    .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+                    .then((res1) => {
+                      store.commit("setTask", res1.data.data);
+                      console.log("fetch task");
+                    });
                   this.getSubtask(this.task_id);
                 })
                 .catch((err) => {
@@ -687,10 +741,9 @@ export default {
             console.log("err:", err);
             this.validsubmit = false;
           });
-          this.modals.modal3 = false;
-          this.tname = "";
-          this.description = "";
-          
+        this.modals.modal3 = false;
+        this.tname = "";
+        this.description = "";
       }
     },
     handleLunar(year, month, date) {
@@ -721,35 +774,31 @@ export default {
       }
       this.isItem = { ...item, index, _index };
     },
-    getSubtask(tid){
+    getSubtask(tid) {
       //var tid = '9b400580-9ba7-11eb-afdf-7313663097dc';
       var subtask = [];
       var finished = 0;
-      service.get(`/tasks/getSubTasks/${tid}`)
-             .then((res) => {
-              console.log(res.data.data);
-              subtask.push(res.data.data);
-              console.log(subtask[0]);
-              this.subtask = subtask[0];
-              for(let i =0; i< subtask[0].length;i++){
-                if(subtask[0][i].completed_timestamp == null){
-                  this.checkboxes.push({unchecked: false})
-                }
-                else{
-                  this.checkboxes.push({unchecked: true})
-                  finished = finished + 1;
-                }
-              }
-              if(subtask[0].length == 0){
-                this.progress = 0;
-              }
-              else{
-                this.progress = Math.round(finished / subtask[0].length * 100);
-              }
-              console.log(this.progress);
-              return subtask[0];
-            });
-      
+      service.get(`/tasks/getSubTasks/${tid}`).then((res) => {
+        console.log(res.data.data);
+        subtask.push(res.data.data);
+        console.log(subtask[0]);
+        this.subtask = subtask[0];
+        for (let i = 0; i < subtask[0].length; i++) {
+          if (subtask[0][i].completed_timestamp == null) {
+            this.checkboxes.push({ unchecked: false });
+          } else {
+            this.checkboxes.push({ unchecked: true });
+            finished = finished + 1;
+          }
+        }
+        if (subtask[0].length == 0) {
+          this.progress = 0;
+        } else {
+          this.progress = Math.round((finished / subtask[0].length) * 100);
+        }
+        console.log(this.progress);
+        return subtask[0];
+      });
     },
 
     //show tasks name and info
@@ -758,23 +807,19 @@ export default {
       var obj = [];
       this.getTask.forEach((task) => {
         // console.log("getCurMonthDaysTask")
-        for(let i = 0; i < task.length; i++){
-        // console.log(task[i].name);
+        for (let i = 0; i < task.length; i++) {
+          // console.log(task[i].name);
           var date = new Date(task[i].due_date);
           var tmonth = date.getMonth() + 1;
-          if (tmonth<10){
-              tmonth = '0'+ tmonth
-          };
+          if (tmonth < 10) {
+            tmonth = "0" + tmonth;
+          }
           var tday = date.getDate();
-          if (tday<10){
-              tday = '0'+ tday
-          };
+          if (tday < 10) {
+            tday = "0" + tday;
+          }
           var tdate = date.getFullYear() + "-" + tmonth + "-" + tday;
-          if (
-            date.getFullYear() == year &&
-            tmonth == month &&
-            tday == day
-          ) {
+          if (date.getFullYear() == year && tmonth == month && tday == day) {
             //console.log(task[i].task_id);
             let subtasks = this.getSubtask(task[i].task_id);
             //console.log(subtasks);
@@ -788,7 +833,7 @@ export default {
                 finish_date: task[i].completed_timestamp,
                 subtask: subtasks,
                 link: "http://localhost:8080/#/create_subtask",
-              }
+              },
             };
             obj.push(tempObj);
           }
@@ -829,20 +874,19 @@ export default {
       // 获取当前月总天数
       let allDays = this.handleMonthDays(year, month);
       this.curMonthDays = [];
-      
-      for (let i = 0; i < allDays; i++) {
 
+      for (let i = 0; i < allDays; i++) {
         let item = { date: i + 1 };
         //show the tasks
         let obj = this.getCurMonthDaysTask(year, month, i + 1);
         if (obj.length == 1) {
           item.todo = [obj[0]];
         }
-        if(obj.length > 1){
-          item.todo = []
-          for(let j = 0; j < obj.length; j++){
+        if (obj.length > 1) {
+          item.todo = [];
+          for (let j = 0; j < obj.length; j++) {
             item.todo.push(obj[j]);
-          };
+          }
           console.log(item.todo);
         }
         this.curMonthDays.push(item);
@@ -855,7 +899,6 @@ export default {
       this.handleStartAndEndWeek(year, month, this.curMonthDays.length);
     },
 
-    
     handleMonthDays(year, month) {
       return new Date(year, month, 0).getDate();
     },
@@ -888,7 +931,7 @@ export default {
       str === "next" ? ++month : --month;
       this.handleFormatDate(year, month);
     },
-    
+
     //notification
     noti() {
       console.log("requests");

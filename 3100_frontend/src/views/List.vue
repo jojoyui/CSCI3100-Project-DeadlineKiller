@@ -473,21 +473,21 @@
                                       v-if="progress <= 40"
                                       type="danger"
                                       :value="progress"
-                                      label="Task progress"
+                                      label="SubTask progress"
                                     ></base-progress>
                                     <base-progress
                                       style="margin:0px"
                                       v-else-if="progress >= 70"
                                       type="success"
                                       :value="progress"
-                                      label="Task progress"
+                                      label="SubTask progress"
                                     ></base-progress>
                                     <base-progress
                                       style="margin:0px"
                                       v-else
                                       type="primary"
                                       :value="progress"
-                                      label="Task progress"
+                                      label="SubTask progress"
                                     ></base-progress>
                                   </div>
                                 </div>
