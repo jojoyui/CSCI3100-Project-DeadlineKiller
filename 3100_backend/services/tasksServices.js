@@ -75,7 +75,7 @@ module.exports = {
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1))
-            .orderBy('updated_at', 'desc');
+            .orderBy('due_date', 'desc');
     },
 
     completeTask: async function(task){
@@ -180,7 +180,7 @@ module.exports = {
         console.log("getSubTask service");
         return await knex('subtask')
             .where({task_id: tid})
-            .orderBy('created_at', 'asc');;
+            .orderBy('end_date', 'asc');;
     },
     completeSubTask: async function(sid){
         console.log("completeSubTask service");

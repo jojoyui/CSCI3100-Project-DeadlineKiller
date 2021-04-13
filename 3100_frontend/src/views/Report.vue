@@ -507,6 +507,34 @@ export default {
         totalTask:"0",
         DueTask:"0",
         percentage:"0",
+        Month:{
+            Jan: 0,
+            Feb: 0,
+            Mar: 0,
+            Apr: 0,
+            May: 0,
+            Jun: 0,
+            Jul: 0,
+            Aug: 0,
+            Sep: 0,
+            Oct: 0,
+            Nov: 0,
+            Dec: 0
+        },
+        month:{
+            Jan: 0,
+            Feb: 0,
+            Mar: 0,
+            Apr: 0,
+            May: 0,
+            Jun: 0,
+            Jul: 0,
+            Aug: 0,
+            Sep: 0,
+            Oct: 0,
+            Nov: 0,
+            Dec: 0
+        },
         dates: {
             start: time1,
             end: time2
@@ -614,10 +642,92 @@ export default {
             if (day<10){
                 day = '0'+ day
             };
+            //calculate monthly total task
+            if(month == '01'){
+                this.Month.Jan = this.Month.Jan + 1
+            }
+            else if(month == '02'){
+                this.Month.Feb = this.Month.Feb + 1
+            }
+            else if(month == '03'){
+                this.Month.Mar = this.Month.Mar + 1
+            }
+            else if(month == '04'){
+                this.Month.Apr = this.Month.Apr + 1
+            }
+            else if(month == '05'){
+                this.Month.May = this.Month.May + 1
+            }
+            else if(month == '06'){
+                this.Month.Jun = this.Month.Jun + 1
+            }
+            else if(month == '07'){
+                this.Month.Jul = this.Month.Jul + 1
+            }
+            else if(month == '08'){
+                this.Month.Aug = this.Month.Aug + 1
+            }
+            else if(month == '09'){
+                this.Month.Sep = this.Month.Sep + 1
+            }
+            else if(month == '10'){
+                this.Month.Oct = this.Month.Oct + 1
+            }
+            else if(month == '11'){
+                this.Month.Nov = this.Month.Nov + 1
+            }
+            else if(month == '12'){
+                this.Month.Dec = this.Month.Dec + 1
+            }
+
             var current = date.getFullYear() + "-" + month + "-" + day;
             return current;
 
+        },
+        countMonthlyTask(){
+            var total = this.finishTask + this.unfinishTask + this.DueTask;
+            for(let i=0; i<total; i++){
+                var date = [];
+                date = this.CompletedTask[i].due_date.split();
+                var month = date[1];
+                if(month == '01'){
+                    this.month.Jan = this.month.Jan + 1
+                }
+                else if(month == '02'){
+                    this.month.Feb = this.month.Feb + 1
+                }
+                else if(month == '03'){
+                    this.month.Mar = this.month.Mar + 1
+                }
+                else if(month == '04'){
+                    this.month.Apr = this.month.Apr + 1
+                }
+                else if(month == '05'){
+                    this.month.May = this.month.May + 1
+                }
+                else if(month == '06'){
+                    this.month.Jun = this.month.Jun + 1
+                }
+                else if(month == '07'){
+                    this.month.Jul = this.month.Jul + 1
+                }
+                else if(month == '08'){
+                    this.month.Aug = this.month.Aug + 1
+                }
+                else if(month == '09'){
+                    this.month.Sep = this.month.Sep + 1
+                }
+                else if(month == '10'){
+                    this.month.Oct = this.month.Oct + 1
+                }
+                else if(month == '11'){
+                    this.month.Nov = this.month.Nov + 1
+                }
+                else if(month == '12'){
+                    this.month.Dec = this.month.Dec + 1
+                }
 
+            }
         }
 
 
