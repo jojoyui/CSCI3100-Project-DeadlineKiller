@@ -533,6 +533,23 @@
                                 Description: <br />
                                 {{ clicked.description }}
                               </p>
+                              <div class="progress-wrapper">
+                                <div class="progress-primary">
+                                  <div class="progress-label">
+                                    <span>Task Progress</span>
+                                  </div>
+                                  <div class="progress-percentage">
+                                    <span>50%</span>
+                                  </div>
+                                </div>
+                                <div class="progress" style="height:8px;">
+                                  <div
+                                    class="progress-bar progress-bar-success progress-bar-striped active"
+                                    :style="{ width: '50%' }"
+                                  ></div>
+                                </div>
+                                <hr />
+                              </div>
 
                               <template slot="footer">
                                 <base-button type="primary"

@@ -384,10 +384,17 @@ export default {
                                 } else {
                                     console.log("Update to group database failed!");
                                 }
+                                service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+                                    .then((res1) => {
+                                        store.commit("setTask", res1.data.data);
+                                        console.log('fetch task');
+                                    });
                             }).catch((err)=>{
                                 console.log("err:", err);
                                 this.validsubmit = false;
                             });
+                        
+
                         this.$router.push("/list");
                     } else {
                         console.log("Update to task database failed!");

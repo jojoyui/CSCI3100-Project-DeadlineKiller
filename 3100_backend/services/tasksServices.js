@@ -28,7 +28,8 @@ module.exports = {
     getTasks: async function(user){
         return await knex('task')
             .innerJoin('group','group.task_id','task.task_id')
-            .where({user_id: user});           
+            .where({user_id: user})
+            .whereNull('completed_timestamp');
     },
 
     getTasksId: async function(user){
@@ -58,7 +59,20 @@ module.exports = {
             })
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
-            .where('completed_timestamp', '<', addDate(end_date,1));
+            .where('completed_timestamp', '<', addDate(end_date,1))
+    },
+
+    CompletedTask: async function(user, start, end){
+        var end_date = new Date(end);
+        return await knex('task')
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
+            .whereNotNull('completed_timestamp')
+            .where('completed_timestamp', '>=', start)
+            .where('completed_timestamp', '<', addDate(end_date,1))
     },
 
     completeTask: async function(task){
@@ -93,6 +107,49 @@ module.exports = {
             .where('due_date', '>=', start)
             .where('due_date', '<', addDate(end_date,1));
     },
+    IncompletedTask: async function(user, start, end){
+        var end_date = new Date(end);
+        return await knex('task')
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
+            .whereNull('completed_timestamp')
+            .where('due_date', '>=', start)
+            .where('due_date', '<', addDate(end_date,1));
+    },
+    CountDueTask: async function(user){
+        let now = new Date();
+        let month = now.getMonth() + 1;
+        let day = now.getDate();
+        let time = now.getFullYear() + "-" + ('0' + month).slice(-2)  + "-" + ('0' + day).slice(-2); 
+        console.log(time)
+        return await knex('task')
+        .count('*', {as: 'number'})
+        .innerJoin('group','group.task_id','task.task_id')
+        .where ({
+            user_id: user,
+            request: 'accept'
+        })
+        .whereNull('completed_timestamp')
+        .where('due_date', '<', time);
+    },
+    OverduedTask: async function(user){
+        let now = new Date();
+        let month = now.getMonth() + 1;
+        let day = now.getDate();
+        let time = now.getFullYear() + "-" + ('0' + month).slice(-2)  + "-" + ('0' + day).slice(-2); 
+        console.log(time)
+        return await knex('task')
+        .innerJoin('group','group.task_id','task.task_id')
+        .where ({
+            user_id: user,
+            request: 'accept'
+        })
+        .whereNull('completed_timestamp')
+        .where('due_date', '<', time);
+    },
     createSubTask: async function(newSubTask){
         console.log("create subtask service");
         return await knex("subtask").insert({
@@ -101,7 +158,7 @@ module.exports = {
             name: newSubTask.name,
             start_date: newSubTask.start_date,
             end_date: newSubTask.end_date,
-            description: newTask.description
+            description: newSubTask.description
         });
     },
     Updategroup: async function(task,user,subid){

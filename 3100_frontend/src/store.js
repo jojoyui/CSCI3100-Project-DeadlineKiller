@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     user_id: undefined, 
     user_email: undefined,
-    task_id: undefined
+    tasks: []
   },
   mutations: {
   
@@ -17,9 +17,9 @@ export default new Vuex.Store({
       console.log("setuserid", id);
       state.user_id = id;
     },
-    setTaskId(state, id){
-      console.log("settaskid", id);
-      state.task_id = id;
+    setTask(state, task){
+      console.log("settask", task);
+      state.tasks = task;
     },
     setUserEmail(state, email){
       localStorage.setItem("user_email", email);
@@ -39,8 +39,9 @@ export default new Vuex.Store({
     getUserId(state){
       return state.user_id;
     },
-    getTaskId(state){
-      return state.task_id;
+    getTask(state){
+      // console.log(state.tasks);
+      return state.tasks;
     },
     checkLogged(state){
         if(state.user_email || state.user_id) return true;
