@@ -28,7 +28,9 @@ module.exports = {
     getTasks: async function(user){
         return await knex('task')
             .innerJoin('group','group.task_id','task.task_id')
-            .where({user_id: user})
+            .where({user_id: user,
+                    request: 'accept'
+                })
             .whereNull('completed_timestamp');
     },
 
