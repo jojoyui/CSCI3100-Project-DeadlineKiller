@@ -31,7 +31,8 @@ module.exports = {
             .where({user_id: user,
                     request: 'accept'
                 })
-            .whereNull('completed_timestamp');
+            .whereNull('completed_timestamp')
+            .orderBy('due_date');
     },
 
     getTasksId: async function(user){

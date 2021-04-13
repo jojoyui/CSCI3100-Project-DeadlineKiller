@@ -166,7 +166,9 @@
                                 text-color="default"
                                 class="my-4"
                                 @click="
-                                  (modals.modal3 = false), (validsubmit = true),(modals.modal1 = true)
+                                  (modals.modal3 = false),
+                                    (validsubmit = true),
+                                    (modals.modal1 = true)
                                 "
                               >
                                 Close
@@ -238,125 +240,6 @@
                     <div>
                       <div class="col-lg pt-lg-3">
                         <div class="row">
-                          <div class="col">
-                            <modal
-                              :show.sync="modals.modal3"
-                              :clickoutside="false"
-                              body-classes="p-0"
-                              modal-classes="modal-dialog-centered modal-sm"
-                            >
-                              <card
-                                gradient="secondary"
-                                shadow
-                                header-classes="bg-white pb-5"
-                                body-classes="px-lg-5 py-lg-5"
-                                class="border-0"
-                              >
-                                <template>
-                                  <div class="text-center text-primary mb-3">
-                                    <strong>NEW SUBTASK</strong>
-                                  </div>
-                                </template>
-                                <template>
-                                  <form role="form">
-                                    <base-input
-                                      alternative
-                                      class="mb-3"
-                                      v-model="tname"
-                                      placeholder="Subtask Name"
-                                      addon-left-icon="ni ni-map-big"
-                                    >
-                                    </base-input>
-                                    <div class="row">
-                                      <div class="col">
-                                        <badge type="primary">start date</badge>
-                                        <base-input
-                                          addon-left-icon="ni ni-calendar-grid-58"
-                                        >
-                                          <flat-picker
-                                            slot-scope="{ focus, blur }"
-                                            @on-open="focus"
-                                            @on-close="blur"
-                                            :config="{ allowInput: true }"
-                                            class="form-control datepicker"
-                                            v-model="dates.start"
-                                          >
-                                          </flat-picker>
-                                        </base-input>
-                                      </div>
-                                      <div class="col">
-                                        <badge type="primary">end date</badge>
-                                        <base-input
-                                          addon-left-icon="ni ni-calendar-grid-58"
-                                        >
-                                          <flat-picker
-                                            slot-scope="{ focus, blur }"
-                                            @on-open="focus"
-                                            @on-close="blur"
-                                            :config="{ allowInput: true }"
-                                            class="form-control datepicker"
-                                            v-model="dates.end"
-                                          >
-                                          </flat-picker>
-                                        </base-input>
-                                      </div>
-                                    </div>
-                                    <!-- <br/> -->
-                                    <badge type="primary">Details</badge>
-                                    <textarea
-                                      v-model="description"
-                                      class="Description form-control form-control-alternative mb-3"
-                                      placeholder="e.g Kill me Please!"
-                                    >
-                                    </textarea>
-                                    <base-alert
-                                      v-if="!validsubmit"
-                                      type="warning"
-                                    >
-                                      <!-- <span class="alert-inner--icon"><i class="ni ni-bulb-61"></i></span> -->
-                                      <span class="alert-inner--text"
-                                        >Please input the
-                                        <strong>SUBTASK NAME!</strong></span
-                                      >
-                                    </base-alert>
-                                    <div class="row">
-                                      <div class="text-left col">
-                                        <base-button
-                                          type="link"
-                                          text-color="default"
-                                          class="my-4"
-                                          @click="
-                                            (modals.modal3 = false),
-                                              (validsubmit = true),(modals.modal1 = true)
-                                          "
-                                        >
-                                          Close
-                                        </base-button>
-                                      </div>
-                                      <div class="text-right col">
-                                        <base-button
-                                          type="primary"
-                                          outline
-                                          class="my-4"
-                                          @click="handleSubmit()"
-                                          >ADD</base-button
-                                        >
-                                      </div>
-                                    </div>
-                                  </form>
-                                </template>
-                              </card>
-                            </modal>
-                          </div>
-                          <div class="col">
-                            <span></span>
-                          </div>
-                          <div class="col">
-                            <span></span>
-                          </div>
-                          <div class="col">
-                            <span></span>
-                          </div>
                           <div class="col text-right">
                             <base-button
                               type="secondary"
@@ -467,168 +350,226 @@
                 </div>
               </div>
 
-              <h1 class="font-weight-light text-center">
-                <strong>Task List</strong>
-              </h1>
-
               <!--<h4 class="font-weight-light">-->
+              <div v-if="task.length == 0">
+                <h1 class="font-weight-light text-center">
+                  <strong>Start to kill your deadline</strong>
+                  <br />by create a new task!
+                </h1>
+              </div>
+              <div v-else>
+                <h1 class="font-weight-light text-center">
+                  <strong>Task List</strong>
+                </h1>
 
-              <div class="table-responsive">
-                <div>
-                  <table class="table align-items-center">
-                    <thead class="thead-light">
-                      <tr>
-                        <th scope="col-sm-8" data-sort="task.name">Task</th>
-                        <th
-                          scope="col-sm-2"
-                          class="sort"
-                          data-sort="task.due_date"
-                        >
-                          Deadline
-                        </th>
-                        <th
-                          scope="col-sm-2"
-                          class="sort"
-                          data-sort="completion"
-                        >
-                          Completion
-                        </th>
-                      </tr>
-                    </thead>
-
-                    <tbody class="list">                      
-                      <tr v-for="item in task" :key="item.id">
-                        <!-- <div class="list-group">-->
-
-                        <div class="row">
-
-                        <th>
-                          <span> {{ item.name }} </span>
-                          <br> <br>
-                          <base-button
-                            block
-                            type="primary"
-                            class=" mb-3"
-                            @click="(modals.modal1 = true), (clicked = item)"
-                            size="sm-1"
+                <div class="table-responsive">
+                  <div>
+                    <table class="table align-items-center">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col-sm-8" data-sort="task.name">Task</th>
+                          <th
+                            scope="col-sm-2"
+                            class="sort"
+                            data-sort="task.due_date"
                           >
-                            Task info
-                          </base-button>
+                            Deadline
+                          </th>
+                          <th
+                            scope="col-sm-2"
+                            class="sort"
+                            data-sort="completion"
+                          >
+                            Completion
+                          </th>
+                        </tr>
+                      </thead>
 
-                          <div class="col-sm-4">
-                            <!-- <div class="row"> -->
-                            <!-- <div class="container"> -->
-                            <modal :show.sync="modals.modal1">
-                              <h4
-                                slot="header"
-                                class="sm-3"
-                                id="modal-title-default"
-                              >
-                                Task info
-                              </h4>
+                      <tbody class="list">
+                        <tr v-for="item in task" :key="item.id">
+                          <!-- <div class="list-group">-->
 
-                              <p>
-                                {{ clicked.key }}Name: {{ clicked.name }}
-                                <br />
-                                Type: {{ clicked.type }} <br />
-                                Deadline: {{ clicked.due_date }} <br /><br />
-                                Description: <br />
-                                {{ clicked.description }}
-                              </p>
-                              <div class="progress-wrapper">
-                                <div class="progress-primary">
-                                  <div class="progress-label">
-                                    <span>Task Progress</span>
-                                  </div>
-                                  <div class="progress-percentage">
-                                    <span>50%</span>
-                                  </div>
-                                </div>
-                                <div class="progress" style="height:8px;">
-                                  <div
-                                    class="progress-bar progress-bar-success progress-bar-striped active"
-                                    :style="{ width: '50%' }"
-                                  ></div>
-                                </div>
-                                <hr />
-                              </div>
-                            
-                              
-                              <template slot="footer">
+                          <th>
+                            <span> {{ item.name }} </span>
+                            <br />
+                            <br />
+                            <base-button
+                              block
+                              type="primary"
+                              class=" mb-3"
+                              @click="
+                                (modals.modal1 = true),
+                                  (clicked = item),
+                                  getSubtask(clicked.task_id)
+                              "
+                              size="sm-1"
+                              style="max-width: 200px;"
+                            >
+                              Task info
+                            </base-button>
 
-                              <div class="col-sm-2">
-                                <span>
-                                  <base-button
-                                    type="info"
-                                    class="sm-3"
-                                    @click="(modals.modal1 = false), (modals.modal3 = true)"
-                                    size="sm-1"
+                            <div class="col-sm-4">
+                              <!-- <div class="row"> -->
+                              <!-- <div class="container"> -->
+                              <modal :show.sync="modals.modal1">
+                                <h4
+                                  slot="header"
+                                  class="sm-3"
+                                  id="modal-title-default"
+                                >
+                                  Task info
+                                </h4>
+
+                                <p>
+                                  {{ clicked.key }}Name: {{ clicked.name }}
+                                  <br />
+                                  Type: {{ clicked.type }} <br />
+                                  Deadline: {{ clicked.due_date }} <br /><br />
+                                  Description: <br />
+                                  {{ clicked.description }}
+                                </p>
+
+                                <div
+                                  v-for="(item, index) in subtask"
+                                  :key="index"
+                                >
+                                  <base-checkbox
+                                    v-model="checkboxes[index].unchecked"
+                                    v-if="item.completed_timestamp === null"
+                                    @click.native="completeSubtask(index)"
                                   >
-                                    Add Subtask                                    
-                                  </base-button>
-                                </span>
-                              </div>
+                                    <div v-if="item.description === ''">
+                                      {{ item.name }}
+                                    </div>
+                                    <div
+                                      v-else
+                                      v-b-popover.hover.right="item.description"
+                                      title="Descirption"
+                                    >
+                                      {{ item.name }}
+                                    </div>
+                                  </base-checkbox>
+                                  <base-checkbox
+                                    v-model="checkboxes[index].unchecked"
+                                    v-else
+                                    disabled
+                                  >
+                                    <div v-if="item.description === ''">
+                                      {{ item.name }}
+                                    </div>
+                                    <div
+                                      v-else
+                                      v-b-popover.hover.right="item.description"
+                                      title="Descirption"
+                                    >
+                                      {{ item.name }}
+                                    </div>
+                                  </base-checkbox>
+                                </div>
+                                <div class="progress-wrapper">
+                                  <div v-if="progress >= 0" class="bar">
+                                    <base-progress
+                                      style="margin:0px"
+                                      v-if="progress <= 40"
+                                      type="danger"
+                                      :value="progress"
+                                      label="Task progress"
+                                    ></base-progress>
+                                    <base-progress
+                                      style="margin:0px"
+                                      v-else-if="progress >= 70"
+                                      type="success"
+                                      :value="progress"
+                                      label="Task progress"
+                                    ></base-progress>
+                                    <base-progress
+                                      style="margin:0px"
+                                      v-else
+                                      type="primary"
+                                      :value="progress"
+                                      label="Task progress"
+                                    ></base-progress>
+                                  </div>
+                                </div>
 
+                                <template slot="footer">
+                                  <div class="col-sm-2">
+                                    <span>
+                                      <base-button
+                                        type="info"
+                                        class="sm-3"
+                                        @click="
+                                          (modals.modal1 = false),
+                                            (modals.modal3 = true)
+                                        "
+                                        size="sm-1"
+                                      >
+                                        Add Subtask
+                                      </base-button>
+                                    </span>
+                                  </div>
+
+                                  <base-button
+                                    type="link"
+                                    class="ml-auto"
+                                    @click="modals.modal1 = false"
+                                    >Close
+                                  </base-button>
+                                </template>
+                              </modal>
+                              <!-- </div> -->
+                            </div>
+
+                            <!-- </div>-->
+                          </th>
+                          <td>
+                            <br />{{
+                              new Date(item.due_date).toLocaleDateString()
+                            }}
+                          </td>
+
+                          <!--<hr>-->
+                          <td class="completion">
+                            <br />
+                            <div v-if="item.completed_timestamp">Completed</div>
+
+                            <div v-else>
+                              <base-button
+                                type="info"
+                                class="mb-3"
+                                @click="
+                                  (modals.modal4 = true), (completeTask = item)
+                                "
+                                size="sm"
+                              >
+                                Complete Task
+                              </base-button>
+                              <modal :show.sync="modals.modal4">
+                                <p class="modal-title">
+                                  Completed Task?
+                                </p>
+                                <base-button
+                                  @click="completedTask()"
+                                  type="primary"
+                                  class="ml-auto"
+                                >
+                                  Yes
+                                </base-button>
                                 <base-button
                                   type="link"
                                   class="ml-auto"
-                                  @click="modals.modal1 = false"
+                                  @click="modals.modal4 = false"
                                   >Close
                                 </base-button>
-                              </template>
-                            </modal>
-                            <!-- </div> -->
-                          </div>
-
-                          <!-- </div>-->
-
-                          
-                        </th>
-                        </div>
-                        <td>
-                          <br>{{ new Date(item.due_date).toLocaleDateString() }}
-                        </td>
-
-                        <!--<hr>-->
-                        <td class="completion">
-                          <br>
-                          <div v-if="item.completed_timestamp">Completed</div>
-
-                          <div v-else>
-                            <base-button
-                              type="info"
-                              class="mb-3"
-                              @click="modals.modal4 = true"
-                              size="sm"
-                            >
-                              Complete Task
-                            </base-button>
-                            <modal :show.sync="modals.modal4">
-                              <p class="modal-title">
-                                Completed Task?
-                              </p>
-                              <base-button
-                                @click="(completeTask = item), completedTask()"
-                                type="primary"
-                                class="ml-auto"
-                              >
-                                Yes
-                              </base-button>
-                              <base-button
-                                type="link"
-                                class="ml-auto"
-                                @click="modals.modal4 = false"
-                                >Close
-                              </base-button>
-                            </modal>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                              </modal>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-
               <!--</h4>-->
             </div>
           </div>
@@ -674,6 +615,9 @@ export default {
   },
 
   data: () => ({
+    progress: 70,
+    checkboxes: [],
+    subtask: [],
     completeTask: "",
     clicked: "",
     user_id: store.getters["getUserId"],
@@ -709,9 +653,49 @@ export default {
     this.noti();
   },
   methods: {
+    getSubtask(tid) {
+      //var tid = '9b400580-9ba7-11eb-afdf-7313663097dc';
+      var subtask = [];
+      var finished = 0;
+      console.log("gesubtask", tid);
+      service.get(`/tasks/getSubTasks/${tid}`).then((res) => {
+        console.log("subtask", res.data.data);
+        subtask.push(res.data.data);
+        console.log(subtask[0]);
+        this.subtask = subtask[0];
+        for (let i = 0; i < subtask[0].length; i++) {
+          if (subtask[0][i].completed_timestamp == null) {
+            this.checkboxes.push({ unchecked: false });
+          } else {
+            this.checkboxes.push({ unchecked: true });
+            finished = finished + 1;
+          }
+        }
+        if (subtask[0].length == 0) {
+          this.progress = 0;
+        } else {
+          this.progress = Math.round((finished / subtask[0].length) * 100);
+        }
+        console.log("return", subtask[0]);
+        return subtask[0];
+      });
+    },
+    completeSubtask(index) {
+      console.log("completed subtask");
+      service
+        .get(`/tasks/completeSubTask/${this.subtask[index].subtask_id}`)
+        .then((res) => {
+          if (res.data.success) {
+            console.log("Update to task database success!");
+            this.getSubtask(this.clicked.task_id);
+          } else {
+            console.log("Update to task database failed!");
+          }
+        });
+    },
     completedTask() {
       console.log("completed");
-      console.log(this.completeTask);
+      console.log(this.completeTask.name);
       service
         .get(`/tasks/completeTask/${this.completeTask.task_id}`)
         .then((res) => {
@@ -724,6 +708,7 @@ export default {
                 console.log("fetch task");
               });
             this.modals.modal4 = false;
+            this.$router.go();
           } else {
             console.log("Update to task database failed!");
           }
@@ -739,7 +724,7 @@ export default {
         service
           .post("/tasks/createSubtask", {
             subtask_id: this.subtask_id,
-            task_id: this.task_id,
+            task_id: this.clicked.task_id,
             name: this.tname,
             start_date: this.dates.start,
             end_date: this.dates.end,
@@ -750,7 +735,7 @@ export default {
               console.log("Update to task database success!");
               service
                 .get(
-                  `/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`
+                  `/tasks/updategroup/${this.clicked.task_id}/${this.user_id}/${this.subtask_id}`
                 )
                 .then((res) => {
                   console.log(res.data);
@@ -759,7 +744,7 @@ export default {
                   console.log("err:", err);
                   this.validsubmit = false;
                 });
-              this.$router.push("/list");
+              this.$router.go("/list");
             } else {
               console.log("Update to subtask database failed!");
             }
@@ -778,9 +763,9 @@ export default {
       service
         .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
         .then((res) => {
-          console.log(res.data.data[0].name);
-          console.log(res.data.data[0].task_id);
-          console.log(this.route);
+          //console.log(res.data.data.length );
+          // console.log(res.data.data[0].task_id);
+          // console.log(this.route);
 
           this.task = res.data.data;
         });
