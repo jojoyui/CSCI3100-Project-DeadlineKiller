@@ -507,7 +507,7 @@
                             block
                             type="primary"
                             class=" mb-3"
-                            @click="modals.modal1 = true"
+                            @click="(modals.modal1 = true), (clicked = item)"
                             size="sm-1"
                           >
                             Task info
@@ -526,12 +526,12 @@
                               </h4>
 
                               <p>
-                                {{ item.key }}. Name: {{ item.name }}
+                                {{ clicked.key }}Name: {{ clicked.name }}
                                 <br />
-                                Type: {{ item.type }} <br />
-                                Deadline: {{ item.due_date }} <br /><br />
+                                Type: {{ clicked.type }} <br />
+                                Deadline: {{ clicked.due_date }} <br /><br />
                                 Description: <br />
-                                {{ item.description }}
+                                {{ clicked.description }}
                               </p>
 
                               <template slot="footer">
@@ -559,13 +559,13 @@
                                 @click="modals.modal3 = true"
                                 size="sm-1"
                               >
-                                Add Subtask?
+                                Add Subtask
                               </base-button>
                             </span>
                           </div>
                         </th>
                         <td>
-                          {{ item.due_date }}
+                          {{ new Date(item.due_date).toLocaleDateString() }}
                         </td>
 
                         <!--<hr>-->
@@ -637,6 +637,7 @@ export default {
   },
 
   data: () => ({
+    clicked: "",
     user_id: store.getters["getUserId"],
     task_id: store.getters["getTaskId"],
     subtask_id: "",
