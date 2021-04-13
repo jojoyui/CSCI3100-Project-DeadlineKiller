@@ -104,9 +104,9 @@
                                         <div v-else>
                                             <span class="badge badge-danger"><strong>{{item.type}}</strong></span> <br><br> 
                                         </div>
-                                        <div>Completed Date: {{item.completed_timestamp}}</div> <br>
-                                        <div id="no_description"  v-if="item.description === ''">{{item.description}}</div>
-                                        <div id="has_description"  v-else>Description:{{item.description}}</div>
+                                        <div class="author"><strong>Due Date: </strong> {{item.due_date}}</div> <br>
+                                        <div class="author"  v-if="item.description === ''">{{item.description}}</div>
+                                        <div class="author"  v-else><strong>Description: </strong>{{item.description}}</div>
                                         <hr>
                             </li>
                         </ul>
@@ -169,9 +169,9 @@
                                         <div v-else>
                                             <span class="badge badge-danger"><strong>{{item.type}}</strong></span> <br><br> 
                                         </div>
-                                        <div>Due Date: {{item.due_date}}</div> <br>
-                                        <div id="no_description"  v-if="item.description === ''">{{item.description}}</div>
-                                        <div id="has_description"  v-else>Description:{{item.description}}</div>
+                                        <div class="author"><strong>Due Date: </strong> {{item.due_date}}</div> <br>
+                                        <div class="author"  v-if="item.description === ''">{{item.description}}</div>
+                                        <div class="author"  v-else><strong>Description: </strong>{{item.description}}</div>
                                         <hr>
                             </li>
                         </ul>
@@ -234,9 +234,9 @@
                                         <div v-else>
                                             <span class="badge badge-danger"><strong>{{item.type}}</strong></span> <br><br> 
                                         </div>
-                                        <div>Due Date: {{item.due_date}}</div> <br>
-                                        <div id="no_description"  v-if="item.description === ''">{{item.description}}</div>
-                                        <div id="has_description"  v-else>Description:{{item.description}}</div>
+                                        <div class="author"><strong>Due Date: </strong> {{item.due_date}}</div> <br>
+                                        <div class="author"  v-if="item.description === ''">{{item.description}}</div>
+                                        <div class="author"  v-else><strong>Description: </strong>{{item.description}}</div>
                                         <hr>
                             </li>
                         </ul>
@@ -472,18 +472,22 @@ import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
 import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
 
 
-var now = new Date();
-var month = now.getMonth() + 1;
+var date = new Date();
+var currentMonth=date.getMonth();
+var nextMonth=++currentMonth;
+var nextMonthFirstDay=new Date(date.getFullYear(),nextMonth,1);
+var oneDay=1000*60*60*24;
+var lastTime = new Date(nextMonthFirstDay-oneDay);
+var month = parseInt(lastTime.getMonth()+1);
+var day = lastTime.getDate();
 if (month<10){
     month = '0'+ month
 };
-var day = now.getDate();
 if (day<10){
     day = '0'+ day
 };
-var time1 = now.getFullYear() + "-" + month + "-" + "01";
-
-var time2 = now.getFullYear() + "-" + month + "-" + day;
+var time1 = date.getFullYear() + "-" + month + "-" + "01";
+var time2 = date.getFullYear() + "-" + month + "-" + day;
 
 
 export default {
@@ -579,24 +583,53 @@ export default {
                 this.DueTask=res.data.data[0].number;
             })
             service.get(`/tasks/CompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res => {
-                console.log(res.data.data);
-                console.log(this.route);
+                //console.log(res.data.data);
+                //console.log(this.route);
                 this.CompletedTask = res.data.data;
             });
             service.get(`/tasks/InCompletedTask/${store.getters["getUserId"]}/${this.dates.start}/${this.dates.end}`).then(res => {
                 console.log(res.data.data);
-                console.log(this.route);
+                for(let i = 0; i<res.data.data.length; i++){
+                    res.data.data[i].due_date = this.dateTostring(res.data.data[i].due_date)
+                };
+                //console.log(this.route);
                 this.InCompletedTask = res.data.data;
             });
             service.get(`/tasks/OverduedTask/${store.getters["getUserId"]}`).then(res => {
-                console.log(res.data.data);
-                console.log(this.route);
+                //console.log(res.data.data);
+                //console.log(this.route);
+                for(let i = 0; i<res.data.data.length; i++){
+                    res.data.data[i].due_date = this.dateTostring(res.data.data[i].due_date)
+                };
                 this.OverduedTask = res.data.data;
             });
+        },
+        dateTostring(due_date){
+            var date = new Date(due_date);
+            var month = date.getMonth()+1
+            var day = date.getDate();
+            if (month<10){
+                month = '0'+ month
+            };
+            if (day<10){
+                day = '0'+ day
+            };
+            var current = date.getFullYear() + "-" + month + "-" + day;
+            return current;
+
+
         }
+
+
     }
 }
 
 </script>
 <style scoped>
+.author-box {
+    line-height: 24px;
+    margin-top: 17px;
+    font-size: 14px;
+    color: #666;
+}
 </style>

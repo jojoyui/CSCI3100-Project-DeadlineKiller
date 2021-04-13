@@ -48,7 +48,7 @@ module.exports = {
     },
     verify: async function(user){
         return await knex("user")
-        .update({verified: 1})
+        //.update({verified: 1})
         .where({user_id: user.user_id});
     },
 
@@ -58,7 +58,7 @@ module.exports = {
         await knex("user")
             .where({email: logInUser.email})
             .select('password')
-            .select('verified')
+            //.select('verified')
             .then(function(result){
                 console.log(result[0]);
                 if(!result || !result[0]){// not found

@@ -73,6 +73,40 @@ module.exports = {
                 next(err);
           }
     },
+    getSubTasks : async function (req, res, next){
+        try{
+            console.log("task controller: getSubTask");
+            const tid = req.params.tid;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.getSubTasks(tid)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.getSubTask: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+    completeSubTask : async function (req, res, next){
+        try{
+            console.log("task controller: completeSubTask");
+            const sid = req.params.sid;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.completeSubTask(sid)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.completeSubTask: " +
+                    JSON.parse(err.message)["message"]
+                );
+                next(err);
+          }
+    },
     completeTask : async function (req, res, next){
         try{
             console.log("task controller: completeTask");

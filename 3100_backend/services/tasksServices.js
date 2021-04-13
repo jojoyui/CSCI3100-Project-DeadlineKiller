@@ -28,7 +28,9 @@ module.exports = {
     getTasks: async function(user){
         return await knex('task')
             .innerJoin('group','group.task_id','task.task_id')
-            .where({user_id: user})
+            .where({user_id: user,
+                    request: 'accept'
+                })
             .whereNull('completed_timestamp');
     },
 
@@ -73,6 +75,7 @@ module.exports = {
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1))
+            .orderBy('updated_at', 'desc');
     },
 
     completeTask: async function(task){
@@ -117,7 +120,8 @@ module.exports = {
             })
             .whereNull('completed_timestamp')
             .where('due_date', '>=', start)
-            .where('due_date', '<', addDate(end_date,1));
+            .where('due_date', '<', addDate(end_date,1))
+            .orderBy('due_date', 'asc');
     },
     CountDueTask: async function(user){
         let now = new Date();
@@ -148,8 +152,11 @@ module.exports = {
             request: 'accept'
         })
         .whereNull('completed_timestamp')
-        .where('due_date', '<', time);
+        .where('due_date', '<', time)
+        .orderBy('due_date', 'desc');;
     },
+
+    //subtask
     createSubTask: async function(newSubTask){
         console.log("create subtask service");
         return await knex("subtask").insert({
@@ -169,6 +176,21 @@ module.exports = {
             .update({subtask_id: subid});
             
     },
+    getSubTasks: async function(tid){
+        console.log("getSubTask service");
+        return await knex('subtask')
+            .where({task_id: tid})
+            .orderBy('created_at', 'asc');;
+    },
+    completeSubTask: async function(sid){
+        console.log("completeSubTask service");
+        return await knex("subtask")
+        .where({subtask_id: sid})
+        .update({
+          completed_timestamp: new Date(),
+        })
+    },
+
 
     CountTotalTask: async function(user){
         return await knex('task')

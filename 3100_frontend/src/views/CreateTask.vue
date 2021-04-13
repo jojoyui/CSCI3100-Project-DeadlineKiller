@@ -272,6 +272,17 @@ import Badge from '../components/Badge.vue';
 import BaseNav from "../components/BaseNav";
 import BaseDropdown from "../components/BaseDropdown";
 
+var now = new Date();
+var month = now.getMonth()+1
+var day = now.getDate();
+if (month<10){
+    month = '0'+ month
+};
+if (day<10){
+    day = '0'+ day
+};
+var current = now.getFullYear() + "-" + month + "-" + day;
+
 export default {
     components:{
         flatPicker,
@@ -295,7 +306,7 @@ export default {
         ],
         radioVal: 'Assignment',
         DueDate: {
-            simple: "2021-04-01"
+            simple: current
         },
         partnerEmail: [],
         groupmates: "xxx@link.cuhk.edu.hk",
