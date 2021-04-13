@@ -366,7 +366,7 @@
                           index,
                           _index,
                           $event
-                        ),getSubtask(_item.tid)"
+                        ),getSubtask(_item.tid),checkboxes=[]"
                       :title="_item.title"
                       v-if="_index < 2"
                     >
