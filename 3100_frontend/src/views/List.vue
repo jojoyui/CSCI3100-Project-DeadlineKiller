@@ -587,22 +587,35 @@
 
                         <!--<hr>-->
                         <td class="completion">
-                          <div
-                            class="custom-control custom-checkbox custom-checkbox-success"
-                          >
-                            <div class="w-10000"></div>
+                          <div v-if="item.completed_timestamp">Completed</div>
 
-                            <div v-if="item.completed_timestamp">Completed</div>
-                            <div v-else>
+                          <div v-else>
+                            <base-button
+                              type="info"
+                              class="mb-3"
+                              @click="modals.modal4 = true"
+                              size="sm"
+                            >
+                              Complete Task
+                            </base-button>
+                            <modal :show.sync="modals.modal4">
+                              <p class="modal-title">
+                                Completed Task?
+                              </p>
                               <base-button
-                                type="info"
-                                class="mb-3"
-                                @click="modals.modal4 = true"
-                                size="sm"
+                                @click="(completeTask = item), completedTask()"
+                                type="primary"
+                                class="ml-auto"
                               >
-                                Complete Task
+                                Yes
                               </base-button>
-                            </div>
+                              <base-button
+                                type="link"
+                                class="ml-auto"
+                                @click="modals.modal4 = false"
+                                >Close
+                              </base-button>
+                            </modal>
                           </div>
                         </td>
                       </tr>
@@ -656,6 +669,7 @@ export default {
   },
 
   data: () => ({
+    completeTask: "",
     clicked: "",
     user_id: store.getters["getUserId"],
     task_id: store.getters["getTaskId"],
@@ -680,6 +694,7 @@ export default {
       modal1: false,
       modal2: false,
       modal3: false,
+      modal4: false,
     },
     tasks_name: [],
   }),
@@ -689,6 +704,26 @@ export default {
     this.noti();
   },
   methods: {
+    completedTask() {
+      console.log("completed");
+      console.log(this.completeTask);
+      service
+        .get(`/tasks/completeTask/${this.completeTask.task_id}`)
+        .then((res) => {
+          if (res.data.success) {
+            console.log("Update to task database success!");
+            service
+              .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+              .then((res1) => {
+                store.commit("setTask", res1.data.data);
+                console.log("fetch task");
+              });
+            this.modals.modal4 = false;
+          } else {
+            console.log("Update to task database failed!");
+          }
+        });
+    },
     handleSubmit() {
       console.log("clicked");
 
