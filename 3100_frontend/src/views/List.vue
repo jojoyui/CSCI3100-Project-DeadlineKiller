@@ -1,3 +1,4 @@
+<script src="assets/vendor/list.js/dist/list.min.js"></script>
 <template>
     <div class="profile-page">
         <section class="section-profile-cover section-shaped my-0">
@@ -210,28 +211,272 @@
                                 </div>
                             </div>
                         
-
+                             
                             <h1 class="font-weight-light text-center">
                                 <strong>Task List</strong>
-                            </h1>                    
-                            <h4 class="font-weight-light">
-                            <!-- <span>  Name: {{name}} <br> Type: {{type}} <br> Deadline: {{due_date}} <br><br> Description: <br> {{description}}
-                                <hr> Name: {{name_2}} <br> Type: {{type_2}} <br> Deadline: {{due_date_2}} <br><br> Description: <br> {{description_2}} </span>
-                                -->
+                            </h1>  
+                                      
+                            <!--<h4 class="font-weight-light">-->
+
+
                                 <ul class="list-unstyled">
+
                                     <li v-for="(item) in task" :key = "item.id"> 
-                                        Name: {{item.name}} <br> Type: {{item.type}} <br> Deadline: {{item.due_date}} <br><br> Description: <br> {{item.description}} 
-                                        <br/>
-                                        <br/>
-                                        <base-button type="info" class="mb-3" @click="modals.modal3 = true" size="sm">
-                                            Add Subtask
-                                        </base-button>
-                                        <hr>
-                                    </li>
+
+                                
+                                <div class="row">
+  
+                                        <div class="col">
+                                            <!-- <div class="list-group">-->
+                                                <span>
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <span>  {{item.name}} </span> 
+                                                        </div>
+                                                        
+                                                        <div class="w-1"></div>
+
+                                                        <div class="col">
+                                                            <base-button block type="primary" class=" mb-3" @click="modals.modal11 = true" size="sm-1">
+                                                                Task info
+                                                            </base-button>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            <!-- </div>-->                                            
+                                        </div>
+
+                                        <div class="w-10"></div>   
+
+                                        <div class="col-sm-2">
+                                            <span>
+                                            <!-- <div class="row"> -->
+                                                <!-- <div class="container"> -->
+                                                    <modal :show.sync="modals.modal1">
+                                                        <h4 slot="header" class="sm-3" id="modal-title-default">Task info</h4>
+                                                        
+                                                            <p>{{item.key}}. Name: {{item.name}} <br> Type: {{item.type}} <br> Deadline: {{item.due_date}} <br><br> Description: <br> {{item.description}}</p>
+
+                                                        <template slot="footer">
+                                                            <base-button type="primary">Save changes</base-button>
+                                                            <base-button type="link" class="ml-auto" @click="modals.modal1 = false">Close
+                                                            </base-button>
+                                                        </template>
+                                                    </modal>
+                                                <!-- </div> -->
+                                            </span>
+                                        </div>
                                     
+                                        <div class="w-10"></div>
+
+                                        <div class="col-sm-2">
+                                            <span>
+                                                <base-button type="info" class="sm-3" @click="modals.modal3 = true" size="sm-1">
+                                                    Add Subtask
+                                                </base-button>
+                                            </span>
+                                        </div>
+                                        
+                                        <!--<hr>-->
+                                </div>
+                                    </li>
+
                                 </ul>
-                            </h4>
+
+                            <div class="table-responsive">
+                                <div>
+                                <table class="table align-items-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col-sm-8" data-sort="task.name">Task</th>
+                                            <th scope="col-sm-2" class="sort" data-sort="task.due_date">Deadline</th>                                        
+                                            <th scope="col-sm-2" class="sort" data-sort="completion">Completion</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                        <li v-for="(item) in task" :key = "item.id">
+                                        
+                                    <th class="row">
+  
+                                        <div class="col">
+                                            <!-- <div class="list-group">-->
+                                                <span>
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <span>   {{item.name}} </span> 
+                                                        </div>
+                                                        
+                                                        <div class="w-1"></div>
+
+                                                        <div class="col">
+                                                            <base-button block type="primary" class=" mb-3" @click="modals.modal11 = true" size="sm-1">
+                                                                Task info
+                                                            </base-button>
+                                                        </div>
+
+                                                        <div class="col-sm-4">
+                                                            
+                                                            <!-- <div class="row"> -->
+                                                                <!-- <div class="container"> -->
+                                                                    <modal :show.sync="modals.modal1">
+                                                                        <h4 slot="header" class="sm-3" id="modal-title-default">Task info</h4>
+                                                                        
+                                                                            <p>{{item.key}}. Name: {{item.name}} <br> Type: {{item.type}} <br> Deadline: {{item.due_date}} <br><br> Description: <br> {{item.description}}</p>
+
+                                                                        <template slot="footer">
+                                                                            <base-button type="primary">Save changes</base-button>
+                                                                            <base-button type="link" class="ml-auto" @click="modals.modal1 = false">Close
+                                                                            </base-button>
+                                                                        </template>
+                                                                    </modal>
+                                                                <!-- </div> -->
+                                                            
+                                                        </div>                                                
+
+                                                    </div>
+                                                </span>
+                                            <!-- </div>-->                                            
+                                        </div>
+
+ 
+                                        <div class="col-sm-2">
+                                            <span>
+                                                <base-button type="info" class="sm-3" @click="modals.modal3 = true" size="sm-1">
+                                                    Add Subtask
+                                                </base-button>
+                                            </span>
+                                        </div>
+                                        
+                                        <!--<hr>-->
+                                    </th>
+                                    <td class="completion">
+                                            
+                                                <div class="custom-control custom-checkbox custom-checkbox-success">
+                                                    <div class="w-10000"></div>
+                                                    <input class="custom-control-input" id="chk-todo-task-1" type="checkbox" checked>
+                                                    <label class="custom-control-label" for="chk-todo-task-1"></label>
+                                                </div>
+                                            
+                                        </td>
+                                    </li>
+
+                                    </tbody>
+                                </table>
+                                </div> 
+                            </div>   
+
+
+
+                            <ul class="list-group list-group-flush" data-toggle="checklist">
+                                <li class="checklist-entry list-group-item flex-column align-items-start py-4 px-4">
+                                        
+                                <div class="checklist-item checklist-item-success">
+                                    <div class="checklist-info">
+                                        <h5 class="checklist-title mb-0">Call with Dave</h5>
+                                        <small>10:30 AM</small>
+                                    </div>
+                                    <div>
+                                        <div class="custom-control custom-checkbox custom-checkbox-success">
+                                            <input class="custom-control-input" id="chk-todo-task-1" type="checkbox" checked>
+                                            <label class="custom-control-label" for="chk-todo-task-1"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                </li>
+                            </ul>
+
+
+
+                            <div class="table-responsive">
+                                <div>
+                                <table class="table align-items-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col" class="sort" data-sort="name">Project</th>
+                                            <th scope="col" class="sort" data-sort="budget">Budget</th>
+                                            <th scope="col" class="sort" data-sort="status">Status</th>
+                                            <th scope="col">Users</th>
+                                            <th scope="col" class="sort" data-sort="completion">Completion</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                        
+                                        <tr>
+                                                <th scope="row">
+                                                    <div class="media align-items-center">
+                                                        <a href="#" class="avatar rounded-circle mr-3">
+                                                        <img alt="Image placeholder" src="/img/theme/bootstrap.jpg">
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <span class="name mb-0 text-sm">Argon Design System</span>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td class="budget">
+                                                    $2500 USD
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-warning"></i>
+                                                        <span class="status">pending</span>
+                                                    </span>
+                                                </td>
+                                            <td>
+                                                
+                                                <div class="avatar-group">
+                                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
+                                                        <img alt="Image placeholder" src="/img/theme/team-1.jpg">
+                                                    </a>
+                                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
+                                                        <img alt="Image placeholder" src="/img/theme/team-2.jpg">
+                                                    </a>
+                                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
+                                                        <img alt="Image placeholder" src="/img/theme/team-3.jpg">
+                                                    </a>
+                                                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
+                                                        <img alt="Image placeholder" src="/img/theme/team-4.jpg">
+                                                    </a>
+                                                </div>
+
+                                            </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="completion mr-2">60%</span>
+                                                        <div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                            <a class="dropdown-item" href="#">Action</a>
+                                                            <a class="dropdown-item" href="#">Another action</a>
+                                                            <a class="dropdown-item" href="#">Something else here</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+
+
+                            
+
+
+
+                            <!--</h4>-->
                         </div>
+                        
                     </div>
                 </card>
             </div>
@@ -253,6 +498,7 @@ import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
 import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+
 
 //import  VueWindowModal  from  'vue-window-modal'
 //Vue.use(VueWindowModal)
@@ -288,6 +534,7 @@ export default {
             validsubmit: true,
             task:[ 
             {
+                key: "",
                 description: "",
                 due_date: "",
                 name: "",
@@ -299,15 +546,7 @@ export default {
                 modal3: false
             },
             tasks_name: []
-        // temp: "original",
-        // description: "",
-        // due_date: "",
-        // name: "",
-        // request: "",
-        // subtask_id: "",
-        // task_id: "",
-        // type: "",
-        // user_id: "",
+ 
     }),
     mounted (){
         //this.demo();
@@ -359,28 +598,7 @@ export default {
             service.get(`/tasks/getTasks/${store.getters["getUserId"]}`).then(res => {
                 console.log(res.data.data[0].name);
                 console.log(res.data.data[0].task_id);
-                console.log(this.route);
-                //console.log(res.data.length);
-                
-                //this.name = res.data.data[0].name;
-                // this.task_id = res.data.data[0].task_id;
-                // this.description = res.data.data[0].description;
-                // this.due_date = res.data.data[0].due_date;
-                // this.name = res.data.data[0].name;
-                // this.type = res.data.data[0].type;
-                
-                // var i;
-                // this.description_2 = res.data.data[1].description;
-                // this.due_date_2 = res.data.data[1].due_date;
-                // this.name_2 = res.data.data[1].name;
-                // this.type_2 = res.data.data[1].type;
-
-                // for (i = 0;i < Object.keys(data).length; i++){
-                //     this.description = res.data.data[i].description;
-                //     this.due_date = res.data.data[i].due_date;
-                //     this.name = res.data.data[i].name;
-                //     this.type = res.data.data[i].type; 
-                // }
+                console.log(this.route);       
 
                 this.task = res.data.data;
             });
