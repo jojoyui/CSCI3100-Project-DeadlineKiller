@@ -150,6 +150,8 @@ module.exports = {
         .whereNull('completed_timestamp')
         .where('due_date', '<', time);
     },
+
+    //subtask
     createSubTask: async function(newSubTask){
         console.log("create subtask service");
         return await knex("subtask").insert({
@@ -169,6 +171,20 @@ module.exports = {
             .update({subtask_id: subid});
             
     },
+    getSubTasks: async function(tid){
+        console.log("getSubTask service");
+        return await knex('subtask')
+            .where({task_id: tid});
+    },
+    completeSubTask: async function(sid){
+        console.log("completeSubTask service");
+        return await knex("subtask")
+        .where({subtask_id: sid})
+        .update({
+          completed_timestamp: new Date(),
+        })
+    },
+
 
     CountTotalTask: async function(user){
         return await knex('task')
