@@ -20,13 +20,10 @@
  <br></br>
  Click this button to confirm your account and start to kill you deadline!
  </mj-text>
+ <mj-button background-color="#F45E43" href="http://localhost:8080/#/verifyAccount/{{user_id}}">Click Here!</mj-button>
  </mj-column>
  </mj-section>
 
- <!-- Email Introduction -->
-
- <mj-button background-color="#F45E43" href="http://localhost:8080/#/verifyAccount/{{user_id}}">Click here</mj-button>
- 
 
  <!-- Columns section -->
  <mj-section background-color="white">
