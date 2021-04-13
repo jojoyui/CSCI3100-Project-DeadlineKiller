@@ -5,7 +5,6 @@ const mjml2html = require("mjml");
 const fs =require("fs");
 const path = require("path");
 const knex = require("knex")(require("../knexfile.js")["development"]);
-const moment = require("moment");
 const template = handlebars.compile(fs.readFileSync(path.join(__dirname,'../controllers/verifyEmailcontent.mjml'),"utf8"));
 
 var transporter = nodemailer.createTransport({
@@ -27,7 +26,6 @@ module.exports = {
         const vars = {
             name: newUser.name,
             user_id: newUser.user_id
-            
         }
         const html = mjml2html(template(vars)).html;
         console.log("user register services");
@@ -48,7 +46,7 @@ module.exports = {
     },
     verify: async function(user){
         return await knex("user")
-        //.update({verified: 1})
+        .update({verified: 1})
         .where({user_id: user.user_id});
     },
 
