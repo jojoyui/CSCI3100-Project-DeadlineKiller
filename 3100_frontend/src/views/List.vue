@@ -385,7 +385,7 @@
                                   {{ clicked.key }}Name: {{ clicked.name }}
                                   <br />
                                   Type: {{ clicked.type }} <br />
-                                  Deadline: {{ clicked.due_date }} <br /><br />
+                                  Deadline: {{ new Date(clicked.due_date).toLocaleDateString()}} <br /><br />
                                   Description: <br />
                                   {{ clicked.description }}
                                 </p>
@@ -396,7 +396,7 @@
                                 >
                                   <base-checkbox
                                     v-model="checkboxes[index].unchecked"
-                                    v-if="item.completed_timestamp === null"
+                                    v-if="item.completed_timestamp === null && item.start_date <= current"
                                     @click.native="completeSubtask(index)"
                                   >
                                     <div v-if="item.description === ''">
@@ -682,6 +682,17 @@ import "flatpickr/dist/flatpickr.css";
 //import  VueWindowModal  from  'vue-window-modal'
 //Vue.use(VueWindowModal)
 
+var now = new Date();
+var month = now.getMonth() + 1;
+var day = now.getDate();
+if (month < 10) {
+  month = "0" + month;
+}
+if (day < 10) {
+  day = "0" + day;
+}
+var current = now.getFullYear() + "-" + month + "-" + day;
+
 export default {
   //el : '#app',
   components: {
@@ -700,6 +711,7 @@ export default {
   },
 
   data: () => ({
+    current: current,
     modal1_num: 0,
     modal4_num: 0,
     progress: 70,
