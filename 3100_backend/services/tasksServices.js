@@ -227,7 +227,7 @@ module.exports = {
         console.log("getSubTask service");
         return await knex('subtask')
             .where({task_id: tid})
-            .orderBy('end_date', 'asc');;
+            .orderBy('end_date', 'asc');
     },
     completeSubTask: async function(sid){
         console.log("completeSubTask service");
