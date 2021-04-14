@@ -441,7 +441,7 @@
                             <li v-for="(item, index) in subtask" :key="index">
                               <base-checkbox
                                 v-model="checkboxes[index].unchecked"
-                                v-if="item.completed_timestamp === null"
+                                v-if="item.completed_timestamp === null && item.start_date <= current"
                                 @click.native="
                                   completeSubtask(index), (task_id = isItem.tid)
                                 "
@@ -457,6 +457,7 @@
                                   {{ item.name }}
                                 </div>
                               </base-checkbox>
+  
                               <base-checkbox
                                 v-model="checkboxes[index].unchecked"
                                 v-else
