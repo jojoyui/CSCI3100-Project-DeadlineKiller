@@ -19,6 +19,7 @@ async function main(){
         }
     });
 
+
     var now = new Date();
     var addTime = addDate(now, 3);//当前时间加3天
     var get_task = function(callback) {
@@ -57,7 +58,7 @@ async function main(){
         for(var x=0;x<json.length;x++){
             if(user.name == json[x].uname){
                 taskname = t + count;
-                task[taskname] = json[x].tname + " .................... " + "  Due_date: " + moment(json[x].due_date).format("YYYY-MM-DD");
+                task[taskname] = json[x].tname + " ............ " + "  Due_date: " + moment(json[x].due_date).format("YYYY-MM-DD");
                 count++;
                 if(x == json.length-1){
                     console.log(task);

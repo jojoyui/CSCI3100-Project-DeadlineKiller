@@ -124,6 +124,44 @@ module.exports = {
                 next(err);
           }
     },
+    updateTask : async function (req, res, next){
+        try{
+            console.log("task controller: updateTask");
+            const task = req.params.tid;
+            const date = req.params.date;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.updateTask(task, date)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.updateTask: " +
+                    JSON.parse(err.message)["message"]
+                );
+                next(err);
+          }
+    },
+    updateTaskInfo : async function (req, res, next){
+        try{
+            console.log("task controller: updateTaskInfo");
+            const task = req.params.tid;
+            const name = req.params.name;
+            const date = req.params.date;
+            const details = req.params.details;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.updateTaskInfo(task, name, date, details)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.updateTaskInfo: " +
+                    JSON.parse(err.message)["message"]
+                );
+                next(err);
+          }
+    },
     Updategroup: async function(req,res,next){
         try{
             console.log("Updategroup controller");
@@ -228,6 +266,23 @@ module.exports = {
                 res,
                 next,
                 tasksServices.IncompletedTask(user, start, end)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.Report: " +
+                  JSON.parse(err.message)["message"]
+              );
+              next(err);
+        }
+    },
+    TotalTask : async function (req, res, next){
+        try{
+            console.log("task controller.totalTask");
+            const user = req.params.user;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.TotalTask(user)
             );
         } catch(err){
             console.log(

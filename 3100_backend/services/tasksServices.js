@@ -35,6 +35,20 @@ module.exports = {
             .orderBy('due_date');
     },
 
+    TotalTask: async function(user){
+        var now = new Date();
+        var start = now.getFullYear()-1 + "-" + "01" + "-" + "01";
+        var end = now.getFullYear() + "-" + "01" + "-" + "01";
+        return await knex('task')
+            .innerJoin('group','group.task_id','task.task_id')
+            .where ({
+                user_id: user,
+                request: 'accept'
+            })
+            .where('due_date', '>=', start)
+            .where('due_date', '<', end);
+    },
+
     getTasksId: async function(user){
         return await knex('task')
             .innerJoin('group','group.task_id','task.task_id')
@@ -86,6 +100,38 @@ module.exports = {
         .update({
           completed_timestamp: new Date(),
         })
+    },
+
+    updateTask: async function(task,date){
+        console.log("updateTask service");
+        return await knex("task")
+        .where({task_id: task})
+        .update({
+          due_date: date,
+        });
+    },
+
+    updateTaskInfo: async function(task,name,date,details){
+        if(details != 'nochange'){
+            console.log("updateTask service");
+            return await knex("task")
+            .where({task_id: task})
+            .update({
+                name: name,
+                due_date: date,
+                description: details
+            });
+        }
+        else{
+            console.log("updateTask service");
+            return await knex("task")
+            .where({task_id: task})
+            .update({
+                name: name,
+                due_date: date,
+            });
+        }
+        
     },
 
     createTask: async function(newTask){

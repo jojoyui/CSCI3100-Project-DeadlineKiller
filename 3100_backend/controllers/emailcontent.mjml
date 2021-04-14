@@ -44,7 +44,7 @@
   {{task.Taskname5}}
  <br></br>
  </mj-text>
- <mj-button background-color="#F45E43" href="http://localhost:8080">Show more</mj-button>
+ <mj-button background-color="#F45E43" href="http://localhost:8080/#/list">Show more</mj-button>
  <mj-text color="#878787" font-size="15px" align="center">
   <br></br>
  If you have already finished the tasks, please update on our website!

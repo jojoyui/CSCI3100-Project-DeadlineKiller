@@ -148,6 +148,13 @@
                               </base-input>
                             </div>
                           </div>
+                          <badge v-if="!valid" type="danger">
+                              <span class="alert-inner--text"><strong>The end date should be after the start date</strong></span>
+                              <i class="ni ni-fat-remove text-default"
+                                      size="sm"
+                                      @click="valid=true">
+                              </i>
+                          </badge>
                           <!-- <br/> -->
                           <badge type="primary">Details</badge>
                           <textarea
@@ -170,7 +177,7 @@
                                 text-color="default"
                                 class="my-4"
                                 @click="
-                                  (modals.modal3 = false), (validsubmit = true)
+                                  (modals.modal3 = false), (validsubmit = true), (valid = true)
                                 "
                               >
                                 Close
@@ -376,7 +383,7 @@
                           $event
                         ),
                           getSubtask(_item.tid),
-                          (checkboxes = [])
+                          (checkboxes = []), task_id = _item.tid
                       "
                       :title="_item.title"
                       v-if="_index < 2"
@@ -394,6 +401,7 @@
                     :class="{ left: isShowLeft, top: isShowTop }"
                     v-if="index == isItem.index && isIndex == isItem._index"
                     :style="posTop"
+                    @dblclick="editable=false"
                   >
                     <div class="author" v-if="isItem.desc.caption === ''">
                       <strong>{{ isItem.desc.caption }}</strong>
@@ -403,7 +411,27 @@
                       {{ isItem.desc.caption }}
                     </div>
                     <div class="author">
-                      <strong>{{ "Due_date：" }}</strong> {{ isItem.desc.time }}
+                      <div class="row">
+                        <div class="col-md-auto">
+                          <strong style="font-size: 16px;">{{ "Due Date:" }}</strong>
+                        </div>
+                        <div class="col-md-auto text-left">
+                          <base-input v-if="editable" style="width: 7rem;">
+                            <flat-picker slot-scope="{focus, blur}"
+                                        style="height: 2rem;"
+                                        @on-open="focus"
+                                        @on-close="blur"
+                                        :config="{allowInput: true}"
+                                        class="form-control datepicker text-center"
+                                        v-model="isItem.desc.time ">
+                            </flat-picker>
+                          </base-input>
+                          <div v-else @click="editable=true">{{ isItem.desc.time }}</div>
+                        </div>
+                        <div class="col-md-auto">
+                          <base-button v-if="editable" class="ni ni-check-bold" size= "sm" type="success" rounded @click="updateduedate(isItem.desc.time),editable = false"> </base-button>
+                        </div>
+                      </div>
                     </div>
                     <p></p>
                     <div class="author">
@@ -413,36 +441,37 @@
                             <li v-for="(item, index) in subtask" :key="index">
                               <base-checkbox
                                 v-model="checkboxes[index].unchecked"
-                                v-if="item.completed_timestamp === null"
+                                v-if="item.completed_timestamp === null && item.start_date <= current"
                                 @click.native="
                                   completeSubtask(index), (task_id = isItem.tid)
                                 "
                               >
                                 <div v-if="item.description === ''">
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                                 <div
                                   v-else
                                   v-b-popover.hover.right="item.description"
                                   title="Descirption"
                                 >
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                               </base-checkbox>
+  
                               <base-checkbox
                                 v-model="checkboxes[index].unchecked"
                                 v-else
                                 disabled
                               >
                                 <div v-if="item.description === ''">
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                                 <div
                                   v-else
                                   v-b-popover.hover.right="item.description"
                                   title="Descirption"
                                 >
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                               </base-checkbox>
                             </li>
@@ -450,7 +479,7 @@
                         </div>
                       </div>
                     </div>
-                    <div v-if="progress >= 0" class="bar">
+                    <div v-if="subtask.length > 0" class="bar">
                       <base-progress
                         style="margin:0px"
                         v-if="progress <= 40"
@@ -594,6 +623,8 @@ export default {
     },
     description: "",
     validsubmit: true,
+    valid: true,
+    editable: false,
     prevMonthDays: 0,
     curMonthDays: [],
     nextMonthDays: 0,
@@ -619,7 +650,7 @@ export default {
       modal4: false,
     },
     tasks_name: [],
-    subtask: [],
+    subtask: []
     // calendarPlugins: [
     //     DayGridPlugin,
     //     TimeGridPlugin,
@@ -697,53 +728,76 @@ export default {
           }
         });
     },
+    updateduedate(date){
+      console.log("updateduedate");
+      service.get(`/tasks/updateTask/${this.task_id}/${date}`).then((res) => {
+        if (res.data.success) {
+          console.log("Update to task database success!");
+          service
+            .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+            .then((res1) => {
+              store.commit("setTask", res1.data.data);
+              console.log("fetch task");
+            });
+          this.modals.modal4 = false;
+          this.$router.replace("/empty");
+        } else {
+          console.log("Update to task database failed!");
+        }
+      });
+    },
     handleSubmit() {
       console.log(this.task_id);
       this.subtask_id = uuid.v1();
       if (this.tname == "") {
         this.validsubmit = false;
       } else {
-        service
-          .post("/tasks/createSubtask", {
-            subtask_id: this.subtask_id,
-            task_id: this.task_id,
-            name: this.tname,
-            start_date: this.dates.start,
-            end_date: this.dates.end,
-            description: this.description,
-          })
-          .then((res) => {
-            if (res.data.success) {
-              console.log("Update to task database success!");
-              service
-                .get(
-                  `/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`
-                )
-                .then((res) => {
-                  console.log(res.data);
-                  service
-                    .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
-                    .then((res1) => {
-                      store.commit("setTask", res1.data.data);
-                      console.log("fetch task");
-                    });
-                  this.getSubtask(this.task_id);
-                })
-                .catch((err) => {
-                  console.log("err:", err);
-                  this.validsubmit = false;
-                });
-            } else {
-              console.log("Update to subtask database failed!");
-            }
-          })
-          .catch((err) => {
-            console.log("err:", err);
-            this.validsubmit = false;
-          });
-        this.modals.modal3 = false;
-        this.tname = "";
-        this.description = "";
+        if(this.dates.end < this.dates.start){
+          this.valid = false;
+        }
+        else{
+          service
+            .post("/tasks/createSubtask", {
+              subtask_id: this.subtask_id,
+              task_id: this.task_id,
+              name: this.tname,
+              start_date: this.dates.start,
+              end_date: this.dates.end,
+              description: this.description,
+            })
+            .then((res) => {
+              if (res.data.success) {
+                console.log("Update to task database success!");
+                service
+                  .get(
+                    `/tasks/updategroup/${this.task_id}/${this.user_id}/${this.subtask_id}`
+                  )
+                  .then((res) => {
+                    console.log(res.data);
+                    service
+                      .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+                      .then((res1) => {
+                        store.commit("setTask", res1.data.data);
+                        console.log("fetch task");
+                      });
+                    this.getSubtask(this.task_id);
+                  })
+                  .catch((err) => {
+                    console.log("err:", err);
+                    this.validsubmit = false;
+                  });
+              } else {
+                console.log("Update to subtask database failed!");
+              }
+            })
+            .catch((err) => {
+              console.log("err:", err);
+              this.validsubmit = false;
+            });
+          this.modals.modal3 = false;
+          this.tname = "";
+          this.description = "";
+        }
       }
     },
     handleLunar(year, month, date) {
@@ -1115,8 +1169,8 @@ export default {
           left: 100%;
           top: 0;
           z-index: 9;
-          width: 318px;
-          height: 310px;
+          width: 350px;
+          //height: 310px;
           padding: 22px 30px 26px;
           border: 1px solid #3c85da;
           transform: translateX(15px);
@@ -1171,8 +1225,8 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 25px;
-            padding-top: 25px;
+            margin-top: 10px;
+            padding-top: 10px;
             //border-top: 1px dashed #bababa;
             .link {
               padding: 6px 16px;
