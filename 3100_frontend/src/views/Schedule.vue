@@ -608,6 +608,7 @@ export default {
     },
   },
   data: () => ({
+    current: current,
     getTask: [],
     progress: 70,
     checkboxes: [],
@@ -690,8 +691,16 @@ export default {
   },
   methods: {
     fetchTask() {
+    
       this.getTask.push(store.getters["getTask"]);
       console.log("fetchTask", this.getTask);
+      service
+        .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+        .then((res) => {
+          this.getTask = res.data.data;
+          console.log("fetchTask", this.getTask);
+        });
+
     },
 
     completedTask() {

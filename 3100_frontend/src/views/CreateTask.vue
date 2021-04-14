@@ -265,7 +265,7 @@ import { service } from "@/plugins/request_service.js";
 import store from "@/store";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
-import Tab from "../components/Tabs/Tabs";
+import Tabs from "../components/Tabs/Tabs";
 import TabPane from "../components/Tabs/TabPane";
 import TabsSection from "./components/JavascriptComponents/TabsSection";
 import Badge from '../components/Badge.vue';
@@ -287,7 +287,7 @@ export default {
     components:{
         flatPicker,
         TabPane,
-        Tab,
+        Tabs,
         TabsSection,
         Badge,
         BaseNav,
@@ -405,8 +405,7 @@ export default {
                                 this.validsubmit = false;
                             });
                         
-
-                        this.$router.push("/list");
+                        this.$router.push("/schedule");
                     } else {
                         console.log("Update to task database failed!");
                     }
