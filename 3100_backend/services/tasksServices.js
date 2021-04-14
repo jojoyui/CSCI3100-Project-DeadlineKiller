@@ -111,6 +111,29 @@ module.exports = {
         });
     },
 
+    updateTaskInfo: async function(task,name,date,details){
+        if(details != 'nochange'){
+            console.log("updateTask service");
+            return await knex("task")
+            .where({task_id: task})
+            .update({
+                name: name,
+                due_date: date,
+                description: details
+            });
+        }
+        else{
+            console.log("updateTask service");
+            return await knex("task")
+            .where({task_id: task})
+            .update({
+                name: name,
+                due_date: date,
+            });
+        }
+        
+    },
+
     createTask: async function(newTask){
         console.log("create task service");
         return await knex("task").insert({

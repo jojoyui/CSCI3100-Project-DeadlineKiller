@@ -334,11 +334,11 @@
                         </tr>
                       </thead>
 
-                      <tbody class="list text-center">
+                      <tbody class="list text-center" >
                         <tr v-for="(item,num) in task" :key="num">
                           <!-- <div class="list-group">-->
 
-                          <th>
+                          <th >
                             <span> {{ item.name}} </span>
                             <br />
                             <br />
@@ -491,7 +491,7 @@
                           </td>
 
                           <!--<hr>-->
-                          <td class="completion text-center">
+                          <td class="completion text-center" @dblclick="modals.modal_edit[num].modal5 = true">
                             <br />
                             <div v-if="item.completed_timestamp">Completed</div>
 
@@ -506,42 +506,147 @@
                               >
                                 Complete Task
                               </base-button>
-                              <modal
-                                :show.sync="modals.modal_com[num].modal4"
-                                body-classes="p-2"
-                                modal-classes="modal-dialog-centered"
-                              >
-                                <h4 class="modal-title text-center">
-                                  Completed Task?
-                                </h4>
-                                <div class="row">
-                                  <div class="col-sm">
-                                    <span></span>
+                              <div>
+                                <modal
+                                  :show.sync="modals.modal_edit[num].modal5"
+                                  body-classes="p-0"
+                                  modal-classes="modal-sm"
+                                >
+                                  <card
+                                    gradient="secondary"
+                                    shadow
+                                    header-classes="bg-white pb-5"
+                                    body-classes="px-lg-5 py-lg-5"
+                                    class="border-0"
+                                  >
+                                    <template>
+                                      <div class="text-center text-primary mb-3">
+                                        <strong>TASK</strong>
+                                      </div>
+                                    </template>
+                                    <template>
+                                      <form role="form">
+                                        <base-input
+                                          alternative
+                                          class="mb-3"
+                                          v-model="item.name"
+                                          placeholder= item.name
+                                          addon-left-icon="ni ni-map-big"
+                                        >
+                                        </base-input>
+                                        <div class="row">
+                                          <div class="col text-left">
+                                            <badge type="primary">Due Date</badge>
+                                            <base-input
+                                              addon-left-icon="ni ni-calendar-grid-58"
+                                            >
+                                              <flat-picker
+                                                slot-scope="{ focus, blur }"
+                                                @on-open="focus"
+                                                @on-close="blur"
+                                                :config="{ allowInput: true }"
+                                                class="form-control datepicker"
+                                                v-model="item.due_date"
+                                              >
+                                              </flat-picker>
+                                            </base-input>
+                                          </div>
+                                          
+                                        </div>
+                                        <!-- <br/> -->
+                                         <div class="row">
+                                          <div class="col text-left">
+                                            <badge type="primary">Details</badge>
+                                            <textarea v-if="item.description === ''"
+                                              v-model="item.description"
+                                              class="Description form-control form-control-alternative mb-3"
+                                              placeholder = "Update your task description here!"
+                                            >
+                                            </textarea>
+                                            <textarea v-else
+                                              v-model="item.description"
+                                              class="Description form-control form-control-alternative mb-3"
+                                              placeholder = item.description
+                                            >
+                                            </textarea>
+                                          </div>
+                                        </div>
+                                          <base-alert v-if="!validsubmit" type="warning">
+                                            <!-- <span class="alert-inner--icon"><i class="ni ni-bulb-61"></i></span> -->
+                                            <span class="alert-inner--text"
+                                              >Please input the
+                                              <strong>TASK NAME!</strong></span
+                                            >
+                                          </base-alert>
+                                        
+                                        <div class="row">
+                                          <div class="text-left col">
+                                            <base-button
+                                              type="link"
+                                              text-color="default"
+                                              class="my-4"
+                                              @click="
+                                                (validsubmit = true),
+                                                (modals.modal_edit[num].modal5 = false),
+                                                (valid = true)
+                                              "
+                                            >
+                                              Close
+                                            </base-button>
+                                          </div>
+                                          <div class="text-right col">
+                                            <base-button
+                                              type="primary"
+                                              outline
+                                              class="my-4"
+                                              @click="updatetask(item.task_id, item.name, item.due_date, item.description)"
+                                              >UPDATE</base-button
+                                            >
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </template>
+                                  </card>
+                                </modal>
+                              </div>
+                              <div>
+                                <modal
+                                  :show.sync="modals.modal_com[num].modal4"
+                                  body-classes="p-2"
+                                  modal-classes="modal-dialog-centered"
+                                >
+                                  <h4 class="modal-title text-center">
+                                    Completed Task?
+                                  </h4>
+                                  <div class="row">
+                                    <div class="col-sm">
+                                      <span></span>
+                                    </div>
+                                    <div clas="col-md-auto">
+                                      <p class="lead text-white mt-3 mb-3"></p>
+                                      <base-button
+                                        size="sm"
+                                        @click="completedTask(), modal4_num = num, clicked.task_id = item.task_id"
+                                        type="primary"
+                                      >
+                                        Yes
+                                      </base-button>
+                                    </div>
+                                    <div class="col-md-auto">
+                                      <p class="lead text-white mt-3 mb-3"></p>
+                                      <base-button
+                                        size="sm"
+                                        type="default"
+                                        @click="modals.modal_com[num].modal4 = false"
+                                        >No
+                                      </base-button>
+                                    </div>
+                                    <div class="col-sm">
+                                      <span></span>
+                                    </div>
                                   </div>
-                                  <div clas="col-md-auto">
-                                    <p class="lead text-white mt-3 mb-3"></p>
-                                    <base-button
-                                      size="sm"
-                                      @click="completedTask(), modal4_num = num"
-                                      type="primary"
-                                    >
-                                      Yes
-                                    </base-button>
-                                  </div>
-                                  <div class="col-md-auto">
-                                    <p class="lead text-white mt-3 mb-3"></p>
-                                    <base-button
-                                      size="sm"
-                                      type="default"
-                                      @click="modals.modal_com[num].modal4 = false"
-                                      >No
-                                    </base-button>
-                                  </div>
-                                  <div class="col-sm">
-                                    <span></span>
-                                  </div>
-                                </div>
-                              </modal>
+                                </modal>
+                              </div>
                             </div>
                           </td>
                         </tr>
@@ -623,17 +728,21 @@ export default {
       },
     ],
     modals: {
+      modal1: false,
       modal: [],
       modal2: false,
       modal3: false,
       modal_com: [],
+      modal_edit: []
     },
     tasks_name: [],
+    editable: false
   }),
   mounted() {
     //this.demo();
     this.fetchTask();
     this.noti();
+   
   },
   methods: {
     getSubtask(tid) {
@@ -759,6 +868,7 @@ export default {
           for(let i=0; i<res.data.data.length; i++){
             this.modals.modal.push({modal1: false});
             this.modals.modal_com.push({modal4: false,});
+            this.modals.modal_edit.push({modal5: false,});
           }
           console.log(this.modals.modal);
           this.task = res.data.data;
@@ -772,6 +882,7 @@ export default {
           console.log(res.data);
           this.tasks_name = res.data.data;
         });
+         console.log(this.editable)
     },
     handleAccept(i) {
       console.log("handleAccept");
@@ -789,6 +900,28 @@ export default {
       });
       this.tasks_name.splice(i, 1);
     },
+    updatetask(tid, name, date, details){
+      console.log("update task");
+      console.log(tid, name, date, details);
+      if(details == ''){
+        details = 'nochange';
+      }
+      service.get(`/tasks/updateTaskInfo/${tid}/${name}/${date}/${details}`).then((res) => {
+        if (res.data.success) {
+          console.log("Update to task database success!");
+          service
+            .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+            .then((res1) => {
+              store.commit("setTask", res1.data.data);
+              console.log("fetch task");
+            });
+          this.$router.replace("/empty2");
+        } else {
+          console.log("Update to task database failed!");
+        }
+      });
+      
+    }
   },
 };
 </script>
