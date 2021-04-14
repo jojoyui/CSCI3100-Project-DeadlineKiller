@@ -17,6 +17,7 @@ import CreateTask from "./views/CreateTask.vue"
 import Subtask from "./views/Subtask.vue"
 import Notification from "./views/Notifications.vue"
 import empty from "./views/empty.vue"
+import empty2 from "./views/empty2.vue"
 import VerifyAccount from "./views/VerifyAccount.vue"
 
 Vue.use(Router);
@@ -135,6 +136,13 @@ const router = new Router({
       name: "empty",
       components: {
         default: empty,
+      }
+    },
+    {
+      path: "/empty2",
+      name: "empty2",
+      components: {
+        default: empty2,
       }
     }
   ],

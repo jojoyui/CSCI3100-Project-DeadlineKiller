@@ -365,7 +365,7 @@
                 <div class="table-responsive">
                   <div>
                     <table class="table align-items-center">
-                      <thead class="thead-light">
+                      <thead class="thead-light text-center">
                         <tr>
                           <th scope="col-sm-8" data-sort="task.name">Task</th>
                           <th
@@ -385,7 +385,7 @@
                         </tr>
                       </thead>
 
-                      <tbody class="list">
+                      <tbody class="list text-center">
                         <tr v-for="item in task" :key="item.id">
                           <!-- <div class="list-group">-->
 
@@ -393,20 +393,32 @@
                             <span> {{ item.name }} </span>
                             <br />
                             <br />
-                            <base-button
-                              block
-                              type="primary"
-                              class=" mb-3"
-                              @click="
-                                (modals.modal1 = true),
-                                  (clicked = item),
-                                  getSubtask(clicked.task_id)
-                              "
-                              size="sm-1"
-                              style="max-width: 200px;"
-                            >
-                              Task info
-                            </base-button>
+                            <div class="row">
+                              <div class="col">
+                                <span></span>
+                              </div>
+                              <div class="col">
+                                <base-button
+                                  block
+                                  outline
+                                  
+                                  type="primary"
+                                  class="text-center"
+                                  @click="
+                                    (modals.modal1 = true),
+                                      (clicked = item),
+                                      getSubtask(clicked.task_id)
+                                  "
+                                  size="sm"
+                                  
+                                >
+                                  Task info
+                                </base-button>
+                              </div>
+                              <div class="col">
+                                <span></span>
+                              </div>
+                            </div>
 
                             <div class="col-sm-4">
                               <!-- <div class="row"> -->
@@ -522,14 +534,14 @@
 
                             <!-- </div>-->
                           </th>
-                          <td>
+                          <td class="deadline text-center">
                             <br />{{
                               new Date(item.due_date).toLocaleDateString()
                             }}
                           </td>
 
                           <!--<hr>-->
-                          <td class="completion">
+                          <td class="completion text-center">
                             <br />
                             <div v-if="item.completed_timestamp">Completed</div>
 
@@ -707,8 +719,8 @@ export default {
                 store.commit("setTask", res1.data.data);
                 console.log("fetch task");
               });
-            this.modals.modal4 = false;
-            this.$router.go();
+             this.modals.modal4 = false;
+              this.$router.replace("/empty2");
           } else {
             console.log("Update to task database failed!");
           }
@@ -744,7 +756,13 @@ export default {
                   console.log("err:", err);
                   this.validsubmit = false;
                 });
-              this.$router.go("/list");
+              service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+              .then((res1) => {
+                store.commit("setTask", res1.data.data);
+                console.log("fetch task");
+              });
+              this.modals.modal4 = false;
+              this.$router.replace("/empty2");
             } else {
               console.log("Update to subtask database failed!");
             }
