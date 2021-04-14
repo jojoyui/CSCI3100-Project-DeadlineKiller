@@ -475,14 +475,6 @@
                                         </span>
                                     </base-button>
                                     </div>
-                                        <div>
-                                            <br/>
-                                            <base-button class="icon icon-shape rounded-circle shadow mb-0" type="secondary">
-                                                <i class="ni ni-settings-gear-65"></i>
-                                            </base-button>
-                                            
-                                        </div>
-                                    
 
                                 </div>
                                 

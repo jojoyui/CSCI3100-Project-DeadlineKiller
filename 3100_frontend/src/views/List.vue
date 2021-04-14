@@ -144,6 +144,13 @@
                               </base-input>
                             </div>
                           </div>
+                          <badge v-if="!valid" type="danger">
+                              <span class="alert-inner--text"><strong>The end date should be after the start date</strong></span>
+                              <i class="ni ni-fat-remove text-default"
+                                      size="sm"
+                                      @click="valid=true">
+                              </i>
+                          </badge>
                           <!-- <br/> -->
                           <badge type="primary">Details</badge>
                           <textarea
@@ -166,9 +173,10 @@
                                 text-color="default"
                                 class="my-4"
                                 @click="
+                                  (validsubmit = true),
+                                  (modals.modal[modal1_num].modal1 = true),
                                   (modals.modal3 = false),
-                                    (validsubmit = true),
-                                    (modals.modal1 = true)
+                                  (valid = true)
                                 "
                               >
                                 Close
@@ -237,125 +245,66 @@
                         </h4></strong
                       >
                     </div>
-                    <div>
-                      <div class="col-lg pt-lg-3">
-                        <div class="row">
-                          <div class="col text-right">
-                            <base-button
-                              type="secondary"
-                              class="text-default mb-3"
-                              @click="modals.modal2 = true"
-                              icon="ni ni-bell-55"
-                              v-b-popover.hover.top="
-                                'Your friends are asking you!'
-                              "
-                              title="Check Your Request"
-                            >
-                              <span>
-                                Requests
-                                <badge
-                                  v-if="tasks_name.length === 0"
+                      <div>
+                        <ul class="list-unstyled">
+                          <li
+                            v-for="(task, num) in tasks_name"
+                            :key="num"
+                          >
+                            <div class="row">
+                              <div class="col-7 text-left">
+                                <strong>
+                                  <!-- <i class="ni ni-planet text-primary"></i>  -->
+                                  {{ task["task"] }}
+                                  <badge type="primary">
+                                    {{ task["type"] }}
+                                  </badge>
+                                </strong>
+                                <br />
+                                <br />
+                              </div>
+
+                              <div class="col text-right">
+                                <!-- <div class="row"> -->
+                                <base-button
+                                  size="sm"
                                   type="success"
+                                  @click="handleAccept(num)"
+                                  >Accept</base-button
                                 >
-                                  {{ tasks_name.length }}
-                                </badge>
-                                <badge v-else type="danger">
-                                  {{ tasks_name.length }}
-                                </badge>
-                              </span>
-                            </base-button>
-                            <modal
-                              :show.sync="modals.modal2"
-                              gradient="info"
-                              :clickoutside="true"
-                              modal-classes="modal-danger modal-dialog-centered"
-                            >
-                              <h6
-                                slot="header"
-                                class="modal-title"
-                                id="modal-title-notification"
-                              >
-                                Forming Group With Your Friends!
-                              </h6>
-                              <div class="py-3 text-center">
-                                <i class="ni ni-bell-55 ni-3x"></i>
-                                <strong
-                                  ><h4 class="heading mt-4">
-                                    There are {{ tasks_name.length }} requests!
-                                  </h4></strong
+                                <base-button
+                                  size="sm"
+                                  type="danger"
+                                  @click="handleDecline(num)"
+                                  >Decline</base-button
                                 >
+                                <!-- </div> -->
                               </div>
-                              <div>
-                                <ul class="list-unstyled">
-                                  <li
-                                    v-for="(task, num) in tasks_name"
-                                    :key="num"
-                                  >
-                                    <div class="row">
-                                      <div class="col-7 text-left">
-                                        <strong>
-                                          <!-- <i class="ni ni-planet text-primary"></i>  -->
-                                          {{ task["task"] }}
-                                          <badge type="primary">
-                                            {{ task["type"] }}
-                                          </badge>
-                                        </strong>
-                                        <br />
-                                        <br />
-                                      </div>
-
-                                      <div class="col text-right">
-                                        <!-- <div class="row"> -->
-                                        <base-button
-                                          size="sm"
-                                          type="success"
-                                          @click="handleAccept(num)"
-                                          >Accept</base-button
-                                        >
-                                        <base-button
-                                          size="sm"
-                                          type="danger"
-                                          @click="handleDecline(num)"
-                                          >Decline</base-button
-                                        >
-                                        <!-- </div> -->
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                            </modal>
-                          </div>
-                        </div>
-
-                        <div class="col text-right">
-                          <!-- <div class="row"> -->
-                          <base-button
-                            size="sm"
-                            type="success"
-                            @click="handleAccept(num)"
-                            >Accept</base-button
-                          >
-                          <base-button
-                            size="sm"
-                            type="danger"
-                            @click="handleDecline(num)"
-                            >Decline</base-button
-                          >
-                          <!-- </div> -->
-                        </div>
+                            </div>
+                          </li>
+                        </ul>
                       </div>
-                    </div>
-                  </modal>
+                    </modal>
                 </div>
               </div>
 
               <!--<h4 class="font-weight-light">-->
               <div v-if="task.length == 0">
                 <h1 class="font-weight-light text-center">
-                  <strong>Start to kill your deadline</strong>
-                  <br />by create a new task!
+                  Start to <strong>kill your deadline</strong>
+                  <br/>
+                  <br/>
+                  <img
+                    src="img/brand/Planning.png"
+                    style="width: 500px;"
+                    class="img-fluid"
+                  />
+                  <br/>
+                  <br/>
+                  by create a <strong>new task</strong>!
                 </h1>
+                <br/>
+                <br/>
               </div>
               <div v-else>
                 <!-- <h1 class="font-weight-light text-center">
@@ -386,11 +335,11 @@
                       </thead>
 
                       <tbody class="list text-center">
-                        <tr v-for="item in task" :key="item.id">
+                        <tr v-for="(item,num) in task" :key="num">
                           <!-- <div class="list-group">-->
 
                           <th>
-                            <span> {{ item.name }} </span>
+                            <span> {{ item.name}} </span>
                             <br />
                             <br />
                             <div class="row">
@@ -405,7 +354,7 @@
                                   type="primary"
                                   class="text-center"
                                   @click="
-                                    (modals.modal1 = true),
+                                    (modals.modal[num].modal1 = true),
                                       (clicked = item),
                                       getSubtask(clicked.task_id)
                                   "
@@ -423,7 +372,7 @@
                             <div class="col-sm-4">
                               <!-- <div class="row"> -->
                               <!-- <div class="container"> -->
-                              <modal :show.sync="modals.modal1">
+                              <modal :show.sync="modals.modal[num].modal1">
                                 <h4
                                   slot="header"
                                   class="sm-3"
@@ -511,8 +460,9 @@
                                         type="info"
                                         class="sm-3"
                                         @click="
-                                          (modals.modal1 = false),
-                                            (modals.modal3 = true)
+                                          modals.modal[num].modal1 = false,
+                                          modal1_num = num,
+                                          modals.modal3 = true
                                         "
                                         size="sm-1"
                                       >
@@ -524,7 +474,7 @@
                                   <base-button
                                     type="link"
                                     class="ml-auto"
-                                    @click="modals.modal1 = false"
+                                    @click="modals.modal[num].modal1 = false"
                                     >Close
                                   </base-button>
                                 </template>
@@ -550,29 +500,47 @@
                                 type="info"
                                 class="mb-3"
                                 @click="
-                                  (modals.modal4 = true), (completeTask = item)
+                                  (modals.modal_com[num].modal4 = true), (completeTask = item)
                                 "
                                 size="sm"
                               >
                                 Complete Task
                               </base-button>
-                              <modal :show.sync="modals.modal4">
-                                <p class="modal-title">
+                              <modal
+                                :show.sync="modals.modal_com[num].modal4"
+                                body-classes="p-2"
+                                modal-classes="modal-dialog-centered"
+                              >
+                                <h4 class="modal-title text-center">
                                   Completed Task?
-                                </p>
-                                <base-button
-                                  @click="completedTask()"
-                                  type="primary"
-                                  class="ml-auto"
-                                >
-                                  Yes
-                                </base-button>
-                                <base-button
-                                  type="link"
-                                  class="ml-auto"
-                                  @click="modals.modal4 = false"
-                                  >Close
-                                </base-button>
+                                </h4>
+                                <div class="row">
+                                  <div class="col-sm">
+                                    <span></span>
+                                  </div>
+                                  <div clas="col-md-auto">
+                                    <p class="lead text-white mt-3 mb-3"></p>
+                                    <base-button
+                                      size="sm"
+                                      @click="completedTask(), modal4_num = num"
+                                      type="primary"
+                                    >
+                                      Yes
+                                    </base-button>
+                                  </div>
+                                  <div class="col-md-auto">
+                                    <p class="lead text-white mt-3 mb-3"></p>
+                                    <base-button
+                                      size="sm"
+                                      type="default"
+                                      @click="modals.modal_com[num].modal4 = false"
+                                      >No
+                                    </base-button>
+                                  </div>
+                                  <div class="col-sm">
+                                    <span></span>
+                                  </div>
+                                </div>
                               </modal>
                             </div>
                           </td>
@@ -627,6 +595,8 @@ export default {
   },
 
   data: () => ({
+    modal1_num: 0,
+    modal4_num: 0,
     progress: 70,
     checkboxes: [],
     subtask: [],
@@ -642,6 +612,7 @@ export default {
     },
     description: "",
     validsubmit: true,
+    valid: true,
     task: [
       {
         key: "",
@@ -652,10 +623,10 @@ export default {
       },
     ],
     modals: {
-      modal1: false,
+      modal: [],
       modal2: false,
       modal3: false,
-      modal4: false,
+      modal_com: [],
     },
     tasks_name: [],
   }),
@@ -719,7 +690,7 @@ export default {
                 store.commit("setTask", res1.data.data);
                 console.log("fetch task");
               });
-             this.modals.modal4 = false;
+             this.modals.modal_com[this.modal4_num].modal4 = false;
               this.$router.replace("/empty2");
           } else {
             console.log("Update to task database failed!");
@@ -728,49 +699,53 @@ export default {
     },
     handleSubmit() {
       console.log("clicked");
-
       this.subtask_id = uuid.v1();
       if (this.tname == "") {
         this.validsubmit = false;
-      } else {
-        service
-          .post("/tasks/createSubtask", {
-            subtask_id: this.subtask_id,
-            task_id: this.clicked.task_id,
-            name: this.tname,
-            start_date: this.dates.start,
-            end_date: this.dates.end,
-            description: this.description,
-          })
-          .then((res) => {
-            if (res.data.success) {
-              console.log("Update to task database success!");
-              service
-                .get(
-                  `/tasks/updategroup/${this.clicked.task_id}/${this.user_id}/${this.subtask_id}`
-                )
-                .then((res) => {
-                  console.log(res.data);
-                })
-                .catch((err) => {
-                  console.log("err:", err);
-                  this.validsubmit = false;
+      } 
+      else {
+        if(this.dates.end < this.dates.start){
+          this.valid = false;
+        }
+        else{
+          service
+            .post("/tasks/createSubtask", {
+              subtask_id: this.subtask_id,
+              task_id: this.clicked.task_id,
+              name: this.tname,
+              start_date: this.dates.start,
+              end_date: this.dates.end,
+              description: this.description,
+            })
+            .then((res) => {
+              if (res.data.success) {
+                console.log("Update to task database success!");
+                service
+                  .get(
+                    `/tasks/updategroup/${this.clicked.task_id}/${this.user_id}/${this.subtask_id}`
+                  )
+                  .then((res) => {
+                    console.log(res.data);
+                  })
+                  .catch((err) => {
+                    console.log("err:", err);
+                    this.validsubmit = false;
+                  });
+                service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+                .then((res1) => {
+                  store.commit("setTask", res1.data.data);
+                  console.log("fetch task");
                 });
-              service.get(`/tasks/getTasks/${store.getters["getUserId"]}`)
-              .then((res1) => {
-                store.commit("setTask", res1.data.data);
-                console.log("fetch task");
-              });
-              this.modals.modal4 = false;
-              this.$router.replace("/empty2");
-            } else {
-              console.log("Update to subtask database failed!");
-            }
-          })
-          .catch((err) => {
-            console.log("err:", err);
-            this.validsubmit = false;
-          });
+                this.$router.replace("/empty2");
+              } else {
+                console.log("Update to subtask database failed!");
+              }
+            })
+            .catch((err) => {
+              console.log("err:", err);
+              this.validsubmit = false;
+            });
+        }
       }
     },
     Addsubtask(task_id) {
@@ -781,10 +756,11 @@ export default {
       service
         .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
         .then((res) => {
-          //console.log(res.data.data.length );
-          // console.log(res.data.data[0].task_id);
-          // console.log(this.route);
-
+          for(let i=0; i<res.data.data.length; i++){
+            this.modals.modal.push({modal1: false});
+            this.modals.modal_com.push({modal4: false,});
+          }
+          console.log(this.modals.modal);
           this.task = res.data.data;
         });
     },

@@ -447,14 +447,14 @@
                                 "
                               >
                                 <div v-if="item.description === ''">
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                                 <div
                                   v-else
                                   v-b-popover.hover.right="item.description"
                                   title="Descirption"
                                 >
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                               </base-checkbox>
   
@@ -464,14 +464,14 @@
                                 disabled
                               >
                                 <div v-if="item.description === ''">
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                                 <div
                                   v-else
                                   v-b-popover.hover.right="item.description"
                                   title="Descirption"
                                 >
-                                  {{ item.name }}
+                                  {{ item.name }} 
                                 </div>
                               </base-checkbox>
                             </li>
