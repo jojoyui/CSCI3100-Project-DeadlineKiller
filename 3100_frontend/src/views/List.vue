@@ -901,6 +901,13 @@ export default {
       console.log(this.tasks_name[i]["tid"]);
       service.get(`/users/accept/${this.tasks_name[i]["tid"]}`).then((res) => {
         console.log(res.data);
+        service
+            .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
+            .then((res1) => {
+              store.commit("setTask", res1.data.data);
+              console.log("fetch task");
+            });
+          this.$router.replace("/empty2");
       });
       this.tasks_name.splice(i, 1);
     },
