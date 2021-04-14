@@ -358,9 +358,9 @@
                 </h1>
               </div>
               <div v-else>
-                <h1 class="font-weight-light text-center">
+                <!-- <h1 class="font-weight-light text-center">
                   <strong>Task List</strong>
-                </h1>
+                </h1> -->
 
                 <div class="table-responsive">
                   <div>

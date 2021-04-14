@@ -426,11 +426,8 @@
                                 <blockquote class="blockquote">
                                     <!-- <p class="mb-0">Please select your date range:</p > -->
                                 </blockquote>
-
                             </div>
                             <div class="col-lg ">
-                                
-    
                                 <div class="row">
                                     <div class="col">
                                         <badge type="primary">start date</badge>
@@ -458,7 +455,6 @@
                                     </div>
                                     <div class="col">
                                         <p class="lead text-white mt-3 mb-3"></p >
-                                        
                                         <div>
                                             <p class="lead text-white mt-3 mb-3"></p >
                                             <span><base-button type="secondary" rounded size="lg" class="ni ni-send" @click="handlego()"></base-button></span>
@@ -479,6 +475,14 @@
                                         </span>
                                     </base-button>
                                     </div>
+                                        <div>
+                                            <br/>
+                                            <base-button class="icon icon-shape rounded-circle shadow mb-0" type="secondary">
+                                                <i class="ni ni-settings-gear-65"></i>
+                                            </base-button>
+                                            
+                                        </div>
+                                    
 
                                 </div>
                                 
@@ -636,6 +640,7 @@ import Badge from '../components/Badge.vue';
 import Modal from "../components/Modal.vue";
 import { VBTooltip } from "bootstrap-vue/esm/directives/tooltip/tooltip";
 import { VBPopover } from "bootstrap-vue/esm/directives/popover/popover";
+import BaseButton from '../components/BaseButton.vue';
 
 
 var date = new Date();
@@ -661,7 +666,8 @@ export default {
         flatPicker,
         DatePickers,
         Badge,
-        Modal
+        Modal,
+        BaseButton
     },
     directives: {
     BTooltip: VBTooltip,
