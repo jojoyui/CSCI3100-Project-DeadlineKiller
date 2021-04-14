@@ -142,6 +142,26 @@ module.exports = {
                 next(err);
           }
     },
+    updateTaskInfo : async function (req, res, next){
+        try{
+            console.log("task controller: updateTaskInfo");
+            const task = req.params.tid;
+            const name = req.params.name;
+            const date = req.params.date;
+            const details = req.params.details;
+            return standardServiceResponse(
+                res,
+                next,
+                tasksServices.updateTaskInfo(task, name, date, details)
+            );
+        } catch(err){
+            console.log(
+                "Error: tasksController.updateTaskInfo: " +
+                    JSON.parse(err.message)["message"]
+                );
+                next(err);
+          }
+    },
     Updategroup: async function(req,res,next){
         try{
             console.log("Updategroup controller");

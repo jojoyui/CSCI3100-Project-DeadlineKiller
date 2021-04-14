@@ -11,6 +11,7 @@ router.get("/getTasks/:user", tasksControllers.getTasks);
 router.get("/getTasksId/:user", tasksControllers.getTasksId);
 router.get("/completeTask/:tid", tasksControllers.completeTask);
 router.get("/updateTask/:tid/:date", tasksControllers.updateTask);
+router.get("/updateTaskInfo/:tid/:name/:date/:details", tasksControllers.updateTaskInfo);
 router.post("/createTask", tasksControllers.createTask);
 router.post("/createGroup", tasksControllers.createGroup);
 
