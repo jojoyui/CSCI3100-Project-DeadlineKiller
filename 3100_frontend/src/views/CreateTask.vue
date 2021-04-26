@@ -405,8 +405,7 @@ export default {
                                 this.validsubmit = false;
                             });
                         
-
-                        this.$router.push("/list");
+                        this.$router.replace("/empty");
                     } else {
                         console.log("Update to task database failed!");
                     }
