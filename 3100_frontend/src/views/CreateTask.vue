@@ -405,7 +405,7 @@ export default {
                                 this.validsubmit = false;
                             });
                         
-                        this.$router.push("/schedule");
+                        this.$router.replace("/empty");
                     } else {
                         console.log("Update to task database failed!");
                     }

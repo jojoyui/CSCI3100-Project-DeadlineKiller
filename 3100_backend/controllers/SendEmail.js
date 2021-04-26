@@ -27,6 +27,7 @@ async function main(){
                             .innerJoin('task','group.task_id','task.task_id')
                             .innerJoin('user','group.user_id','user.user_id')
                             .where ('due_date', '<=', addTime)
+                            .where({request: 'accept'})
                             .whereNull('completed_timestamp')
                             .orderBy('email')
                             .select('user.name as uname', 'due_date','email','task.name as tname')

@@ -90,7 +90,7 @@ module.exports = {
             .whereNotNull('completed_timestamp')
             .where('completed_timestamp', '>=', start)
             .where('completed_timestamp', '<', addDate(end_date,1))
-            .orderBy('due_date', 'desc');
+            .orderBy('completed_timestamp', 'desc');
     },
 
     completeTask: async function(task){
