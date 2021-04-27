@@ -697,7 +697,7 @@ export default {
       service
         .get(`/tasks/getTasks/${store.getters["getUserId"]}`)
         .then((res) => {
-          this.getTask = res.data.data;
+          this.getTask.push(res.data.data);
           console.log("fetchTask", this.getTask);
         });
 

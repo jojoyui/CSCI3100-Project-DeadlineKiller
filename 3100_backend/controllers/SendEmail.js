@@ -27,6 +27,7 @@ async function main(){
                             .innerJoin('task','group.task_id','task.task_id')
                             .innerJoin('user','group.user_id','user.user_id')
                             .where ('due_date', '<=', addTime)
+                            .where({request: 'accept'})
                             .whereNull('completed_timestamp')
                             .orderBy('email')
                             .select('user.name as uname', 'due_date','email','task.name as tname')
@@ -130,7 +131,7 @@ setInterval(function(){
     var refreshHours = new Date().getHours();
     var refreshMin = new Date().getMinutes();
     var refreshSec = new Date().getSeconds();
-    if(refreshHours=='11' && refreshMin=='00' && refreshSec=='0'){
+    if(refreshHours=='11' && refreshMin=='05' && refreshSec=='0'){
         // 指定每天凌晨做的事情
         main().catch(console.error);
     }
