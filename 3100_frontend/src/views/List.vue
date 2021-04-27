@@ -883,11 +883,8 @@ export default {
             this.modals.modal_edit.push({modal5: false,});
           }
           console.log(this.modals.modal);
-<<<<<<< HEAD
-=======
           store.commit("setTask", res.data.data);
           console.log('fetch task');
->>>>>>> main
           this.task = res.data.data;
         });
     },
