@@ -1,4 +1,4 @@
-
+//create user table
 exports.up = function(knex) {
     return knex.schema
         .createTable("user", table => {

@@ -1,4 +1,4 @@
-
+//create group table
 exports.up = function(knex) {
     return knex.schema
     .createTable("group", table => {

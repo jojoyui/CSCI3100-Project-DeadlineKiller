@@ -1,4 +1,4 @@
-
+// create task table
 exports.up = function(knex) {
     return knex.schema
         .createTable("task", table => {

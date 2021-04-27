@@ -6,8 +6,8 @@ module.exports = {
     connection: {
       host: "127.0.0.1",
       port: 3306,
-      user: "root",
-      password: '08ce267f',
+      user: "jojo",
+      password: 'jojoaigniter',
       database: "3100proj",
     },
     debug: true,

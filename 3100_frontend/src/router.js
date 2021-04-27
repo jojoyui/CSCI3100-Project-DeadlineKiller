@@ -155,9 +155,8 @@ const router = new Router({
   }
 });
 
+// check logged in or not before route to each page
 router.beforeEach(async (to, from, next) => {
- // await checkLoggedIn();
-  //check = await store.getters['checkLogged'];
   await store.dispatch('sessionStorage');
   if (!store.getters['checkLogged'] && to.path !== "/login" && to.path !== "/register" && !to.path.startsWith("/verifyAccount")){
     console.log("not yet log in");
@@ -166,23 +165,5 @@ router.beforeEach(async (to, from, next) => {
   else {
     next();
   }
-
-  // if (to.path === "/") next();
-  // else {
-  //   let stateLoggedIn = store.state.loggedIn;
-  //   const expiryTime = store.state.expiryTime;
-  //   if (stateLoggedIn && expiryTime > Math.floor(Date.now() / 1000)) {
-  //     if (to.path !== "/login" && to.path !== "/sign_up") next();
-  //     else next("/matching");
-  //   } else if (await loggedIn()) {
-  //     if (to.path !== "/login" && to.path !== "/sign_up") next();
-  //   } else {
-  //     if (to.path === "/login" || to.path === "/sign_up") next();
-  //     else if (expiryTime <= Math.floor(Date.now() / 1000)) {
-  //       alert("Session expired!");
-  //     }
-  //     store.commit("logout");
-  //   }
-  // }
 });
 export default router;
